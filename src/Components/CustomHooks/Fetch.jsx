@@ -14,6 +14,7 @@ export default async function Fetch({ url, setData, setLoading, setErrorMessage,
     if (Status >= 200 && Status < 300) {
       data.status = 'success'
     }
+    console.log(data.message);
     setData(data)
     if (data.status !== 'success') {
       throw new Error(data.message)
