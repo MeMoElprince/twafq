@@ -16,31 +16,31 @@ export default function Root() {
     setDob
   } = useContext(AuthenticationContext)
   const { BackDropType, setBackDropType, BackDropActive, setBackDropActive } = useContext(BackDropContext)
-  const { data } = useFetch({
-    url: MyDataUrl(),
-    method: 'GET',
-    setErrorMessage,
-    Token: Cookies.get('token'),
-  })
+  // const { data } = useFetch({
+  //   url: MyDataUrl(),
+  //   method: 'GET',
+  //   setErrorMessage,
+  //   Token: Cookies.get('token'),
+  // })
 
-  useEffect(() => {
-    if (!data) return;
-    if (data.status === 'success') {
-      setIsLogedIn(true)
-      setUserName(data.data.user.user_name)
-      setUserImg(data.data.user.image_url)
-      setRole(data.data.user.role)
-      setFirstName(data.data.user.first_name)
-      setLastName(data.data.user.last_name)
-      setEmail(data.data.user.email)
-      setGender(data.data.user.gender)
-      const dob = data.data.user.dob
-      const date = dob ? new Date(dob).toISOString().slice(0, 10) : ''
-      setDob(date)
-    } else {
-      setIsLogedIn(false)
-    }
-  }, [data])
+  // useEffect(() => {
+  //   if (!data) return;
+  //   if (data.status === 'success') {
+  //     setIsLogedIn(true)
+  //     setUserName(data.data.user.user_name)
+  //     setUserImg(data.data.user.image_url)
+  //     setRole(data.data.user.role)
+  //     setFirstName(data.data.user.first_name)
+  //     setLastName(data.data.user.last_name)
+  //     setEmail(data.data.user.email)
+  //     setGender(data.data.user.gender)
+  //     const dob = data.data.user.dob
+  //     const date = dob ? new Date(dob).toISOString().slice(0, 10) : ''
+  //     setDob(date)
+  //   } else {
+  //     setIsLogedIn(false)
+  //   }
+  // }, [data])
 
   useEffect(() => {
     if (BackDropActive) {
