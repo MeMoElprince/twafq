@@ -1,0 +1,167 @@
+/* Input Field Animation & Styling*/
+.inputLabel{
+    user-select: none;
+    pointer-events: none;
+}
+
+.inputHolder input:focus + label {
+    animation: goOut 0.5s forwards;
+}
+.inputHolder input:not(:focus) + label {
+    animation: goIn 0.5s forwards;
+}
+
+.inputHolder input:not(:placeholder-shown) + label {
+    animation: goOut 0.5s forwards;
+}
+@keyframes goIn {
+    0% {
+        top: -7px;
+        font-size: 15px;
+        left: -3px;
+    }
+    100% {
+        font-size: 1.125rem;
+        line-height: 1.75rem;
+        top: 16px;
+    }
+}
+
+@keyframes goOut {
+    0% {
+        font-size: 1.125rem;
+        line-height: 1.75rem;
+        top: 16px;
+    }
+    100% {
+        top: -7px;
+        font-size: 15px;
+        left: -3px;
+    }
+}
+
+
+input:-webkit-autofill,
+input:-webkit-autofill:focus {
+    transition: background-color 600000s 0s, color 600000s 0s;
+}
+
+input[data-autocompleted] {
+    background-color: transparent !important;
+}
+
+
+.formContainer{
+    background-image: linear-gradient(rgba(3, 7, 38, 0.7),rgba(10, 4, 35, 0.7)),url('./Form/assets/LoginBackground.jpg');
+    background-position: center;
+    background-size: cover;
+    position: absolute;
+}
+.formContainer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.066);
+    backdrop-filter: blur(0.5px);
+    z-index: 1;
+}
+
+.exactForm{
+    background: rgba(255,229,232, 0.4);
+    box-shadow: 0 8px 32px 0 rgba(255,229,232, 0.37);
+    backdrop-filter: blur( 5px );
+    -webkit-backdrop-filter: blur( 5px );
+    z-index: 2;
+}
+
+/* Forgot Password Animation & Styling */
+
+.forgotPassword {
+    position: relative;
+    display: inline-block;
+}
+
+.forgotPassword::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    width: 0;
+    height: 1px;
+    background-color: rgb(16,16,16, 0.6);
+    transition: width 200ms ease-in-out;
+}
+
+.forgotPassword p:hover,
+.forgotPassword:focus-within p {
+    opacity: 1;
+    transition: opacity 200ms ease-in-out;
+}
+
+.forgotPassword:hover::before,
+.forgotPassword:focus-within::before {
+    width: 100%;
+    background-color: rgba(16, 16, 16, 0.8);
+    transition: 200ms ease-in-out;
+}
+
+.clickableButton:focus {
+    border: none;
+    outline: none;
+}
+
+/* Don't have Account Animation & Styling */
+
+.dontHaveAccount p:hover,
+.dontHaveAccount:focus-within p{
+    opacity: 100%;
+    transition: opacity 200ms ease-in-out;
+}
+
+
+/* Login Button Animation */
+
+/* .loginBtnAnimate:focus{
+    outline: none;
+}
+
+.loginBtnAnimate {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    z-index: 0;
+    transition: width 300ms ease-in-out, transform 300ms ease-in-out, padding 300ms ease-in-out, margin 300ms ease-in-out;
+    width: 100%;
+}
+
+.loginBtnAnimate::before {
+    content: '';
+    position: absolute;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    border-radius: inherit;
+    background-color: #50505072;
+    transition: left 300ms ease-in-out;
+    z-index: -1;
+}
+
+.loginBtnAnimate:hover,
+.loginBtnAnimate:focus{
+    width: 105%;
+    padding-top: 13px;
+    padding-bottom: 13px;
+    margin-top: 1px;
+    margin-bottom: 1px;
+}
+
+.loginBtnAnimate:hover::before,
+.loginBtnAnimate:focus::before{
+    left: 0;
+} */

@@ -1,0 +1,157 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@font-face {
+  font-family: NunitoSans;
+  src: url('../Fonts/NunitoSans.ttf');
+}
+
+@font-face {
+  font-family: Fredoka;
+  src: url('../Fonts/Fredoka-VariableFont_wdth,wght.ttf');
+}
+
+@font-face {
+  font-family: EBGaramond;
+  src: url('../Fonts/EBGaramond.ttf');
+}
+
+@font-face {
+  font-family: Lekton;
+  src: url('../Fonts/Lekton.ttf');
+}
+
+@font-face {
+  font-family: LekyCalgria;
+  src: url('../Fonts/LekyCalgria.ttf');
+}
+
+@font-face {
+  font-family: BeloveMelody;
+  src: url('../Fonts/belovemelody.otf');
+}
+
+.NunitoSans {
+  font-family: NunitoSans;
+}
+
+.myFont{
+  font-family: "Poppins", sans-serif;
+}
+
+.EBGaramond {
+  font-family: EBGaramond;
+}
+
+.Lekton {
+  font-family: Lekton;
+}
+
+.Fredoka {
+  font-family: Fredoka;
+}
+
+.LekyCalgria {
+  font-family: LekyCalgria;
+}
+
+.BeloveMelody {
+  font-family: BeloveMelody;
+}
+
+.center {
+  @apply flex justify-center items-center;
+}
+
+.imgSettings {
+  @apply select-none pointer-events-none;
+}
+
+.mainMargin {
+  @apply sm:mx-20;
+}
+
+.mainPadding {
+  @apply sm:pt-10 sm:pr-10 sm:pl-10 sm:pb-10 pt-5 pr-5 pl-5 pb-5;
+}
+input[type="date"]{
+  background-color: rgba(255, 255, 255,0.9);
+  color: black;
+  border: 2px solid black;
+}
+
+/* Slider Styles */
+
+.horizontal-slider {
+  width: 100%;
+  height: 6px;
+  border: 1px solid grey;
+  position: relative;
+  border-radius: 50px;
+  display: flex ;
+}
+
+.example-track {
+  height: 5px;
+}
+
+.example-track.example-track-0 {
+  position: absolute;
+  left: 0px;
+  right: 450px;
+  top: 0;
+  background-color: gray;
+}
+
+.example-track.example-track-1 {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  border-radius: 1000px;
+  background-color: black;
+}
+
+.example-track.example-track-2 {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  background-color: gray;
+}
+
+.example-thumb {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: -8px;
+  height: 20px;
+  aspect-ratio: 1;
+  font-size: 0;
+}
+
+
+.example-thumb.example-thumb-0 {
+  position: absolute;
+  touch-action: none;
+  z-index: 1;
+  left: 0px;
+  background-color: black;
+  color: white;
+  border-radius: 100%;
+  cursor: pointer;
+  outline: none;
+  
+}
+
+.example-thumb.example-thumb-1 {
+  position: absolute;
+  touch-action: none;
+  z-index: 2;
+  right: 0;
+  background-color: black;
+  color: white;
+  border-radius: 100%;
+  cursor: pointer;
+  outline: none;
+}
