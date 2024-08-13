@@ -1,8 +1,4 @@
 /* Input Field Animation & Styling*/
-body{
-    overflow-x: hidden;
-}
-
 .inputLabel{
     user-select: none;
     pointer-events: none;
@@ -25,6 +21,7 @@ body{
         left: -3px;
     }
     100% {
+        font-size: 1.125rem;
         line-height: 1.75rem;
         top: 16px;
     }
@@ -32,6 +29,7 @@ body{
 
 @keyframes goOut {
     0% {
+        font-size: 1.125rem;
         line-height: 1.75rem;
         top: 16px;
     }
@@ -52,6 +50,34 @@ input[data-autocompleted] {
     background-color: transparent !important;
 }
 
+
+.formContainer{
+    background-image: linear-gradient(rgba(3, 7, 38, 0.7),rgba(10, 4, 35, 0.7)),url('./Form/assets/LoginBackground.jpg');
+    background-position: center;
+    background-size: cover;
+    position: absolute;
+}
+.formContainer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.066);
+    backdrop-filter: blur(0.5px);
+    z-index: 1;
+}
+
+.exactForm{
+    background: rgba(255,229,232, 0.4);
+    box-shadow: 0 8px 32px 0 rgba(255,229,232, 0.37);
+    backdrop-filter: blur( 5px );
+    -webkit-backdrop-filter: blur( 5px );
+    z-index: 2;
+}
 
 /* Forgot Password Animation & Styling */
 
