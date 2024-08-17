@@ -1,0 +1,35 @@
+{
+    "navbar" : {
+        "home" : "Home",
+        "partner" : "Find Partner",
+        "service" : "Services",
+        "about" : "About us",
+        "blog" : "Blogs",
+        "contact" : "Contact us",
+        "login" : "Login"
+    },
+    "login" : {
+        "title" : "Login",
+        "email" : "Email",
+        "password" : "Password",
+        "forgot" : "Forgot Password",
+        "haveAcc" : "Don't have account?",
+        "signup" : "Sign up"
+    },
+    "loginInfo" : {
+        "next" : "Next",
+        "prev" : "Previous",
+        "personal" : "Login Information",
+        "email" : "Email",
+        "password" : "Password",
+        "confirmPass" : "Confrim Password"
+    },
+    "personalInfo" : {
+        "next" : "Next",
+        "prev" : "Previous",
+        "personal" : "Personal Information",
+        "email" : "Email",
+        "password" : "Password",
+        "confirmPass" : "Confrim Password"
+    }
+}

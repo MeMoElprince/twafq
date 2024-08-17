@@ -7,14 +7,7 @@ export const useLayoutDirection = () => {
 };
 
 export const LayoutDirectionProvider = ({ children }) => {
-  const [isRTL, setIsRTL] = useState(() => {
-    const storedIsRTL = localStorage.getItem("isRTL");
-    return storedIsRTL === "true";
-  });
-
-  const toggleLayoutDirection = (boolean) => {
-    setIsRTL(boolean);
-  };
+  const [isRTL, setIsRTL] = useState(true);
 
   useEffect(() => {
     localStorage.setItem("isRTL", isRTL.toString());
@@ -29,7 +22,7 @@ export const LayoutDirectionProvider = ({ children }) => {
   }, [isRTL]);
 
   return (
-    <LayoutDirectionContext.Provider value={{ isRTL, toggleLayoutDirection }}>
+    <LayoutDirectionContext.Provider value={{ isRTL, setIsRTL }}>
       {children}
     </LayoutDirectionContext.Provider>
   );

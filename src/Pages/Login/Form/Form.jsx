@@ -9,11 +9,14 @@ import VarifyCode from '../VarifyCode'
 import ForgotPassword from '../ForgotPassword'
 import loginBackground from './assets/LoginBackground.jpg'
 import { useLayoutDirection } from '../../../Store/Context/LayoutDirectionContext'
+import { IoMenu , IoClose } from "react-icons/io5";
+import {useTranslation} from "react-i18next"
 
 
 export default function Form() {
 	// const { isLogedIn, setIsLogedIn, setToken } = useContext(AuthenticationContext)
-	const { isRTL, toggleLayoutDirection } = useLayoutDirection();
+	const { isRTL, setIsRTL } = useLayoutDirection();
+	const { t, i18n } = useTranslation("global");
 	const [Type, setType] = useState('login')
 	const [loading, setLoading] = useState(false)
 	const [data, setData] = useState(null)
@@ -26,11 +29,14 @@ export default function Form() {
 		}
 	)
 
-	const titleStyle = {
-		fontStyle: 'normal',
-		fontWeight: '500',
-		fontSize: '44px',
-	};
+	useEffect(() => {
+		setIsRTL(i18n.language === "ar");
+	  }, [i18n.language]);
+	
+	  const handleLangChange = (lang) => {
+		i18n.changeLanguage(lang);
+	  };
+
 
 
 	function handleChange(event) {
@@ -83,7 +89,7 @@ export default function Form() {
 				<div className={`${Styles.exactForm} relative border-Black/5 shadow-lg mt-20 border-2 w-[80%] py-8 min-h-[6%] md:w-[50%] lg2:w-[30%] rounded-2xl center flex-col gap-8`}>
 					{/* <img src={Bear} alt='bear-img' className='absolute top-[-120px] w-[140px] select-none pointer-events-none' /> */}
 					{Type === 'login' && <>
-						<h2 className='Title text-Black myFont' style={titleStyle}>تسجيل الدخول</h2>
+						<h2 className='Title text-Black myFont text-[32px] font-semibold'>{t("login.title")}</h2>
 						<form onSubmit={handleSubmit} className='Form center flex-col gap-10 w-[70%]'>
 							<div className={`${Styles.inputHolder} relative w-full`}>
 								<input
@@ -96,7 +102,7 @@ export default function Form() {
 									className={`myFont w-full py-2 px-3 border-b-[3px] ${formData.email ? 'border-Black' : 'border-[rgba(16,16,16,0.7)]'} bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-text`}
 								/>
 								<label htmlFor='userEmail' className={`inputLabel absolute top-[15px] ${isRTL ? "right-2" : "left-2"} text-Black/70 transform pointer-events-none -translate-y-2.5 px-1 myFont text-lg w-[100%]`}
-								>البريد الإلكتروني</label>
+								>{t("login.email")}</label>
 							</div>
 							<div className={`${Styles.inputHolder} relative w-full`}>
 								<input
@@ -113,10 +119,10 @@ export default function Form() {
 									}}
 								/>
 								<label htmlFor='userPassword' className={`inputLabel absolute top-[15px] ${isRTL ? "right-2" : "left-2"} text-Black/70 transform pointer-events-none -translate-y-2.5 px-1 myFont text-lg w-[100%]`}
-								>كلمة المرور</label>
+								>{t("login.password")}</label>
 							</div>
 							<div className={`${Styles.forgotPassword} self-end mt-[-15px]`}>
-								<button onClick={() => { setType('forgotpassword') }} type='button' className={`${Styles.clickableButton}`}><p className='myFont text-[18px] opacity-80 cursor-pointer font-medium'>نسيت كلمة السر</p></button>
+								<button onClick={() => { setType('forgotpassword') }} type='button' className={`${Styles.clickableButton}`}><p className='myFont text-[16px] md2:text-[18px] opacity-80 cursor-pointer font-medium'>{t("login.forgot")}</p></button>
 							</div>
 							<button type='submit' className={`${Styles.loginBtnAnimate} bg-Black myFont text-White text-[22px] w-[100%] py-[14px] rounded-full
 							relative overflow-hidden inline-block z-10
@@ -127,17 +133,17 @@ export default function Form() {
 							before:transition-all before:duration-300 before:ease-in-out
 							 
 							${loading ? 'cursor-wait bg-[#505050]' : 'hover:w-[105%] hover:before:left-0'} `}>
-								تسجيل الدخول
+								{t("login.title")}
 							</button>
 							<p className='text-red-700 font-bold -mb-5 -mt-5'>{errorMessage}</p>
 							<div className={`${Styles.dontHaveAccount} center gap-2`}>
-								<p className='myFont text-[18px]  text-center'>
-									ليس لديك حساب؟
+								<p className='myFont text-[14px] md2:text-[18px]  text-center'>
+								{t("login.haveAcc")}
 								</p>
 								<Link to='/SignUp'>
 									<button className={`${Styles.clickableButton}`}>
-										<p className='myFont text-[18px] text-center opacity-80 font-medium underline'>
-											إنشاء حساب
+										<p className='myFont text-[14px] md2:text-[18px] text-center opacity-80 font-medium underline'>
+										{t("login.signup")}
 										</p>
 									</button>
 								</Link>
