@@ -19,17 +19,32 @@
     "loginInfo" : {
         "next" : "Next",
         "prev" : "Previous",
-        "personal" : "Login Information",
+        "title" : "Login Information",
         "email" : "Email",
         "password" : "Password",
-        "confirmPass" : "Confrim Password"
+        "confirmPass" : "Confrim Password",
+        "phone" : "Phone Number",
+        "phoneMsg" : "Phone numbers will only be shared if both users agree"
     },
     "personalInfo" : {
         "next" : "Next",
         "prev" : "Previous",
-        "personal" : "Personal Information",
-        "email" : "Email",
-        "password" : "Password",
-        "confirmPass" : "Confrim Password"
+        "title" : "Personal Information",
+        "name" : "Real Name",
+        "age" : "Age",
+        "weight" : "Weight (KG)",
+        "height" : "Height (CM)",
+        "skinColor" : "Skin Color",
+        "shape" : "Body Shape",
+        "health" : "Health Condition"
+    },
+    "nationality" : {
+        "next" : "Next",
+        "prev" : "Previous",
+        "title" : "Nationality",
+        "nationality" : "Nationality",
+        "country" : "Country",
+        "city" : "City (optional)",
+        "residence" : "Residence"
     }
 }

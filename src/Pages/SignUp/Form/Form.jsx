@@ -9,13 +9,14 @@ import { useLayoutDirection } from '../../../Store/Context/LayoutDirectionContex
 import {useTranslation} from "react-i18next"
 import LoginInfo from './Steps/LoginInfo'
 import PersonalInfo from './Steps/PersonalInfo'
+import Nationality from './Steps/Nationality'
 
 
 export default function Form() {
 	// const { isLogedIn, setIsLogedIn, setToken } = useContext(AuthenticationContext)
 	const { isRTL, setIsRTL } = useLayoutDirection();
 	const { t, i18n } = useTranslation("global");
-	const [step, setStep] = useState(1)
+	const [step, setStep] = useState(0)
 	const [loading, setLoading] = useState(false)
 	const [data, setData] = useState(null)
 	const [errorMessage, setErrorMessage] = useState('')
@@ -29,6 +30,18 @@ export default function Form() {
 			username: '',
 			firstName: '',
 			lastName: '',
+			phone: '',
+			name: '',
+			age: '',
+			weight: '',
+			height: '',
+			skinColor: '',
+			shape: '',
+			health: '',
+			nationality : '',
+			country : '',
+			city : '',
+			residence : ''
 		}
 	)
 
@@ -89,11 +102,21 @@ export default function Form() {
 	function handleStep(type) {
 		setStep(prevStep => {
 		  let newStep = prevStep + type;
-		  if (newStep < 1) newStep = 1;
+		  if (newStep < 0) newStep = 0;
 		  if (newStep > 2) newStep = 2;
 		  return newStep;
 		});
-	  }
+	}
+
+	useEffect(() => {
+		setCurrPerc(Math.ceil(100 / 3 * step));
+		setTimeout(() => {
+			window.scrollTo({
+				top: 0,
+				behavior: 'smooth'
+			});
+		}, 300);
+	}, [step])
 	  
 
 
@@ -102,12 +125,13 @@ export default function Form() {
 			<section className={`${Styles.formContainer} relative min-h-screen w-screen bg-White flex content-center items-center justify-center py-20 overflow-hidden`}>
 				<div className={`${Styles.exactForm} relative border-Black/5 shadow-lg mt-20 border-2 w-[80%] py-8 min-h-[6%] md:w-[50%] lg2:w-[30%] rounded-2xl center flex-col gap-8`}>
 					{/* <img src={Bear} alt='bear-img' className='absolute top-[-120px] w-[140px] select-none pointer-events-none' /> */}
-					<div className='mx-6 p-0 flex relative myFont w-[80%] bg-LighterPink/70 h-12 rounded-full'>
+					<div className='mx-6 p-0 flex relative myFont w-[80%] bg-LighterPink/70 h-12 rounded-full overflow-hidden'>
 						<div className={`myFont bg-gradient-to-tr from-Blue to-DarkPink w-[${currPerc}%] h-full rounded-full transition-all duration-500`}></div>
 						<div className='myFont w-full h-full center rounded-full absolute font-semibold text-[18px]'>{`${currPerc}%`}</div>
 					</div>
-					{step === 1 && <LoginInfo handleStep = {handleStep} handleChange = {handleChange} formData={formData} setFormData = {setFormData} errorMessage = {errorMessage} setErrorMessage = {setErrorMessage} />}
-					{step === 2 && <PersonalInfo handleStep = {handleStep} handleChange = {handleChange} formData={formData} setFormData = {setFormData} errorMessage = {errorMessage} setErrorMessage = {setErrorMessage} />}
+					{step === 0 && <LoginInfo handleStep = {handleStep} handleChange = {handleChange} formData={formData} setFormData = {setFormData} errorMessage = {errorMessage} setErrorMessage = {setErrorMessage} />}
+					{step === 1 && <PersonalInfo handleStep = {handleStep} handleChange = {handleChange} formData={formData} setFormData = {setFormData} errorMessage = {errorMessage} setErrorMessage = {setErrorMessage} />}
+					{step === 2 && <Nationality handleStep = {handleStep} handleChange = {handleChange} formData={formData} setFormData = {setFormData} errorMessage = {errorMessage} setErrorMessage = {setErrorMessage} />}
 				</div>
 			</section>
 		</>

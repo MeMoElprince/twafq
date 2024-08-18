@@ -9,9 +9,31 @@ export default function LoginInfo({handleChange, formData, setFormData, errorMes
   return (
     <>
       <h2 className="Title text-Black myFont text-[25px] font-semibold">
-        {t("loginInfo.personal")}
+        {t("loginInfo.title")}
       </h2>
       <div className="Form center flex-col gap-10 w-[70%]">
+        <h3 className="bg-LightPink px-4 py-4 rounded-lg text-[16px] font-semibold text-center">{t("loginInfo.phoneMsg")}</h3>
+        <div className={`${Styles.inputHolder} relative w-full`}>
+          <input
+            id="userPhone"
+            type="text"
+            onChange={handleChange}
+            name="phone"
+            placeholder="Phone Number"
+            value={formData.phone}
+            className={`myFont w-full py-2 px-3 border-b-[3px] ${
+              formData.phone ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
+            } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-text`}
+          />
+          <label
+            htmlFor="userPhone"
+            className={`inputLabel absolute top-[15px] ${
+              isRTL ? "right-2" : "left-2"
+            } text-Black/70 transform pointer-events-none -translate-y-2.5 px-1 myFont text-lg w-[100%]`}
+          >
+            {t("loginInfo.phone")}
+          </label>
+        </div>
         <div className={`${Styles.inputHolder} relative w-full`}>
           <input
             id="userEmail"
