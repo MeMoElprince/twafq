@@ -111,41 +111,40 @@ export default function LoginInfo({handleChange, formData, setFormData, errorMes
                     <button onClick={() => { setType('forgotpassword') }} type='button' className={`${Styles.clickableButton}`}><p className='myFont text-[18px] opacity-80 cursor-pointer font-medium'>نسيت كلمة السر</p></button>
                 </div> */}
         <div className="w-full center gap-4">
-          <button
-            onClick={() => handleStep(1)}
-            className={`${
-              Styles.loginBtnAnimate
-            } bg-Black myFont text-White text-[22px] w-[100%] py-[14px] rounded-full
-                    relative overflow-hidden inline-block z-10
-                    transition-all duration-300 ease-in-out
-                    focus:outline-none
-                    before:absolute before:top-0 before:left-[-100%] before:w-full before:h-full before:-z-10
-                    before:rounded-inherit before:bg-[#505050] before:bg-opacity-40 
-                    before:transition-all before:duration-300 before:ease-in-out
-                    
-                    hover:before:left-0
-                    
-                    `}
-          >
-            {t("loginInfo.next")}
-          </button>
-
-          <button
-            onClick={() => handleStep(-1)}
-            className={`${
-              Styles.loginBtnAnimate
-            } bg-none border border-Black myFont text-Black text-[22px] w-[100%] py-[14px] rounded-full
-                    relative overflow-hidden inline-block z-10
-                    transition-all duration-300 ease-in-out
-                    focus:outline-none
-                    before:absolute before:top-0 before:left-[-100%] before:w-full before:h-full before:-z-10
-                    before:rounded-inherit before:bg-[#b5b5b5] before:bg-opacity-40 
-                    before:transition-all before:duration-300 before:ease-in-out
-                    hover:before:left-0
-                    `}
-          >
-            {t("loginInfo.prev")}
-          </button>
+        <button
+              onClick={() => handleStep(-1)}
+              className={`${
+                Styles.loginBtnAnimate
+              } bg-none border border-Black myFont text-Black text-[18px] sm2:text-[22px]  w-[100%] py-[14px] rounded-full
+                      relative overflow-hidden inline-block z-10
+                      transition-all duration-300 ease-in-out
+                      focus:outline-none
+                      before:absolute before:top-0 before:left-[-100%] before:w-full before:h-full before:-z-10
+                      before:rounded-inherit before:bg-[#b5b5b5] before:bg-opacity-40 
+                      before:transition-all before:duration-300 before:ease-in-out
+                      hover:before:left-0
+                      `}
+            >
+              {t("personalInfo.prev")}
+            </button>
+            <button
+              onClick={() => handleStep(1)}
+              className={`${
+                Styles.loginBtnAnimate
+              } bg-Black myFont text-White text-[18px] sm2:text-[22px] w-[100%] py-[14px] rounded-full
+                      relative overflow-hidden inline-block z-10
+                      transition-all duration-300 ease-in-out
+                      focus:outline-none
+                      before:absolute before:top-0 before:left-[-100%] before:w-full before:h-full before:-z-10
+                      before:rounded-inherit before:bg-[#505050] before:bg-opacity-40 
+                      before:transition-all before:duration-300 before:ease-in-out
+                      
+                      hover:before:left-0
+                      
+                      `}
+            >
+              {t("personalInfo.next")}
+            </button>
         </div>
         <p className="text-red-700 font-bold -mb-5 -mt-5">{errorMessage}</p>
       </div>

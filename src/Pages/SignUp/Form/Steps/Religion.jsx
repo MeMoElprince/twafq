@@ -3,117 +3,130 @@ import { useLayoutDirection } from '../../../../Store/Context/LayoutDirectionCon
 import {useTranslation} from "react-i18next"
 import Styles from '../../Styling.module.css'
 
-export default function Nationality({handleChange, formData, setFormData, errorMessage, setErrorMessage, handleStep}) {
+export default function Religion({handleChange, formData, setFormData, errorMessage, setErrorMessage, handleStep}) {
   const { isRTL, setIsRTL } = useLayoutDirection();
 	const { t, i18n } = useTranslation("global");
   return (
     <>
       <h2 className="Title text-Black myFont text-[25px] font-semibold mb-6">
-        {t("nationality.title")}
+        {t("religion.title")}
       </h2>
       <div className="Form center flex-col gap-10 w-[70%]">
         <div className={`${Styles.inputHolder} relative w-full`}>
           <select 
-                  id="Nationality"
-                  value={formData.nationality}
+                  id="Religion"
+                  value={formData.religion}
                   onChange={handleChange}
-                  name="nationality"
-                  aria-label={i18n.language == 'ar' ? 'الجنسية' : 'Nationality'}
+                  name="religion"
+                  aria-label={i18n.language == 'ar' ? 'الديانة' : 'Religion'}
                   className={`myFont w-full py-2 px-3 border-b-[3px] ${
-                    formData.nationality ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
+                    formData.religion ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
                   } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-pointer`}
               >
                   <option value="">{i18n.language == 'ar' ? '-- اختر --' : '-- Choose --'}</option>
-                  <option value="Egyptation">{i18n.language == 'ar' ? 'المصرية' : 'Egyptation'}</option>
-                  <option value="Iraq">{i18n.language == 'ar' ? 'العراقية' : 'Iraq'}</option>
           </select>
           <label
-              htmlFor="Nationality"
+              htmlFor="Religion"
               className={`inputLabel absolute top-[15px] ${
                 isRTL ? "-right-2" : "-left-2"
               } text-Black transform pointer-events-none -translate-y-2.5 px-1 myFont w-[100%] text-[19px] font-semibold`} style={{ top: '-12px' }}
             >
-              {t("nationality.nationality")}
+              {t("religion.religion")}
             </label>
         </div>
         <div className={`${Styles.inputHolder} relative w-full`}>
           <select 
-                  id="Country"
-                  value={formData.country}
+                  id="Doctrine"
+                  value={formData.doctrine}
                   onChange={handleChange}
-                  name="country"
-                  aria-label={i18n.language == 'ar' ? 'البلد' : 'country'}
+                  name="doctrine"
+                  aria-label={i18n.language == 'ar' ? 'المذهب' : 'Doctrine'}
                   className={`myFont w-full py-2 px-3 border-b-[3px] ${
-                    formData.country ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
+                    formData.doctrine ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
                   } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-pointer`}
               >
                   <option value="">{i18n.language == 'ar' ? '-- اختر --' : '-- Choose --'}</option>
-                  <option value="Egypt">{i18n.language == 'ar' ? 'مصر' : 'Egypt'}</option>
-                  <option value="Iraq">{i18n.language == 'ar' ? 'العراق' : 'Iraq'}</option>
           </select>
           <label
-              htmlFor="Country"
+              htmlFor="Doctrine"
               className={`inputLabel absolute top-[15px] ${
                 isRTL ? "-right-2" : "-left-2"
               } text-Black transform pointer-events-none -translate-y-2.5 px-1 myFont w-[100%] text-[19px] font-semibold`} style={{ top: '-12px' }}
             >
-              {t("nationality.country")}
+              {t("religion.doctrine")}
             </label>
         </div>
         <div className={`${Styles.inputHolder} relative w-full`}>
           <select 
-                  id="City"
-                  value={formData.city}
+                  id="ReligiousCommitment"
+                  value={formData.religiousCommitment}
                   onChange={handleChange}
-                  name="city"
-                  aria-label={i18n.language == 'ar' ? 'المدينة' : 'City'}
+                  name="religiousCommitment"
+                  aria-label={i18n.language == 'ar' ? 'الإلتزام الديني' : 'Religious Commitment'}
                   className={`myFont w-full py-2 px-3 border-b-[3px] ${
-                    formData.city ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
+                    formData.religiousCommitment ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
                   } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-pointer`}
               >
                   <option value="">{i18n.language == 'ar' ? '-- اختر --' : '-- Choose --'}</option>
-                  <option value="Cairo">{i18n.language == 'ar' ? 'القاهرة' : 'Cairo'}</option>
-                  <option value="Ismailia">{i18n.language == 'ar' ? 'الإسماعيلية' : 'Ismailia'}</option>
           </select>
           <label
-              htmlFor="City"
+              htmlFor="ReligiousCommitment"
               className={`inputLabel absolute top-[15px] ${
                 isRTL ? "-right-2" : "-left-2"
-              } text-Black transform pointer-events-none -translate-y-2.5 px-1 myFont w-[100%] text-[19px] font-semibold`} style={{ top: '-12px' }}
+              } text-Black transform pointer-events-none -translate-y-2.5 px-1 myFont w-[100%] text-[15px] sm2:text-[19px] font-semibold`} style={{ top: '-12px' }}
             >
-              {t("nationality.city")}
+              {t("religion.religiousCommitment")}
             </label>
         </div>
         <div className={`${Styles.inputHolder} relative w-full`}>
           <select 
-                  id="Residence"
-                  value={formData.residence}
+                  id="Smoking"
+                  value={formData.smoking}
                   onChange={handleChange}
-                  name="residence"
-                  aria-label={i18n.language == 'ar' ? 'الإقامة' : 'Residence'}
+                  name="smoking"
+                  aria-label={i18n.language == 'ar' ? 'التدخين' : 'Smoking'}
                   className={`myFont w-full py-2 px-3 border-b-[3px] ${
-                    formData.residence ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
+                    formData.smoking ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
                   } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-pointer`}
               >
                   <option value="">{i18n.language == 'ar' ? '-- اختر --' : '-- Choose --'}</option>
-                  <option value="Egypt">{i18n.language == 'ar' ? 'مصر' : 'Egypt'}</option>
-                  <option value="Iraq">{i18n.language == 'ar' ? 'العراق' : 'Iraq'}</option>
           </select>
           <label
-              htmlFor="Residence"
+              htmlFor="Smoking"
               className={`inputLabel absolute top-[15px] ${
                 isRTL ? "-right-2" : "-left-2"
-              } text-Black transform pointer-events-none -translate-y-2.5 px-1 myFont w-[100%] text-[19px] font-semibold`} style={{ top: '-12px' }}
+              } text-Black transform pointer-events-none -translate-y-2.5 px-1 myFont w-[100%] text-[15px] sm2:text-[19px] font-semibold`} style={{ top: '-12px' }}
             >
-              {t("nationality.residence")}
+              {t("religion.smoking")}
             </label>
         </div>
-        
+        <div className={`${Styles.inputHolder} relative w-full`}>
+          <select 
+                  id="AlcoholDrugs"
+                  value={formData.alcoholDrugs}
+                  onChange={handleChange}
+                  name="alcoholdrugs"
+                  aria-label={i18n.language == 'ar' ? 'الكحول أو المخدرات' : 'alcohol or drugs'}
+                  className={`myFont w-full py-2 px-3 border-b-[3px] ${
+                    formData.alcoholDrugs ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
+                  } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-pointer`}
+              >
+                  <option value="">{i18n.language == 'ar' ? '-- اختر --' : '-- Choose --'}</option>
+          </select>
+          <label
+              htmlFor="AlcoholDrugs"
+              className={`inputLabel absolute top-[15px] ${
+                isRTL ? "-right-2" : "-left-2"
+              } text-Black transform pointer-events-none -translate-y-2.5 px-1 myFont w-[100%] text-[15px] sm2:text-[19px] font-semibold`} style={{ top: '-12px' }}
+            >
+              {t("religion.alcoholDrugs")}
+            </label>
+        </div>
         {/* <div className={`${Styles.forgotPassword} self-end mt-[-15px]`}>
                     <button onClick={() => { setType('forgotpassword') }} type='button' className={`${Styles.clickableButton}`}><p className='myFont text-[18px] opacity-80 cursor-pointer font-medium'>نسيت كلمة السر</p></button>
                 </div> */}
         <div className="w-full center gap-4">
-        <button
+          <button
               onClick={() => handleStep(-1)}
               className={`${
                 Styles.loginBtnAnimate

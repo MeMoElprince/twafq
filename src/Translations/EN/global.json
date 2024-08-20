@@ -30,7 +30,8 @@
         "next" : "Next",
         "prev" : "Previous",
         "title" : "Personal Information",
-        "name" : "Real Name",
+        "firstName" : "First Name",
+        "lastName" : "Last Name",
         "age" : "Age",
         "weight" : "Weight (KG)",
         "height" : "Height (CM)",
@@ -46,5 +47,25 @@
         "country" : "Country",
         "city" : "City (optional)",
         "residence" : "Residence"
+    },
+    "familyStatus" : {
+        "title" : "Family Status",
+        "familyStatus" : "Family Status",
+        "marriageType" : "Marriage Type",
+        "children" : "Children"
+    },
+    "education" : {
+        "title" : "Education",
+        "educationLevel" : "Education Level",
+        "work" : "Work",
+        "financialStatus" : "Financial Status"
+    },
+    "religion" : {
+        "title": "Religion",
+        "religion": "Religion",
+        "doctrine": "Doctrine",
+        "religiousCommitment": "Religious Commitment",
+        "smoking": "Smoking",
+        "alcoholDrugs": "Alcohol or Drugs"
     }
 }

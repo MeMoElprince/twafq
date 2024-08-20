@@ -3,112 +3,81 @@ import { useLayoutDirection } from '../../../../Store/Context/LayoutDirectionCon
 import {useTranslation} from "react-i18next"
 import Styles from '../../Styling.module.css'
 
-export default function Nationality({handleChange, formData, setFormData, errorMessage, setErrorMessage, handleStep}) {
+export default function FamilyStatus({handleChange, formData, setFormData, errorMessage, setErrorMessage, handleStep}) {
   const { isRTL, setIsRTL } = useLayoutDirection();
 	const { t, i18n } = useTranslation("global");
   return (
     <>
       <h2 className="Title text-Black myFont text-[25px] font-semibold mb-6">
-        {t("nationality.title")}
+        {t("familyStatus.title")}
       </h2>
       <div className="Form center flex-col gap-10 w-[70%]">
         <div className={`${Styles.inputHolder} relative w-full`}>
           <select 
-                  id="Nationality"
-                  value={formData.nationality}
+                  id="FamilyStatus"
+                  value={formData.familyStatus}
                   onChange={handleChange}
-                  name="nationality"
-                  aria-label={i18n.language == 'ar' ? 'الجنسية' : 'Nationality'}
+                  name="familyStatus"
+                  aria-label={i18n.language == 'ar' ? 'الحالة العائلية' : 'Family Status'}
                   className={`myFont w-full py-2 px-3 border-b-[3px] ${
-                    formData.nationality ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
+                    formData.familyStatus ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
                   } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-pointer`}
               >
                   <option value="">{i18n.language == 'ar' ? '-- اختر --' : '-- Choose --'}</option>
-                  <option value="Egyptation">{i18n.language == 'ar' ? 'المصرية' : 'Egyptation'}</option>
-                  <option value="Iraq">{i18n.language == 'ar' ? 'العراقية' : 'Iraq'}</option>
           </select>
           <label
-              htmlFor="Nationality"
+              htmlFor="FamilyStatus"
               className={`inputLabel absolute top-[15px] ${
                 isRTL ? "-right-2" : "-left-2"
               } text-Black transform pointer-events-none -translate-y-2.5 px-1 myFont w-[100%] text-[19px] font-semibold`} style={{ top: '-12px' }}
             >
-              {t("nationality.nationality")}
+              {t("familyStatus.familyStatus")}
             </label>
         </div>
         <div className={`${Styles.inputHolder} relative w-full`}>
           <select 
-                  id="Country"
-                  value={formData.country}
+                  id="MarriageType"
+                  value={formData.marriageType}
                   onChange={handleChange}
-                  name="country"
-                  aria-label={i18n.language == 'ar' ? 'البلد' : 'country'}
+                  name="marriageType"
+                  aria-label={i18n.language == 'ar' ? 'نوع الزواج' : 'Marriage Type'}
                   className={`myFont w-full py-2 px-3 border-b-[3px] ${
-                    formData.country ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
+                    formData.marriageType ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
                   } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-pointer`}
               >
                   <option value="">{i18n.language == 'ar' ? '-- اختر --' : '-- Choose --'}</option>
-                  <option value="Egypt">{i18n.language == 'ar' ? 'مصر' : 'Egypt'}</option>
-                  <option value="Iraq">{i18n.language == 'ar' ? 'العراق' : 'Iraq'}</option>
           </select>
           <label
-              htmlFor="Country"
+              htmlFor="MarriageType"
               className={`inputLabel absolute top-[15px] ${
                 isRTL ? "-right-2" : "-left-2"
               } text-Black transform pointer-events-none -translate-y-2.5 px-1 myFont w-[100%] text-[19px] font-semibold`} style={{ top: '-12px' }}
             >
-              {t("nationality.country")}
+              {t("familyStatus.marriageType")}
             </label>
         </div>
         <div className={`${Styles.inputHolder} relative w-full`}>
           <select 
-                  id="City"
-                  value={formData.city}
+                  id="Children"
+                  value={formData.children}
                   onChange={handleChange}
-                  name="city"
-                  aria-label={i18n.language == 'ar' ? 'المدينة' : 'City'}
+                  name="children"
+                  aria-label={i18n.language == 'ar' ? 'الأطفال' : 'Children'}
                   className={`myFont w-full py-2 px-3 border-b-[3px] ${
-                    formData.city ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
+                    formData.children ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
                   } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-pointer`}
               >
                   <option value="">{i18n.language == 'ar' ? '-- اختر --' : '-- Choose --'}</option>
-                  <option value="Cairo">{i18n.language == 'ar' ? 'القاهرة' : 'Cairo'}</option>
-                  <option value="Ismailia">{i18n.language == 'ar' ? 'الإسماعيلية' : 'Ismailia'}</option>
           </select>
           <label
-              htmlFor="City"
+              htmlFor="Children"
               className={`inputLabel absolute top-[15px] ${
                 isRTL ? "-right-2" : "-left-2"
               } text-Black transform pointer-events-none -translate-y-2.5 px-1 myFont w-[100%] text-[19px] font-semibold`} style={{ top: '-12px' }}
             >
-              {t("nationality.city")}
+              {t("familyStatus.children")}
             </label>
         </div>
-        <div className={`${Styles.inputHolder} relative w-full`}>
-          <select 
-                  id="Residence"
-                  value={formData.residence}
-                  onChange={handleChange}
-                  name="residence"
-                  aria-label={i18n.language == 'ar' ? 'الإقامة' : 'Residence'}
-                  className={`myFont w-full py-2 px-3 border-b-[3px] ${
-                    formData.residence ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
-                  } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-pointer`}
-              >
-                  <option value="">{i18n.language == 'ar' ? '-- اختر --' : '-- Choose --'}</option>
-                  <option value="Egypt">{i18n.language == 'ar' ? 'مصر' : 'Egypt'}</option>
-                  <option value="Iraq">{i18n.language == 'ar' ? 'العراق' : 'Iraq'}</option>
-          </select>
-          <label
-              htmlFor="Residence"
-              className={`inputLabel absolute top-[15px] ${
-                isRTL ? "-right-2" : "-left-2"
-              } text-Black transform pointer-events-none -translate-y-2.5 px-1 myFont w-[100%] text-[19px] font-semibold`} style={{ top: '-12px' }}
-            >
-              {t("nationality.residence")}
-            </label>
-        </div>
-        
         {/* <div className={`${Styles.forgotPassword} self-end mt-[-15px]`}>
                     <button onClick={() => { setType('forgotpassword') }} type='button' className={`${Styles.clickableButton}`}><p className='myFont text-[18px] opacity-80 cursor-pointer font-medium'>نسيت كلمة السر</p></button>
                 </div> */}

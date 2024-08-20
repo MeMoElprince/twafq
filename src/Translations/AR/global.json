@@ -8,7 +8,7 @@
         "contact" : "تواصل معنا",
         "login" : "تسجيل الدخول"
     },
-    "login" :{
+    "login" : {
         "title" : "تسجيل الدخول",
         "email" : "البريد الإلكتروني",
         "password" : "كلمة المرور",
@@ -19,7 +19,7 @@
     "loginInfo" : {
         "next" : "التالي",
         "prev" : "السابق",
-        "title" : "بيانات الدخول",
+        "title" : "بيانات الحساب",
         "email" : "البريد الإلكتروني",
         "password" : "كلمة المرور",
         "confirmPass" : "تأكيد كلمة المرور",
@@ -30,7 +30,8 @@
         "next" : "التالي",
         "prev" : "السابق",
         "title" : "البيانات الشخصية",
-        "name" : "الاسم الشخصي",
+        "firstName" : "الاسم الاول",
+        "lastName" : "اسم العائلة",
         "age" : "العمر",
         "weight" : "الوزن (كيلوجرام)",
         "height" : "الطول (سنتيمتر)",
@@ -46,5 +47,25 @@
         "country" : "البلد",
         "city" : "المدينة (اختياري)",
         "residence" : "الإقامة"
+    },
+    "familyStatus" : {
+        "title" : "الحالة العائلية",
+        "familyStatus" : "الحالة العائلية",
+        "marriageType" : "نوع الزواج",
+        "children" : "الأطفال"
+    },
+    "education" : {
+        "title" : "التعليم",
+        "educationLevel" : "المؤهل",
+        "work" : "العمل",
+        "financialStatus" : "الحالة المادية"
+    },
+    "religion" : {
+        "title": "الدين",
+        "religion": "الديانة",
+        "doctrine": "المذهب",
+        "religiousCommitment": "الإلتزام الديني",
+        "smoking": "التدخين",
+        "alcoholDrugs": "الكحول أو المخدرات"
     }
 }

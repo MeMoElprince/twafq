@@ -14,23 +14,44 @@ export default function PersonalInfo({handleChange, formData, setFormData, error
       <div className="Form center flex-col gap-10 w-[70%]">
         <div className={`${Styles.inputHolder} relative w-full`}>
           <input
-            id="realName"
+            id="FirstName"
             type="text"
             onChange={handleChange}
-            name="name"
-            placeholder="Name"
-            value={formData.name}
+            name="firstName"
+            placeholder="First Name"
+            value={formData.firstName}
             className={`myFont w-full py-2 px-3 border-b-[3px] ${
-              formData.name ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
+              formData.firstName ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
             } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-text`}
           />
           <label
-            htmlFor="realName"
+            htmlFor="FirstName"
             className={`inputLabel absolute top-[15px] ${
               isRTL ? "right-2" : "left-2"
             } text-Black/70 transform pointer-events-none -translate-y-2.5 px-1 myFont text-lg w-[100%]`}
           >
-            {t("personalInfo.name")}
+            {t("personalInfo.firstName")}
+          </label>
+        </div>
+        <div className={`${Styles.inputHolder} relative w-full`}>
+          <input
+            id="LastName"
+            type="text"
+            onChange={handleChange}
+            name="lastName"
+            placeholder="Last Name"
+            value={formData.lastName}
+            className={`myFont w-full py-2 px-3 border-b-[3px] ${
+              formData.lastName ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
+            } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-text`}
+          />
+          <label
+            htmlFor="LastName"
+            className={`inputLabel absolute top-[15px] ${
+              isRTL ? "right-2" : "left-2"
+            } text-Black/70 transform pointer-events-none -translate-y-2.5 px-1 myFont text-lg w-[100%]`}
+          >
+            {t("personalInfo.lastName")}
           </label>
         </div>
         <div className={`${Styles.inputHolder} relative w-full`}>
@@ -55,7 +76,7 @@ export default function PersonalInfo({handleChange, formData, setFormData, error
               htmlFor="age"
               className={`inputLabel absolute top-[15px] ${
                 isRTL ? "-right-2" : "-left-2"
-              } text-Black transform pointer-events-none -translate-y-2.5 px-1 myFont w-[100%] text-[19px] -top-3 font-semibold`}
+              } text-Black transform pointer-events-none -translate-y-2.5 px-1 myFont w-[100%] text-[19px] font-semibold`} style={{ top: '-12px' }}
             >
               {t("personalInfo.age")}
             </label>
@@ -82,7 +103,7 @@ export default function PersonalInfo({handleChange, formData, setFormData, error
               htmlFor="userWeight"
               className={`inputLabel absolute top-[15px] ${
                 isRTL ? "-right-2" : "-left-2"
-              } text-Black transform pointer-events-none -translate-y-2.5 px-1 myFont w-[100%] text-[19px] -top-3 font-semibold`}
+              } text-Black transform pointer-events-none -translate-y-2.5 px-1 myFont w-[100%] text-[19px] font-semibold`} style={{ top: '-12px' }}
             >
               {t("personalInfo.weight")}
             </label>
@@ -109,7 +130,7 @@ export default function PersonalInfo({handleChange, formData, setFormData, error
               htmlFor="userheight"
               className={`inputLabel absolute top-[15px] ${
                 isRTL ? "-right-2" : "-left-2"
-              } text-Black transform pointer-events-none -translate-y-2.5 px-1 myFont w-[100%] text-[19px] -top-3 font-semibold`}
+              } text-Black transform pointer-events-none -translate-y-2.5 px-1 myFont w-[100%] text-[19px] font-semibold`} style={{ top: '-12px' }}
             >
               {t("personalInfo.height")}
             </label>
@@ -140,7 +161,7 @@ export default function PersonalInfo({handleChange, formData, setFormData, error
             htmlFor="SkinColor"
             className={`inputLabel absolute top-[15px] ${
               isRTL ? "-right-2" : "-left-2"
-            } text-Black transform pointer-events-none -translate-y-2.5 px-1 myFont w-[100%] text-[19px] -top-3 font-semibold`}
+            } text-Black transform pointer-events-none -translate-y-2.5 px-1 myFont w-[100%] text-[19px] font-semibold`} style={{ top: '-12px' }}
           >
             {t("personalInfo.skinColor")}
           </label>
@@ -166,7 +187,7 @@ export default function PersonalInfo({handleChange, formData, setFormData, error
             htmlFor="Shape"
             className={`inputLabel absolute top-[15px] ${
               isRTL ? "-right-2" : "-left-2"
-            } text-Black transform pointer-events-none -translate-y-2.5 px-1 myFont w-[100%] text-[19px] -top-3 font-semibold`}
+            } text-Black transform pointer-events-none -translate-y-2.5 px-1 myFont w-[100%] text-[19px] font-semibold`} style={{ top: '-12px' }}
           >
             {t("personalInfo.shape")}
           </label>
@@ -188,7 +209,7 @@ export default function PersonalInfo({handleChange, formData, setFormData, error
             htmlFor="Health"
             className={`inputLabel absolute top-[15px] ${
               isRTL ? "-right-2" : "-left-2"
-            } text-Black transform pointer-events-none -translate-y-2.5 px-1 myFont w-[100%] text-[19px] -top-3 font-semibold`}
+            } text-Black transform pointer-events-none -translate-y-2.5 px-1 myFont w-[100%] text-[19px] font-semibold`} style={{ top: '-12px' }}
           >
             {t("personalInfo.health")}
           </label>
@@ -198,41 +219,40 @@ export default function PersonalInfo({handleChange, formData, setFormData, error
                     <button onClick={() => { setType('forgotpassword') }} type='button' className={`${Styles.clickableButton}`}><p className='myFont text-[18px] opacity-80 cursor-pointer font-medium'>نسيت كلمة السر</p></button>
                 </div> */}
         <div className="w-full center gap-4">
-          <button
-            onClick={() => handleStep(1)}
-            className={`${
-              Styles.loginBtnAnimate
-            } bg-Black myFont text-White text-[22px] w-[100%] py-[14px] rounded-full
-                    relative overflow-hidden inline-block z-10
-                    transition-all duration-300 ease-in-out
-                    focus:outline-none
-                    before:absolute before:top-0 before:left-[-100%] before:w-full before:h-full before:-z-10
-                    before:rounded-inherit before:bg-[#505050] before:bg-opacity-40 
-                    before:transition-all before:duration-300 before:ease-in-out
-                    
-                    hover:before:left-0
-                    
-                    `}
-          >
-            {t("personalInfo.next")}
-          </button>
-
-          <button
-            onClick={() => handleStep(-1)}
-            className={`${
-              Styles.loginBtnAnimate
-            } bg-none border border-Black myFont text-Black text-[22px] w-[100%] py-[14px] rounded-full
-                    relative overflow-hidden inline-block z-10
-                    transition-all duration-300 ease-in-out
-                    focus:outline-none
-                    before:absolute before:top-0 before:left-[-100%] before:w-full before:h-full before:-z-10
-                    before:rounded-inherit before:bg-[#b5b5b5] before:bg-opacity-40 
-                    before:transition-all before:duration-300 before:ease-in-out
-                    hover:before:left-0
-                    `}
-          >
-            {t("personalInfo.prev")}
-          </button>
+        <button
+              onClick={() => handleStep(-1)}
+              className={`${
+                Styles.loginBtnAnimate
+              } bg-none border border-Black myFont text-Black text-[18px] sm2:text-[22px]  w-[100%] py-[14px] rounded-full
+                      relative overflow-hidden inline-block z-10
+                      transition-all duration-300 ease-in-out
+                      focus:outline-none
+                      before:absolute before:top-0 before:left-[-100%] before:w-full before:h-full before:-z-10
+                      before:rounded-inherit before:bg-[#b5b5b5] before:bg-opacity-40 
+                      before:transition-all before:duration-300 before:ease-in-out
+                      hover:before:left-0
+                      `}
+            >
+              {t("personalInfo.prev")}
+            </button>
+            <button
+              onClick={() => handleStep(1)}
+              className={`${
+                Styles.loginBtnAnimate
+              } bg-Black myFont text-White text-[18px] sm2:text-[22px] w-[100%] py-[14px] rounded-full
+                      relative overflow-hidden inline-block z-10
+                      transition-all duration-300 ease-in-out
+                      focus:outline-none
+                      before:absolute before:top-0 before:left-[-100%] before:w-full before:h-full before:-z-10
+                      before:rounded-inherit before:bg-[#505050] before:bg-opacity-40 
+                      before:transition-all before:duration-300 before:ease-in-out
+                      
+                      hover:before:left-0
+                      
+                      `}
+            >
+              {t("personalInfo.next")}
+            </button>
         </div>
         <p className="text-red-700 font-bold -mb-5 -mt-5">{errorMessage}</p>
       </div>
