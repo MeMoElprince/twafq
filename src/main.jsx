@@ -11,9 +11,13 @@ import global_ar from "../src/Translations/AR/global.json"
 import i18next from "i18next";
 import { initReactI18next, I18nextProvider  } from 'react-i18next';
 
+const isRTL = JSON.parse(localStorage.getItem('isRTL')) || false;
+
+const defaultLanguage = isRTL ? 'ar' : 'en';
+
 i18next.use(initReactI18next).init({
   interpolation: { escapeValue: false },
-  lng: "ar",
+  lng: defaultLanguage,
   resources: {
     en: {
       global: global_en,

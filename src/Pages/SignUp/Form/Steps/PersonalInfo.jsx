@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { useLayoutDirection } from '../../../../Store/Context/LayoutDirectionContext'
 import {useTranslation} from "react-i18next"
 import Styles from '../../Styling.module.css'
@@ -6,6 +6,36 @@ import Styles from '../../Styling.module.css'
 export default function PersonalInfo({handleChange, formData, setFormData, errorMessage, setErrorMessage, handleStep}) {
   const { isRTL, setIsRTL } = useLayoutDirection();
 	const { t, i18n } = useTranslation("global");
+
+  const healthConditions = [
+      { ar: 'ألم الظهر', en: 'Back pain' },
+      { ar: 'ألم البطن', en: 'Abdominal pain' },
+      { ar: 'ارتفاع ضغط الدم (فرط ضغط الدم)', en: 'High blood pressure (hypertension (HTN))' },
+      { ar: 'ألم الصدر', en: 'Chest pain' },
+      { ar: 'مرض السكري', en: 'Diabetes mellitus (DM)' },
+      { ar: 'عدوى المسالك البولية', en: 'Urinary tract infection (UTI)' },
+      { ar: 'صداع', en: 'Headache' },
+      { ar: 'ارتفاع ضغط الدم - أساسي', en: 'Hypertension - essential' },
+      { ar: 'ألم أسفل الظهر', en: 'Lower back pain' },
+      { ar: 'جروح (تمزق)', en: 'Cut (laceration)' },
+      { ar: 'اكتئاب', en: 'Depression' },
+      { ar: 'ألم الركبة', en: 'Knee pain' },
+      { ar: 'عدوى الجهاز التنفسي العلوي', en: 'Upper respiratory infection (URI)' },
+      { ar: 'ألم الأسنان', en: 'Toothache' },
+      { ar: 'سعال', en: 'Cough' },
+      { ar: 'ربو', en: 'Asthma' },
+      { ar: 'ضيق التنفس', en: 'Shortness of breath (dyspnea)' },
+      { ar: 'التهاب الشعب الهوائية - حاد', en: 'Bronchitis - acute' },
+      { ar: 'التهاب الحلق', en: 'Sore throat (pharyngitis)' },
+      { ar: 'التهاب الجيوب الأنفية - حاد', en: 'Sinusitis - acute' },
+      { ar: 'التهاب الخلايا', en: 'Cellulitis' },
+      { ar: 'عدوى الأذن', en: 'Ear infection (otitis media)' },
+      { ar: 'خراج', en: 'Abscess' },
+      { ar: 'ألم الكتف', en: 'Shoulder pain' }
+  ];
+
+
+
   return (
     <>
       <h2 className="Title text-Black myFont text-[25px] font-semibold">
@@ -28,7 +58,7 @@ export default function PersonalInfo({handleChange, formData, setFormData, error
             htmlFor="FirstName"
             className={`inputLabel absolute top-[15px] ${
               isRTL ? "right-2" : "left-2"
-            } text-Black/70 transform pointer-events-none -translate-y-2.5 px-1 myFont text-lg w-[100%]`}
+            } text-Black/70 transform -translate-y-2.5 px-1 myFont text-lg w-[100%]`}
           >
             {t("personalInfo.firstName")}
           </label>
@@ -49,7 +79,7 @@ export default function PersonalInfo({handleChange, formData, setFormData, error
             htmlFor="LastName"
             className={`inputLabel absolute top-[15px] ${
               isRTL ? "right-2" : "left-2"
-            } text-Black/70 transform pointer-events-none -translate-y-2.5 px-1 myFont text-lg w-[100%]`}
+            } text-Black/70 transform -translate-y-2.5 px-1 myFont text-lg w-[100%]`}
           >
             {t("personalInfo.lastName")}
           </label>
@@ -76,7 +106,7 @@ export default function PersonalInfo({handleChange, formData, setFormData, error
               htmlFor="age"
               className={`inputLabel absolute top-[15px] ${
                 isRTL ? "-right-2" : "-left-2"
-              } text-Black transform pointer-events-none -translate-y-2.5 px-1 myFont w-[100%] text-[19px] font-semibold`} style={{ top: '-12px' }}
+              } text-Black transform -translate-y-2.5 px-1 myFont w-[100%] text-[19px] font-semibold`} style={{ top: '-12px' }}
             >
               {t("personalInfo.age")}
             </label>
@@ -103,7 +133,7 @@ export default function PersonalInfo({handleChange, formData, setFormData, error
               htmlFor="userWeight"
               className={`inputLabel absolute top-[15px] ${
                 isRTL ? "-right-2" : "-left-2"
-              } text-Black transform pointer-events-none -translate-y-2.5 px-1 myFont w-[100%] text-[19px] font-semibold`} style={{ top: '-12px' }}
+              } text-Black transform -translate-y-2.5 px-1 myFont w-[100%] text-[19px] font-semibold`} style={{ top: '-12px' }}
             >
               {t("personalInfo.weight")}
             </label>
@@ -120,9 +150,9 @@ export default function PersonalInfo({handleChange, formData, setFormData, error
                 } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-pointer`}
             >
                 <option value="">{i18n.language == 'ar' ? '-- اختر --' : '-- Choose --'}</option>
-                {[...Array(300-90+1)].map((_, index) => (
-                    <option key={index + 90} value={index + 90}>
-                        {index + 90}
+                {[...Array(260 - 60 + 1)].map((_, index) => (
+                    <option key={index + 60} value={index + 60}>
+                        {index + 60}
                     </option>
                 ))}
           </select>
@@ -130,89 +160,98 @@ export default function PersonalInfo({handleChange, formData, setFormData, error
               htmlFor="userheight"
               className={`inputLabel absolute top-[15px] ${
                 isRTL ? "-right-2" : "-left-2"
-              } text-Black transform pointer-events-none -translate-y-2.5 px-1 myFont w-[100%] text-[19px] font-semibold`} style={{ top: '-12px' }}
+              } text-Black transform -translate-y-2.5 px-1 myFont w-[100%] text-[19px] font-semibold`} style={{ top: '-12px' }}
             >
               {t("personalInfo.height")}
             </label>
         </div>
         <div className={`relative w-full`}>
             <select 
-                    id="SkinColor"
-                    value={formData.skinColor}
-                    onChange={handleChange}
-                    name="skinColor"
-                    aria-label={i18n.language == 'ar' ? 'لون البشرة' : 'Skin Color'}
-                    className={`myFont w-full py-2 px-3 border-b-[3px] ${
-                      formData.skinColor ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
-                    } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-pointer`}
-                >
-                    <option value="">{i18n.language == 'ar' ? '-- اختر --' : '-- Choose --'}</option>
-                    <option value="very_fair">{i18n.language == 'ar' ? 'أبيض جداً' : 'Very Fair'}</option>
-                    <option value="fair">{i18n.language == 'ar' ? 'أبيض' : 'Fair'}</option>
-                    <option value="light">{i18n.language == 'ar' ? 'قمحاوي' : 'Light'}</option>
-                    <option value="olive">{i18n.language == 'ar' ? 'قمحاوي مائل للبياض' : 'Olive'}</option>
-                    <option value="medium">{i18n.language == 'ar' ? 'قمحاوي مائل للسمار' : 'Medium'}</option>
-                    <option value="tan">{i18n.language == 'ar' ? 'أسمر' : 'Tan'}</option>
-                    <option value="brown">{i18n.language == 'ar' ? 'أسمر فاتح' : 'Brown'}</option>
-                    <option value="dark_brown">{i18n.language == 'ar' ? 'أسمر غامق' : 'Dark Brown'}</option>
-                    <option value="black">{i18n.language == 'ar' ? 'أسود' : 'Black'}</option>
+                id="SkinColor"
+                value={formData.skinColor ? JSON.stringify(formData.skinColor) : ''} // Stringify the array for 
+                onChange={handleChange}
+                name="skinColor"
+                aria-label={i18n.language === 'ar' ? 'لون البشرة' : 'Skin Color'}
+                className={`myFont w-full py-2 px-3 border-b-[3px] ${
+                    formData.skinColor ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
+                } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-pointer`}
+            >
+                <option value={JSON.stringify(["", ""])}>{i18n.language === 'ar' ? '-- اختر --' : '-- Choose --'}</option>
+                <option value={JSON.stringify(['White', 'White'])}>{i18n.language === 'ar' ? 'أبيض' : 'White'}</option>
+                <option value={JSON.stringify(['Olive', 'Olive'])}>{i18n.language === 'ar' ? 'قمحاوي مائل للبياض' : 'Olive'}</option>
+                <option value={JSON.stringify(['Moderate Brown', 'Moderate Brown'])}>{i18n.language === 'ar' ? 'قمحاوي' : 'Moderate Brown'}</option>
+                <option value={JSON.stringify(['Brown', 'Brown'])}>{i18n.language === 'ar' ? 'أسمر' : 'Brown'}</option>
+                <option value={JSON.stringify(['Dark Brown', 'Dark Brown'])}>{i18n.language === 'ar' ? 'أسمر غامق' : 'Dark Brown'}</option>
             </select>
-          <label
-            htmlFor="SkinColor"
-            className={`inputLabel absolute top-[15px] ${
-              isRTL ? "-right-2" : "-left-2"
-            } text-Black transform pointer-events-none -translate-y-2.5 px-1 myFont w-[100%] text-[19px] font-semibold`} style={{ top: '-12px' }}
-          >
-            {t("personalInfo.skinColor")}
-          </label>
+            <label
+                htmlFor="SkinColor"
+                className={`inputLabel absolute top-[15px] ${
+                    isRTL ? "-right-2" : "-left-2"
+                } text-Black transform -translate-y-2.5 px-1 myFont w-[100%] text-[19px] font-semibold`} 
+                style={{ top: '-12px' }}
+            >
+                {t("personalInfo.skinColor")}
+            </label>
         </div>
+
         <div className={`relative w-full`}>
-          <select 
-                  id="Shape"
-                  value={formData.shape}
-                  onChange={handleChange}
-                  name="shape"
-                  aria-label={i18n.language == 'ar' ? 'شكل الجسم' : 'Body Shape'}
-                  className={`myFont w-full py-2 px-3 border-b-[3px] ${
+            <select 
+                id="Shape"
+                value={formData.shape ? JSON.stringify(formData.shape) : ''} // Stringify the array for 
+                onChange={handleChange}
+                name="shape"
+                aria-label={i18n.language === 'ar' ? 'شكل الجسم' : 'Body Shape'}
+                className={`myFont w-full py-2 px-3 border-b-[3px] ${
                     formData.shape ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
-                  } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-pointer`}
-              >
-                  <option value="">{i18n.language == 'ar' ? '-- اختر --' : '-- Choose --'}</option>
-                  <option value="slim">{i18n.language == 'ar' ? 'نحيف' : 'Slim'}</option>
-                  <option value="average">{i18n.language == 'ar' ? 'متوسط' : 'Average'}</option>
-                  <option value="overweight">{i18n.language == 'ar' ? 'سمين' : 'Overweight'}</option>
-                  <option value="athletic">{i18n.language == 'ar' ? 'رياضي' : 'Athletic'}</option>
-          </select>
-          <label
-            htmlFor="Shape"
-            className={`inputLabel absolute top-[15px] ${
-              isRTL ? "-right-2" : "-left-2"
-            } text-Black transform pointer-events-none -translate-y-2.5 px-1 myFont w-[100%] text-[19px] font-semibold`} style={{ top: '-12px' }}
-          >
-            {t("personalInfo.shape")}
-          </label>
+                } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-pointer`}
+            >
+                <option value={JSON.stringify(["", ""])}>{i18n.language === 'ar' ? '-- اختر --' : '-- Choose --'}</option>
+                <option value={JSON.stringify(['Slim', 'Slim'])}>{i18n.language === 'ar' ? 'نحيف' : 'Slim'}</option>
+                <option value={JSON.stringify(['Average', 'Average'])}>{i18n.language === 'ar' ? 'متوسط' : 'Average'}</option>
+                <option value={JSON.stringify(['Overweight', 'Overweight'])}>{i18n.language === 'ar' ? 'سمين' : 'Overweight'}</option>
+                <option value={JSON.stringify(['Athletic', 'Athletic'])}>{i18n.language === 'ar' ? 'رياضي' : 'Athletic'}</option>
+            </select>
+            <label
+                htmlFor="Shape"
+                className={`inputLabel absolute top-[15px] ${
+                    isRTL ? "-right-2" : "-left-2"
+                } text-Black transform -translate-y-2.5 px-1 myFont w-[100%] text-[19px] font-semibold`} 
+                style={{ top: '-12px' }}
+            >
+                {t("personalInfo.shape")}
+            </label>
         </div>
+
         <div className={`relative w-full`}>
-          <select 
-                  id="Health"
-                  value={formData.health}
-                  onChange={handleChange}
-                  name="health"
-                  aria-label={i18n.language == 'ar' ? 'الحالة الصحية' : 'Health Condition'}
-                  className={`myFont w-full py-2 px-3 border-b-[3px] ${
+            <select 
+                id="Health"
+                value={formData.health ? JSON.stringify(formData.health) : ''} // Stringify the array for 
+                onChange={handleChange}
+                name="health"
+                aria-label={i18n.language === 'ar' ? 'الحالة الصحية' : 'Health Condition'}
+                className={`myFont w-full py-2 px-3 border-b-[3px] ${
                     formData.health ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
-                  } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-pointer`}
-              >
-                  <option value="">{i18n.language == 'ar' ? '-- اختر --' : '-- Choose --'}</option>
-          </select>
-          <label
-            htmlFor="Health"
-            className={`inputLabel absolute top-[15px] ${
-              isRTL ? "-right-2" : "-left-2"
-            } text-Black transform pointer-events-none -translate-y-2.5 px-1 myFont w-[100%] text-[19px] font-semibold`} style={{ top: '-12px' }}
-          >
-            {t("personalInfo.health")}
-          </label>
+                } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-pointer`}
+            >
+                <option value={JSON.stringify(["", ""])}>{i18n.language === 'ar' ? '-- اختر --' : '-- Choose --'}</option>
+                {healthConditions.map((condition, index) => (
+                    <option 
+                        key={index} 
+                        value={JSON.stringify([condition.ar, condition.en])}
+                    >
+                        {i18n.language === 'ar' ? condition.ar : condition.en}
+                    </option>
+                ))}
+            </select>
+            <label
+                htmlFor="Health"
+                className={`inputLabel absolute top-[15px] ${
+                    isRTL ? "-right-2" : "-left-2"
+                } text-Black transform -translate-y-2.5 px-1 myFont w-[100%] text-[19px] font-semibold`} 
+                style={{ top: '-12px' }}
+            >
+                {t("personalInfo.health")}
+            </label>
         </div>
         
         {/* <div className={`${Styles.forgotPassword} self-end mt-[-15px]`}>

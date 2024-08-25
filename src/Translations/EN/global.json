@@ -67,5 +67,16 @@
         "religiousCommitment": "Religious Commitment",
         "smoking": "Smoking",
         "alcoholDrugs": "Alcohol or Drugs"
+    },
+    "description" : {
+        "title": "Description",
+        "selfDescription" : "Describe yourself...",
+        "partnerDescription" : "Describe your partner..."
+    },
+    "colorTest": {
+        "title": "Color Test",
+        "description": "Select all the colors you like from the following options, making sure to choose the colors accurately and honestly to correctly calculate your compatibility.",
+        "termsOne" : "I agree to all",
+        "termsTwo" : "terms & conditions"
     }
 }

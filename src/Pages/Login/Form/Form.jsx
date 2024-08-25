@@ -29,16 +29,6 @@ export default function Form() {
 		}
 	)
 
-	useEffect(() => {
-		setIsRTL(i18n.language === "ar");
-	  }, [i18n.language]);
-	
-	  const handleLangChange = (lang) => {
-		i18n.changeLanguage(lang);
-	  };
-
-
-
 	function handleChange(event) {
 		const { name, value, type, checked } = event.target
 		setFormData(prevFormData => {

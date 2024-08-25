@@ -13,13 +13,15 @@ import Nationality from './Steps/Nationality'
 import FamilyStatus from './Steps/FamilyStatus'
 import Education from './Steps/Education'
 import Religion from './Steps/Religion'
+import Description from './Steps/Description'
+import ColorTest from './Steps/ColorTest'
 
 
 export default function Form() {
 	// const { isLogedIn, setIsLogedIn, setToken } = useContext(AuthenticationContext)
 	const { isRTL, setIsRTL } = useLayoutDirection();
 	const { t, i18n } = useTranslation("global");
-	const [step, setStep] = useState(0)
+	const [step, setStep] = useState(2)
 	const [loading, setLoading] = useState(false)
 	const [data, setData] = useState(null)
 	const [errorMessage, setErrorMessage] = useState('')
@@ -37,13 +39,13 @@ export default function Form() {
 			age: '',
 			weight: '',
 			height: '',
-			skinColor: '',
-			shape: '',
-			health: '',
-			nationality : '',
-			country : '',
-			city : '',
-			residence : '',
+			skinColor: ["", ""],
+			shape: ["", ""],
+			health: ["", ""],
+			nationality : ["", ""],
+			country : ["", "", ""],
+			city : ["", ""],
+			residence : ["", ""],
 			familyStatus : '',
 			marriageType : '',
 			children : '',
@@ -55,6 +57,9 @@ export default function Form() {
 			religiousCommitment : '',
 			smoking : '',
 			alcoholDrgus : '',
+			selfDescription: '',
+			partnerDescription: '',
+			isChecked: false
 		}
 	)
 
@@ -67,15 +72,29 @@ export default function Form() {
 	  };
 
 
-	function handleChange(event) {
-		const { name, value, type, checked } = event.target
-		setFormData(prevFormData => {
-			return {
-				...prevFormData,
-				[name]: type === "checkbox" ? checked : value
+	  function handleChange(event) {
+				const { name, value, type, checked, dataset } = event.target;
+			
+				const isMultiValue = ['skinColor', 'shape', 'health', 'nationality', 'country', 'city', 'residence'].includes(name);
+			
+				setFormData(prevFormData => {
+					let newValue;
+					if (type === "checkbox"){
+						newValue = checked;
+					}else if (isMultiValue){
+						const valueHolder = JSON.parse(value);
+						newValue = valueHolder;
+					}else{
+						newValue = value;
+					}
+					return {
+						...prevFormData,
+						[name]: newValue
+					};
+				});
+				console.log(formData)
 			}
-		})
-	}
+	
 
 	function handleSubmit(e) {
 		e.preventDefault();
@@ -116,13 +135,13 @@ export default function Form() {
 		setStep(prevStep => {
 		  let newStep = prevStep + type;
 		  if (newStep < 0) newStep = 0;
-		  if (newStep > 5) newStep = 5;
+		  if (newStep > 7) newStep = 7;
 		  return newStep;
 		});
 	}
 
 	useEffect(() => {
-		setCurrPerc(Math.ceil(100 / 6 * step));
+		setCurrPerc(Math.round(100 / 8 * step));
 	}, [step])
 
 	useEffect(() => {
@@ -133,15 +152,16 @@ export default function Form() {
 		  });
 		}, 500);
 	  
-		return () => clearTimeout(timer); // Cleanup if the component unmounts
+		return () => clearTimeout(timer);
 	  }, [step, currPerc]);
+
 	  
 
 
 	return (
 		<>
 			<section className={`${Styles.formContainer} relative min-h-screen w-screen bg-White flex content-center items-center justify-center py-20 overflow-hidden`}>
-				<div className={`${Styles.exactForm} relative border-Black/5 shadow-lg mt-20 border-2 w-[80%] py-8 min-h-[6%] md:w-[50%] lg2:w-[35%] rounded-2xl center flex-col gap-8`}>
+				<div className={`${Styles.exactForm} ${step === 7 ? Styles.step7 : Styles.notstep7}  relative border-Black/5 shadow-lg mt-20 border-2 py-8 min-h-[6%]  transition-all duration-300 rounded-2xl center flex-col gap-8`}>
 					{/* <img src={Bear} alt='bear-img' className='absolute top-[-120px] w-[140px] select-none pointer-events-none' /> */}
 					<div className='mx-6 p-0 flex relative myFont w-[80%] bg-LighterPink/70 h-12 rounded-full overflow-hidden'>
 						<div className={`myFont bg-gradient-to-tr from-Blue to-DarkPink h-full rounded-full transition-all duration-500`} style={{ width: `${currPerc}%` }}></div>
@@ -153,6 +173,8 @@ export default function Form() {
 					{step === 3 && <FamilyStatus handleStep = {handleStep} handleChange = {handleChange} formData={formData} setFormData = {setFormData} errorMessage = {errorMessage} setErrorMessage = {setErrorMessage} />}
 					{step === 4 && <Education handleStep = {handleStep} handleChange = {handleChange} formData={formData} setFormData = {setFormData} errorMessage = {errorMessage} setErrorMessage = {setErrorMessage} />}
 					{step === 5 && <Religion handleStep = {handleStep} handleChange = {handleChange} formData={formData} setFormData = {setFormData} errorMessage = {errorMessage} setErrorMessage = {setErrorMessage} />}
+					{step === 6 && <Description handleStep = {handleStep} handleChange = {handleChange} formData={formData} setFormData = {setFormData} errorMessage = {errorMessage} setErrorMessage = {setErrorMessage} />}
+					{step === 7 && <ColorTest handleStep = {handleStep} handleChange = {handleChange} formData={formData} setFormData = {setFormData} errorMessage = {errorMessage} setErrorMessage = {setErrorMessage} />}
 				</div>
 			</section>
 		</>

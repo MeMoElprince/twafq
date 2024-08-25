@@ -13,12 +13,8 @@ const Navbar = () => {
   const { isRTL, setIsRTL } = useLayoutDirection();
 
   useEffect(() => {
-    setIsRTL(i18n.language === "ar");
-  }, [i18n.language]);
-
-  const handleLangChange = (lang) => {
-    i18n.changeLanguage(lang);
-  };
+    i18n.changeLanguage(isRTL ? "ar" : "en");
+  }, [isRTL, i18n]);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -42,7 +38,7 @@ const Navbar = () => {
           </div>
             <Link to="/login" className={`hidden md4:block ${isRTL ? "mr-auto" : "ml-auto"} focus:outline-none`}><button className="bg-red-500 hover:text-Black focus:outline-none transition-all duration-150 text-White px-6 py-2 rounded-full text-lg font-medium">{t("navbar.login")}</button></Link>
         </div>
-        <button onClick={() => handleLangChange(isRTL ? "en" : "ar")} className={`absolute ${isRTL ? "md4:left-[2%] left-[7%]" : "md4:right-[2%] right-[7%]" } inline-flex items-center justify-center rounded-md text-Black hover:text-white focus:outline-none`}>
+        <button onClick={() => setIsRTL(!isRTL)} className={`absolute ${isRTL ? "md4:left-[2%] left-[7%]" : "md4:right-[2%] right-[7%]" } inline-flex items-center justify-center rounded-md text-Black hover:text-white focus:outline-none`}>
               <p className='myFont text-lg bg-Black text-White px-3 py-1 rounded-lg'>{isRTL ? "EN" : "عر"}</p>
         </button>
         <button onClick={toggleMenu} className={`md4:hidden absolute ${isRTL ? "right-[7%]" : "left-[7%]"} inline-flex items-center justify-center rounded-md text-Black hover:text-white focus:outline-none`}>
