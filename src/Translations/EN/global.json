@@ -24,7 +24,8 @@
         "password" : "Password",
         "confirmPass" : "Confrim Password",
         "phone" : "Phone Number",
-        "phoneMsg" : "Phone numbers will only be shared if both users agree"
+        "phoneMsg" : "Phone numbers will only be shared if both users agree",
+        "gender" : "Gender"
     },
     "personalInfo" : {
         "next" : "Next",

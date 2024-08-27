@@ -8,48 +8,6 @@ export default function Nationality({handleChange, formData, setFormData, errorM
   const { isRTL, setIsRTL } = useLayoutDirection();
 	const { t, i18n } = useTranslation("global");
 
-  const [cities, setCities] = useState([]);
-  const [selectedCountry, setSelectedCountry] = useState('EG');
-
-  useEffect(() => {
-    const fetchCities = async () => {
-      if (selectedCountry) {
-        try {
-          const response = await fetch(
-            `https://wft-geo-db.p.rapidapi.com/v1/geo/countries/${selectedCountry}/places`,
-            {
-              method: 'GET',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              data : {"query" : "QUERY"}
-            }
-          );
-
-          if (!response.ok) {
-            throw new Error('Network response was not ok');
-          }
-
-          const data = await response.json();
-          console.log(data); // Log the response data
-
-          setCities(data || []); // Adjust based on actual response structure
-        } catch (error) {
-          console.error('There has been a problem with your fetch operation:', error);
-        }
-      }
-    };
-
-    fetchCities();
-  }, [selectedCountry]);
-
-  const handleCountryChange = (e) => {
-    const countryCode = JSON.parse(e.target.value)[2];
-    setSelectedCountry(countryCode);
-    handleChange(e);
-  };
-
-
   return (
     <>
       <h2 className="Title text-Black myFont text-[25px] font-semibold mb-6">
@@ -90,7 +48,7 @@ export default function Nationality({handleChange, formData, setFormData, errorM
           <select 
                   id="Country"
                   value={formData.country ? JSON.stringify(formData.country) : ''}
-                  onChange={handleCountryChange}
+                  onChange={handleChange}
                   name="country"
                   aria-label={i18n.language == 'ar' ? 'البلد' : 'country'}
                   className={`myFont w-full py-2 px-3 border-b-[3px] ${
@@ -128,14 +86,7 @@ export default function Nationality({handleChange, formData, setFormData, errorM
                   } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-pointer`}
               >
                   <option value={JSON.stringify(["", ""])}>{i18n.language === 'ar' ? '-- اختر --' : '-- Choose --'}</option>
-                  {cities.map((city) => (
-                      <option 
-                          key={country.code} 
-                          value={JSON.stringify(['', ''])}
-                      >
-                          {i18n.language === 'ar' ? city : city}
-                      </option>
-                  ))}
+                  
           </select>
           <label
               htmlFor="City"

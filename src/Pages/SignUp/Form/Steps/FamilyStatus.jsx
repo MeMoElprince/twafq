@@ -15,7 +15,7 @@ export default function FamilyStatus({handleChange, formData, setFormData, error
         <div className={`${Styles.inputHolder} relative w-full`}>
           <select 
                   id="FamilyStatus"
-                  value={formData.familyStatus}
+                  value={formData.familyStatus ? JSON.stringify(formData.familyStatus) : ''}
                   onChange={handleChange}
                   name="familyStatus"
                   aria-label={i18n.language == 'ar' ? 'الحالة العائلية' : 'Family Status'}
@@ -23,7 +23,11 @@ export default function FamilyStatus({handleChange, formData, setFormData, error
                     formData.familyStatus ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
                   } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-pointer`}
               >
-                  <option value="">{i18n.language == 'ar' ? '-- اختر --' : '-- Choose --'}</option>
+                  <option value={JSON.stringify(["", ""])}>{i18n.language === 'ar' ? '-- اختر --' : '-- Choose --'}</option>
+                  <option value={JSON.stringify([formData.gender[1] === 'Male' ? 'أعزب' : 'آنسة', 'Single'])}>{i18n.language === 'ar' ? formData.gender[1] === 'Male' ? 'أعزب' : 'آنسة' : 'Single'}</option>
+                  {formData.gender[1] === 'Male' && <option value={JSON.stringify(['متزوج', 'Married'])}>{i18n.language === 'ar' ? 'متزوج' : 'Married'}</option>}
+                  <option value={JSON.stringify([formData.gender[1] === 'Male' ? 'مطلق' : 'مطلقة', 'Divorced'])}>{i18n.language === 'ar' ? formData.gender[1] === 'Male' ? 'مطلق' : 'مطلقة' : 'Divorced'}</option>
+                  <option value={JSON.stringify([formData.gender[1] === 'Male' ? 'أرمل' : 'أرملة', 'Widowed'])}>{i18n.language === 'ar' ? formData.gender[1] === 'Male' ? 'أرمل' : 'أرملة' : 'Widowed'}</option>
           </select>
           <label
               htmlFor="FamilyStatus"
@@ -37,7 +41,7 @@ export default function FamilyStatus({handleChange, formData, setFormData, error
         <div className={`${Styles.inputHolder} relative w-full`}>
           <select 
                   id="MarriageType"
-                  value={formData.marriageType}
+                  value={formData.marriageType ? JSON.stringify(formData.marriageType) : ''}
                   onChange={handleChange}
                   name="marriageType"
                   aria-label={i18n.language == 'ar' ? 'نوع الزواج' : 'Marriage Type'}
@@ -45,8 +49,33 @@ export default function FamilyStatus({handleChange, formData, setFormData, error
                     formData.marriageType ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
                   } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-pointer`}
               >
-                  <option value="">{i18n.language == 'ar' ? '-- اختر --' : '-- Choose --'}</option>
-          </select>
+                  <option value={JSON.stringify(["", ""])}>{i18n.language === 'ar' ? '-- اختر --' : '-- Choose --'}</option>
+                  {formData.gender[1] === 'Male' ? (
+                    <>
+                      <option value={JSON.stringify(['الزوجة الأولى', 'First Wife'])}>
+                        {i18n.language === 'ar' ? 'الزوجة الأولى' : 'First Wife'}
+                      </option>
+                      <option value={JSON.stringify(['الزوجة الثانية', 'Second Wife'])}>
+                        {i18n.language === 'ar' ? 'الزوجة الثانية' : 'Second Wife'}
+                      </option>
+                      <option value={JSON.stringify(['الزوجة الثالثة', 'Third Wife'])}>
+                        {i18n.language === 'ar' ? 'الزوجة الثالثة' : 'Third Wife'}
+                      </option>
+                      <option value={JSON.stringify(['الزوجة الرابعة', 'Fourth Wife'])}>
+                        {i18n.language === 'ar' ? 'الزوجة الرابعة' : 'Fourth Wife'}
+                      </option>
+                    </>
+                  ) : (
+                    <>
+                      <option value={JSON.stringify(['لا اقبل تعدد الزوجات', 'I don\'t accept polygamy'])}>
+                        {i18n.language === 'ar' ? 'لا اقبل تعدد الزوجات' : "I don't accept polygamy"}
+                      </option>
+                      <option value={JSON.stringify(['اقبل تعدد الزوجات', 'I accept polygamy'])}>
+                        {i18n.language === 'ar' ? 'اقبل تعدد الزوجات' : 'I accept polygamy'}
+                      </option>
+                    </>
+                  )}
+            </select>
           <label
               htmlFor="MarriageType"
               className={`inputLabel absolute top-[15px] ${
@@ -68,6 +97,11 @@ export default function FamilyStatus({handleChange, formData, setFormData, error
                   } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-pointer`}
               >
                   <option value="">{i18n.language == 'ar' ? '-- اختر --' : '-- Choose --'}</option>
+                {[...Array(11)].map((_, index) => (
+                    <option key={index} value={index}>
+                        {index}
+                    </option>
+                ))}
           </select>
           <label
               htmlFor="Children"

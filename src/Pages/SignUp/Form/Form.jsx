@@ -21,7 +21,7 @@ export default function Form() {
 	// const { isLogedIn, setIsLogedIn, setToken } = useContext(AuthenticationContext)
 	const { isRTL, setIsRTL } = useLayoutDirection();
 	const { t, i18n } = useTranslation("global");
-	const [step, setStep] = useState(2)
+	const [step, setStep] = useState(3)
 	const [loading, setLoading] = useState(false)
 	const [data, setData] = useState(null)
 	const [errorMessage, setErrorMessage] = useState('')
@@ -29,6 +29,7 @@ export default function Form() {
 	const [currPerc, setCurrPerc] = useState(0)
 	const [formData, setFormData] = useState(
 		{
+			gender: ["", ""],
 			email: '',
 			password: '',
 			confirmPassword: '',
@@ -46,17 +47,17 @@ export default function Form() {
 			country : ["", "", ""],
 			city : ["", ""],
 			residence : ["", ""],
-			familyStatus : '',
-			marriageType : '',
+			familyStatus : ["", ""],
+			marriageType : ["", ""],
 			children : '',
 			educationLevel : '',
 			work : '',
 			financialStatus : '',
-			religion : '',
-			doctrine : '',
-			religiousCommitment : '',
-			smoking : '',
-			alcoholDrgus : '',
+			religion : ["", ""],
+			doctrine : ["", ""],
+			religiousCommitment : ["", ""],
+			smoking : ["", ""],
+			alcoholDrgus : ["", ""],
 			selfDescription: '',
 			partnerDescription: '',
 			isChecked: false
@@ -75,7 +76,10 @@ export default function Form() {
 	  function handleChange(event) {
 				const { name, value, type, checked, dataset } = event.target;
 			
-				const isMultiValue = ['skinColor', 'shape', 'health', 'nationality', 'country', 'city', 'residence'].includes(name);
+				const isMultiValue = ['skinColor', 'shape', 'health', 'nationality', 'country', 'city', 'residence',
+					'familyStatus', 'marriageType', 'gender', 'smoking', 'religiousCommitment', 'doctrine', 'religion',
+					'alcoholDrgus'
+				].includes(name);
 			
 				setFormData(prevFormData => {
 					let newValue;
@@ -170,9 +174,9 @@ export default function Form() {
 					{step === 0 && <LoginInfo handleStep = {handleStep} handleChange = {handleChange} formData={formData} setFormData = {setFormData} errorMessage = {errorMessage} setErrorMessage = {setErrorMessage} />}
 					{step === 1 && <PersonalInfo handleStep = {handleStep} handleChange = {handleChange} formData={formData} setFormData = {setFormData} errorMessage = {errorMessage} setErrorMessage = {setErrorMessage} />}
 					{step === 2 && <Nationality handleStep = {handleStep} handleChange = {handleChange} formData={formData} setFormData = {setFormData} errorMessage = {errorMessage} setErrorMessage = {setErrorMessage} />}
-					{step === 3 && <FamilyStatus handleStep = {handleStep} handleChange = {handleChange} formData={formData} setFormData = {setFormData} errorMessage = {errorMessage} setErrorMessage = {setErrorMessage} />}
-					{step === 4 && <Education handleStep = {handleStep} handleChange = {handleChange} formData={formData} setFormData = {setFormData} errorMessage = {errorMessage} setErrorMessage = {setErrorMessage} />}
-					{step === 5 && <Religion handleStep = {handleStep} handleChange = {handleChange} formData={formData} setFormData = {setFormData} errorMessage = {errorMessage} setErrorMessage = {setErrorMessage} />}
+					{step === 3 && <Religion handleStep = {handleStep} handleChange = {handleChange} formData={formData} setFormData = {setFormData} errorMessage = {errorMessage} setErrorMessage = {setErrorMessage} />}
+					{step === 4 && <FamilyStatus handleStep = {handleStep} handleChange = {handleChange} formData={formData} setFormData = {setFormData} errorMessage = {errorMessage} setErrorMessage = {setErrorMessage} />}
+					{step === 5 && <Education handleStep = {handleStep} handleChange = {handleChange} formData={formData} setFormData = {setFormData} errorMessage = {errorMessage} setErrorMessage = {setErrorMessage} />}
 					{step === 6 && <Description handleStep = {handleStep} handleChange = {handleChange} formData={formData} setFormData = {setFormData} errorMessage = {errorMessage} setErrorMessage = {setErrorMessage} />}
 					{step === 7 && <ColorTest handleStep = {handleStep} handleChange = {handleChange} formData={formData} setFormData = {setFormData} errorMessage = {errorMessage} setErrorMessage = {setErrorMessage} />}
 				</div>

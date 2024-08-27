@@ -15,7 +15,7 @@ export default function Religion({handleChange, formData, setFormData, errorMess
         <div className={`${Styles.inputHolder} relative w-full`}>
           <select 
                   id="Religion"
-                  value={formData.religion}
+                  value={formData.religion ? JSON.stringify(formData.religion) : ''}
                   onChange={handleChange}
                   name="religion"
                   aria-label={i18n.language == 'ar' ? 'الديانة' : 'Religion'}
@@ -23,7 +23,7 @@ export default function Religion({handleChange, formData, setFormData, errorMess
                     formData.religion ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
                   } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-pointer`}
               >
-                  <option value="">{i18n.language == 'ar' ? '-- اختر --' : '-- Choose --'}</option>
+                  <option value={JSON.stringify(["", ""])}>{i18n.language == 'ar' ? '-- اختر --' : '-- Choose --'}</option>
           </select>
           <label
               htmlFor="Religion"
@@ -37,7 +37,7 @@ export default function Religion({handleChange, formData, setFormData, errorMess
         <div className={`${Styles.inputHolder} relative w-full`}>
           <select 
                   id="Doctrine"
-                  value={formData.doctrine}
+                  value={formData.doctrine ? JSON.stringify(formData.doctrine) : ''}
                   onChange={handleChange}
                   name="doctrine"
                   aria-label={i18n.language == 'ar' ? 'المذهب' : 'Doctrine'}
@@ -45,7 +45,7 @@ export default function Religion({handleChange, formData, setFormData, errorMess
                     formData.doctrine ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
                   } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-pointer`}
               >
-                  <option value="">{i18n.language == 'ar' ? '-- اختر --' : '-- Choose --'}</option>
+                  <option value={JSON.stringify(["", ""])}>{i18n.language == 'ar' ? '-- اختر --' : '-- Choose --'}</option>
           </select>
           <label
               htmlFor="Doctrine"
@@ -59,7 +59,7 @@ export default function Religion({handleChange, formData, setFormData, errorMess
         <div className={`${Styles.inputHolder} relative w-full`}>
           <select 
                   id="ReligiousCommitment"
-                  value={formData.religiousCommitment}
+                  value={formData.religiousCommitment ? JSON.stringify(formData.religiousCommitment) : ''}
                   onChange={handleChange}
                   name="religiousCommitment"
                   aria-label={i18n.language == 'ar' ? 'الإلتزام الديني' : 'Religious Commitment'}
@@ -67,7 +67,7 @@ export default function Religion({handleChange, formData, setFormData, errorMess
                     formData.religiousCommitment ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
                   } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-pointer`}
               >
-                  <option value="">{i18n.language == 'ar' ? '-- اختر --' : '-- Choose --'}</option>
+                  <option value={JSON.stringify(["", ""])}>{i18n.language == 'ar' ? '-- اختر --' : '-- Choose --'}</option>
           </select>
           <label
               htmlFor="ReligiousCommitment"
@@ -81,7 +81,7 @@ export default function Religion({handleChange, formData, setFormData, errorMess
         <div className={`${Styles.inputHolder} relative w-full`}>
           <select 
                   id="Smoking"
-                  value={formData.smoking}
+                  value={formData.smoking ? JSON.stringify(formData.smoking) : ''}
                   onChange={handleChange}
                   name="smoking"
                   aria-label={i18n.language == 'ar' ? 'التدخين' : 'Smoking'}
@@ -89,7 +89,9 @@ export default function Religion({handleChange, formData, setFormData, errorMess
                     formData.smoking ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
                   } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-pointer`}
               >
-                  <option value="">{i18n.language == 'ar' ? '-- اختر --' : '-- Choose --'}</option>
+                  <option value={JSON.stringify(["", ""])}>{i18n.language === 'ar' ? '-- اختر --' : '-- Choose --'}</option>
+                  <option value={JSON.stringify(['مدخن', 'Smoker'])}>{i18n.language === 'ar' ? 'مدخن' : 'Smoker'}</option>
+                  <option value={JSON.stringify(['غير مدخن', 'Non-Smoker'])}>{i18n.language === 'ar' ? 'غير مدخن' : 'Non-Smoker'}</option>
           </select>
           <label
               htmlFor="Smoking"
@@ -103,7 +105,7 @@ export default function Religion({handleChange, formData, setFormData, errorMess
         <div className={`${Styles.inputHolder} relative w-full`}>
           <select 
                   id="AlcoholDrugs"
-                  value={formData.alcoholDrugs}
+                  value={formData.alcoholdrugs ? JSON.stringify(formData.alcoholdrugs) : ''}
                   onChange={handleChange}
                   name="alcoholdrugs"
                   aria-label={i18n.language == 'ar' ? 'الكحول أو المخدرات' : 'alcohol or drugs'}
@@ -111,7 +113,7 @@ export default function Religion({handleChange, formData, setFormData, errorMess
                     formData.alcoholDrugs ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
                   } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-pointer`}
               >
-                  <option value="">{i18n.language == 'ar' ? '-- اختر --' : '-- Choose --'}</option>
+                  <option value={JSON.stringify(["", ""])}>{i18n.language == 'ar' ? '-- اختر --' : '-- Choose --'}</option>
           </select>
           <label
               htmlFor="AlcoholDrugs"

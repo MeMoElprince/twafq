@@ -14,6 +14,30 @@ export default function LoginInfo({handleChange, formData, setFormData, errorMes
       <div className="Form center flex-col gap-10 w-[70%]">
         <h3 className="bg-LightPink px-4 py-4 rounded-lg text-[16px] font-semibold text-center">{t("loginInfo.phoneMsg")}</h3>
         <div className={`${Styles.inputHolder} relative w-full`}>
+          <select 
+                  id="Gender"
+                  value={formData.gender ? JSON.stringify(formData.gender) : ''}
+                  onChange={handleChange}
+                  name="gender"
+                  aria-label={i18n.language == 'ar' ? 'الحالة العائلية' : 'Family Status'}
+                  className={`myFont w-full py-2 px-3 border-b-[3px] ${
+                    formData.gender ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
+                  } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-pointer`}
+              >
+                  <option value={JSON.stringify(["", ""])}>{i18n.language === 'ar' ? '-- اختر --' : '-- Choose --'}</option>
+                  <option value={JSON.stringify(['ذكر', 'Male'])}>{i18n.language === 'ar' ? 'ذكر' : 'Male'}</option>
+                  <option value={JSON.stringify(['أنثى', 'Female'])}>{i18n.language === 'ar' ? 'أنثى' : 'Female'}</option>
+          </select>
+          <label
+              htmlFor="Gender"
+              className={`inputLabel absolute top-[15px] ${
+                isRTL ? "-right-2" : "-left-2"
+              } text-Black transform pointer-events-none -translate-y-2.5 px-1 myFont w-[100%] text-[19px] font-semibold`} style={{ top: '-12px' }}
+            >
+              {t("loginInfo.gender")}
+            </label>
+        </div>
+        <div className={`${Styles.inputHolder} relative w-full`}>
           <input
             id="userPhone"
             type="text"

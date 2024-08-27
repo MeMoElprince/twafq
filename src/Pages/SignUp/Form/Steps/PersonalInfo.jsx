@@ -177,11 +177,11 @@ export default function PersonalInfo({handleChange, formData, setFormData, error
                 } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-pointer`}
             >
                 <option value={JSON.stringify(["", ""])}>{i18n.language === 'ar' ? '-- اختر --' : '-- Choose --'}</option>
-                <option value={JSON.stringify(['White', 'White'])}>{i18n.language === 'ar' ? 'أبيض' : 'White'}</option>
-                <option value={JSON.stringify(['Olive', 'Olive'])}>{i18n.language === 'ar' ? 'قمحاوي مائل للبياض' : 'Olive'}</option>
-                <option value={JSON.stringify(['Moderate Brown', 'Moderate Brown'])}>{i18n.language === 'ar' ? 'قمحاوي' : 'Moderate Brown'}</option>
-                <option value={JSON.stringify(['Brown', 'Brown'])}>{i18n.language === 'ar' ? 'أسمر' : 'Brown'}</option>
-                <option value={JSON.stringify(['Dark Brown', 'Dark Brown'])}>{i18n.language === 'ar' ? 'أسمر غامق' : 'Dark Brown'}</option>
+                <option value={JSON.stringify(['أبيض', 'White'])}>{i18n.language === 'ar' ? 'أبيض' : 'White'}</option>
+                <option value={JSON.stringify(['قمحاوي مائل للبياض', 'Olive'])}>{i18n.language === 'ar' ? 'قمحاوي مائل للبياض' : 'Olive'}</option>
+                <option value={JSON.stringify(['قمحاوي', 'Moderate Brown'])}>{i18n.language === 'ar' ? 'قمحاوي' : 'Moderate Brown'}</option>
+                <option value={JSON.stringify(['أسمر', 'Brown'])}>{i18n.language === 'ar' ? 'أسمر' : 'Brown'}</option>
+                <option value={JSON.stringify(['أسمر غامق', 'Dark Brown'])}>{i18n.language === 'ar' ? 'أسمر غامق' : 'Dark Brown'}</option>
             </select>
             <label
                 htmlFor="SkinColor"
@@ -197,7 +197,7 @@ export default function PersonalInfo({handleChange, formData, setFormData, error
         <div className={`relative w-full`}>
             <select 
                 id="Shape"
-                value={formData.shape ? JSON.stringify(formData.shape) : ''} // Stringify the array for 
+                value={formData.shape ? JSON.stringify(formData.shape) : ''}
                 onChange={handleChange}
                 name="shape"
                 aria-label={i18n.language === 'ar' ? 'شكل الجسم' : 'Body Shape'}
@@ -206,10 +206,10 @@ export default function PersonalInfo({handleChange, formData, setFormData, error
                 } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-pointer`}
             >
                 <option value={JSON.stringify(["", ""])}>{i18n.language === 'ar' ? '-- اختر --' : '-- Choose --'}</option>
-                <option value={JSON.stringify(['Slim', 'Slim'])}>{i18n.language === 'ar' ? 'نحيف' : 'Slim'}</option>
-                <option value={JSON.stringify(['Average', 'Average'])}>{i18n.language === 'ar' ? 'متوسط' : 'Average'}</option>
-                <option value={JSON.stringify(['Overweight', 'Overweight'])}>{i18n.language === 'ar' ? 'سمين' : 'Overweight'}</option>
-                <option value={JSON.stringify(['Athletic', 'Athletic'])}>{i18n.language === 'ar' ? 'رياضي' : 'Athletic'}</option>
+                <option value={JSON.stringify(['نحيف', 'Slim'])}>{i18n.language === 'ar' ? 'نحيف' : 'Slim'}</option>
+                <option value={JSON.stringify(['متوسط', 'Average'])}>{i18n.language === 'ar' ? 'متوسط' : 'Average'}</option>
+                <option value={JSON.stringify(['سمين', 'Overweight'])}>{i18n.language === 'ar' ? 'سمين' : 'Overweight'}</option>
+                <option value={JSON.stringify(['رياضي', 'Athletic'])}>{i18n.language === 'ar' ? 'رياضي' : 'Athletic'}</option>
             </select>
             <label
                 htmlFor="Shape"
