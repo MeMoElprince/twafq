@@ -21,7 +21,7 @@ export default function Form() {
 	// const { isLogedIn, setIsLogedIn, setToken } = useContext(AuthenticationContext)
 	const { isRTL, setIsRTL } = useLayoutDirection();
 	const { t, i18n } = useTranslation("global");
-	const [step, setStep] = useState(3)
+	const [step, setStep] = useState(5)
 	const [loading, setLoading] = useState(false)
 	const [data, setData] = useState(null)
 	const [errorMessage, setErrorMessage] = useState('')
@@ -50,9 +50,9 @@ export default function Form() {
 			familyStatus : ["", ""],
 			marriageType : ["", ""],
 			children : '',
-			educationLevel : '',
+			educationLevel : ["", ""],
 			work : '',
-			financialStatus : '',
+			financialStatus : ["", ""],
 			religion : ["", ""],
 			doctrine : ["", ""],
 			religiousCommitment : ["", ""],
@@ -78,7 +78,7 @@ export default function Form() {
 			
 				const isMultiValue = ['skinColor', 'shape', 'health', 'nationality', 'country', 'city', 'residence',
 					'familyStatus', 'marriageType', 'gender', 'smoking', 'religiousCommitment', 'doctrine', 'religion',
-					'alcoholDrgus'
+					'alcoholDrgus', 'educationLevel', 'financialStatus'
 				].includes(name);
 			
 				setFormData(prevFormData => {
@@ -138,6 +138,8 @@ export default function Form() {
 	function handleStep(type) {
 		setStep(prevStep => {
 		  let newStep = prevStep + type;
+		  if(newStep === 4 && formData.religion[1] === 'Christianity')
+				newStep += type;
 		  if (newStep < 0) newStep = 0;
 		  if (newStep > 7) newStep = 7;
 		  return newStep;

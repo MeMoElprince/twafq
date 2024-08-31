@@ -23,7 +23,9 @@ export default function Religion({handleChange, formData, setFormData, errorMess
                     formData.religion ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
                   } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-pointer`}
               >
-                  <option value={JSON.stringify(["", ""])}>{i18n.language == 'ar' ? '-- اختر --' : '-- Choose --'}</option>
+              <option value={JSON.stringify(["", ""])}>{i18n.language === 'ar' ? '-- اختر --' : '-- Choose --'}</option>
+              <option value={JSON.stringify(['الإسلام', 'Islam'])}>{i18n.language === 'ar' ? 'الإسلام' : 'Islam'}</option>
+              <option value={JSON.stringify(['المسيحية', 'Christianity'])}>{i18n.language === 'ar' ? 'المسيحية' : 'Christianity'}</option>
           </select>
           <label
               htmlFor="Religion"
@@ -45,7 +47,20 @@ export default function Religion({handleChange, formData, setFormData, errorMess
                     formData.doctrine ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
                   } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-pointer`}
               >
-                  <option value={JSON.stringify(["", ""])}>{i18n.language == 'ar' ? '-- اختر --' : '-- Choose --'}</option>
+                  <option value={JSON.stringify(["", ""])}>{i18n.language === 'ar' ? '-- اختر --' : '-- Choose --'}</option>
+                    {formData.religion[0] === 'الإسلام' && (
+                      <>
+                        <option value={JSON.stringify(['سني', 'Sunni'])}>{i18n.language === 'ar' ? 'سني' : 'Sunni'}</option>
+                        <option value={JSON.stringify(['شيعي', 'Shia'])}>{i18n.language === 'ar' ? 'شيعي' : 'Shia'}</option>
+                      </>
+                    )}
+                    {formData.religion[0] === 'المسيحية' && (
+                      <>
+                        <option value={JSON.stringify(['الكاثوليكية', 'Catholic'])}>{i18n.language === 'ar' ? 'الكاثوليكية' : 'Catholic'}</option>
+                        <option value={JSON.stringify(['البروتستانتية', 'Protestant'])}>{i18n.language === 'ar' ? 'البروتستانتية' : 'Protestant'}</option>
+                        <option value={JSON.stringify(['الأرثوذكسية', 'Orthodox'])}>{i18n.language === 'ar' ? 'الأرثوذكسية' : 'Orthodox'}</option>
+                      </>
+                    )}
           </select>
           <label
               htmlFor="Doctrine"
@@ -67,8 +82,22 @@ export default function Religion({handleChange, formData, setFormData, errorMess
                     formData.religiousCommitment ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
                   } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-pointer`}
               >
-                  <option value={JSON.stringify(["", ""])}>{i18n.language == 'ar' ? '-- اختر --' : '-- Choose --'}</option>
-          </select>
+                  <option value={JSON.stringify(["", ""])}>
+                      {i18n.language == 'ar' ? '-- اختر --' : '-- Choose --'}
+                  </option>
+                  <option value={JSON.stringify(['غير ملتزم', 'Not Committed'])}>
+                      {i18n.language == 'ar' ? 'غير ملتزم' : 'Not Committed'}
+                  </option>
+                  <option value={JSON.stringify(['ملتزم قليلاً', 'Slightly Committed'])}>
+                      {i18n.language == 'ar' ? 'ملتزم قليلاً' : 'Slightly Committed'}
+                  </option>
+                  <option value={JSON.stringify(['ملتزم', 'Committed'])}>
+                      {i18n.language == 'ar' ? 'ملتزم' : 'Committed'}
+                  </option>
+                  <option value={JSON.stringify(['ملتزم جداً', 'Highly Committed'])}>
+                      {i18n.language == 'ar' ? 'ملتزم جداً' : 'Highly Committed'}
+                  </option>
+            </select>
           <label
               htmlFor="ReligiousCommitment"
               className={`inputLabel absolute top-[15px] ${
@@ -102,7 +131,7 @@ export default function Religion({handleChange, formData, setFormData, errorMess
               {t("religion.smoking")}
             </label>
         </div>
-        <div className={`${Styles.inputHolder} relative w-full`}>
+        {/* <div className={`${Styles.inputHolder} relative w-full`}>
           <select 
                   id="AlcoholDrugs"
                   value={formData.alcoholdrugs ? JSON.stringify(formData.alcoholdrugs) : ''}
@@ -123,7 +152,7 @@ export default function Religion({handleChange, formData, setFormData, errorMess
             >
               {t("religion.alcoholDrugs")}
             </label>
-        </div>
+        </div> */}
         {/* <div className={`${Styles.forgotPassword} self-end mt-[-15px]`}>
                     <button onClick={() => { setType('forgotpassword') }} type='button' className={`${Styles.clickableButton}`}><p className='myFont text-[18px] opacity-80 cursor-pointer font-medium'>نسيت كلمة السر</p></button>
                 </div> */}

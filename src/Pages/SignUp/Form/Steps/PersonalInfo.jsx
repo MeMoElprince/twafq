@@ -38,7 +38,7 @@ export default function PersonalInfo({handleChange, formData, setFormData, error
 
   return (
     <>
-      <h2 className="Title text-Black myFont text-[25px] font-semibold">
+      <h2 className="Title text-Black myFont text-[25px] font-semibold mb-4">
         {t("personalInfo.title")}
       </h2>
       <div className="Form center flex-col gap-10 w-[70%]">
@@ -57,8 +57,8 @@ export default function PersonalInfo({handleChange, formData, setFormData, error
           <label
             htmlFor="FirstName"
             className={`inputLabel absolute top-[15px] ${
-              isRTL ? "right-2" : "left-2"
-            } text-Black/70 transform -translate-y-2.5 px-1 myFont text-lg w-[100%]`}
+              isRTL ? "-right-2" : "-left-2"
+            } text-Black transform -translate-y-2.5 myFont text-lg w-[100%] -z-20`}
           >
             {t("personalInfo.firstName")}
           </label>
@@ -78,8 +78,8 @@ export default function PersonalInfo({handleChange, formData, setFormData, error
           <label
             htmlFor="LastName"
             className={`inputLabel absolute top-[15px] ${
-              isRTL ? "right-2" : "left-2"
-            } text-Black/70 transform -translate-y-2.5 px-1 myFont text-lg w-[100%]`}
+              isRTL ? "-right-2" : "-left-2"
+            } text-Black transform -translate-y-2.5 myFont text-lg w-[100%] -z-20`}
           >
             {t("personalInfo.lastName")}
           </label>

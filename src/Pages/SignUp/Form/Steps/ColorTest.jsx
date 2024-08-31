@@ -40,9 +40,9 @@ export default function ColorTest({handleChange, formData, setFormData, errorMes
             onChange={handleChange}
             className="cursor-pointer w-6 h-6"
           />
-          <label htmlFor="isChecked" className="text-[18px] font-semibold">
-            <span className="text-Black">{t("colorTest.termsOne")}</span> <span className="text-Black underline cursor-pointer">{t("colorTest.termsTwo")}</span>
-          </label>
+          <div className="text-[18px] font-semibold">
+            <label htmlFor="isChecked" className="text-Black">{t("colorTest.termsOne")}</label> <span className="text-Black underline cursor-pointer">{t("colorTest.termsTwo")}</span>
+          </div>
         </div>
 
         <div className="w-full center gap-4">

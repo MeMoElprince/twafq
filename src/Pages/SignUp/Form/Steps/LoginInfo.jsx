@@ -52,8 +52,8 @@ export default function LoginInfo({handleChange, formData, setFormData, errorMes
           <label
             htmlFor="userPhone"
             className={`inputLabel absolute top-[15px] ${
-              isRTL ? "right-2" : "left-2"
-            } text-Black/70 transform pointer-events-none -translate-y-2.5 px-1 myFont text-lg w-[100%]`}
+                isRTL ? "-right-2" : "-left-2"
+              } text-Black transform -translate-y-2.5 myFont text-lg w-[100%] -z-20`}
           >
             {t("loginInfo.phone")}
           </label>
@@ -73,8 +73,8 @@ export default function LoginInfo({handleChange, formData, setFormData, errorMes
           <label
             htmlFor="userEmail"
             className={`inputLabel absolute top-[15px] ${
-              isRTL ? "right-2" : "left-2"
-            } text-Black/70 transform pointer-events-none -translate-y-2.5 px-1 myFont text-lg w-[100%]`}
+                isRTL ? "-right-2" : "-left-2"
+              } text-Black transform -translate-y-2.5 myFont text-lg w-[100%] -z-20`}
           >
             {t("loginInfo.email")}
           </label>
@@ -98,8 +98,8 @@ export default function LoginInfo({handleChange, formData, setFormData, errorMes
           <label
             htmlFor="userPassword"
             className={`inputLabel absolute top-[15px] ${
-              isRTL ? "right-2" : "left-2"
-            } text-Black/70 transform pointer-events-none -translate-y-2.5 px-1 myFont text-lg w-[100%]`}
+                isRTL ? "-right-2" : "-left-2"
+              } text-Black transform -translate-y-2.5 myFont text-lg w-[100%] -z-20`}
           >
             {t("loginInfo.password")}
           </label>
@@ -125,8 +125,8 @@ export default function LoginInfo({handleChange, formData, setFormData, errorMes
           <label
             htmlFor="userPassword"
             className={`inputLabel absolute top-[15px] ${
-              isRTL ? "right-2" : "left-2"
-            } text-Black/70 transform pointer-events-none -translate-y-2.5 px-1 myFont text-lg w-[100%]`}
+                isRTL ? "-right-2" : "-left-2"
+              } text-Black transform -translate-y-2.5 myFont text-lg w-[100%] -z-20`}
           >
             {t("loginInfo.confirmPass")}
           </label>

@@ -15,7 +15,7 @@ export default function Education({handleChange, formData, setFormData, errorMes
         <div className={`${Styles.inputHolder} relative w-full`}>
           <select 
                   id="EducationLevel"
-                  value={formData.educationLevel}
+                  value={formData.educationLevel ? JSON.stringify(formData.educationLevel) : ''}
                   onChange={handleChange}
                   name="educationLevel"
                   aria-label={i18n.language == 'ar' ? 'المؤهل' : 'Education Level'}
@@ -23,7 +23,27 @@ export default function Education({handleChange, formData, setFormData, errorMes
                     formData.educationLevel ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
                   } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-pointer`}
               >
-                  <option value="">{i18n.language == 'ar' ? '-- اختر --' : '-- Choose --'}</option>
+                  <option value={JSON.stringify(["", ""])}>
+                      {i18n.language == 'ar' ? '-- اختر --' : '-- Choose --'}
+                  </option>
+                  <option value={JSON.stringify(['دون تعليم', 'No Education'])}>
+                      {i18n.language == 'ar' ? 'دون تعليم' : 'No Education'}
+                  </option>
+                  <option value={JSON.stringify(['شهادة المتوسطة', 'Middle School'])}>
+                      {i18n.language == 'ar' ? 'شهادة المتوسطة' : 'Middle School'}
+                  </option>
+                  <option value={JSON.stringify(['شهادة ثانوية', 'High School'])}>
+                      {i18n.language == 'ar' ? 'شهادة ثانوية' : 'High School'}
+                  </option>
+                  <option value={JSON.stringify(['درجة البكالوريوس', 'Bachelor\'s Degree'])}>
+                      {i18n.language == 'ar' ? 'درجة البكالوريوس' : 'Bachelor\'s Degree'}
+                  </option>
+                  <option value={JSON.stringify(['درجة الماجستير', 'Master\'s Degree'])}>
+                      {i18n.language == 'ar' ? 'درجة الماجستير' : 'Master\'s Degree'}
+                  </option>
+                  <option value={JSON.stringify(['درجة الدكتوراه', 'Doctorate'])}>
+                      {i18n.language == 'ar' ? 'درجة الدكتوراه' : 'Doctorate'}
+                  </option>
           </select>
           <label
               htmlFor="EducationLevel"
@@ -35,23 +55,22 @@ export default function Education({handleChange, formData, setFormData, errorMes
             </label>
         </div>
         <div className={`${Styles.inputHolder} relative w-full`}>
-          <select 
-                  id="Work"
-                  value={formData.work}
-                  onChange={handleChange}
-                  name="work"
-                  aria-label={i18n.language == 'ar' ? 'العمل' : 'Work'}
-                  className={`myFont w-full py-2 px-3 border-b-[3px] ${
-                    formData.work ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
-                  } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-pointer`}
-              >
-                  <option value="">{i18n.language == 'ar' ? '-- اختر --' : '-- Choose --'}</option>
-          </select>
-          <label
+            <input
+              id="Work"
+              type="text"
+              onChange={handleChange}
+              name="work"
+              placeholder="Work"
+              value={formData.work}
+              className={`myFont w-full py-2 px-3 border-b-[3px] ${
+                formData.work ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
+              } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-text`}
+            />
+            <label
               htmlFor="Work"
               className={`inputLabel absolute top-[15px] ${
                 isRTL ? "-right-2" : "-left-2"
-              } text-Black transform pointer-events-none -translate-y-2.5 px-1 myFont w-[100%] text-[19px] font-semibold`} style={{ top: '-12px' }}
+              } text-Black transform -translate-y-2.5 myFont text-lg w-[100%] -z-20`}
             >
               {t("education.work")}
             </label>
@@ -59,7 +78,7 @@ export default function Education({handleChange, formData, setFormData, errorMes
         <div className={`${Styles.inputHolder} relative w-full`}>
           <select 
                   id="FinancialStatus"
-                  value={formData.financialStatus}
+                  value={formData.financialStatus ? JSON.stringify(formData.financialStatus) : ''}
                   onChange={handleChange}
                   name="financialStatus"
                   aria-label={i18n.language == 'ar' ? 'الحالة المادية' : 'Financial Status'}
@@ -67,7 +86,24 @@ export default function Education({handleChange, formData, setFormData, errorMes
                     formData.financialStatus ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
                   } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-pointer`}
               >
-                  <option value="">{i18n.language == 'ar' ? '-- اختر --' : '-- Choose --'}</option>
+                  <option value={JSON.stringify(["", ""])}>
+                      {i18n.language == 'ar' ? '-- اختر --' : '-- Choose --'}
+                  </option>
+                  <option value={JSON.stringify(['فقير', 'Poor'])}>
+                      {i18n.language == 'ar' ? 'فقير' : 'Poor'}
+                  </option>
+                  <option value={JSON.stringify(['أقل من المتوسط', 'Less than Average'])}>
+                      {i18n.language == 'ar' ? 'أقل من المتوسط' : 'Less than Average'}
+                  </option>
+                  <option value={JSON.stringify(['متوسط', 'Average'])}>
+                      {i18n.language == 'ar' ? 'متوسط' : 'Average'}
+                  </option>
+                  <option value={JSON.stringify(['جيد', 'Good'])}>
+                      {i18n.language == 'ar' ? 'جيد' : 'Good'}
+                  </option>
+                  <option value={JSON.stringify(['غني', 'Wealthy'])}>
+                      {i18n.language == 'ar' ? 'غني' : 'Wealthy'}
+                  </option>
           </select>
           <label
               htmlFor="FinancialStatus"

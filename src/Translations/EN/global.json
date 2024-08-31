@@ -77,7 +77,16 @@
     "colorTest": {
         "title": "Color Test",
         "description": "Select all the colors you like from the following options, making sure to choose the colors accurately and honestly to correctly calculate your compatibility.",
-        "termsOne" : "I agree to all",
+        "termsOne" : "I Agree to all",
         "termsTwo" : "terms & conditions"
+    },
+    "contact": {
+        "title": "We're Here to Help!",
+        "description": "Have you faced a problem or have an inquiry? We're here to help! Reach out to us, and we'd love to hear from you and provide the support you need.",
+        "name": "Name",
+        "email": "Email",
+        "subject": "Subject",
+        "message": "Message",
+        "submit" : "Send"
     }
 }
