@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from "react"
 import { Outlet } from "react-router-dom"
 import NavBar from "../Components/NavBar/NavBar"
+import Footer from "../Components/Footer/Footer"
 import useFetch from '../Components/CustomHooks/useFetch'
 import { MyDataUrl } from '../Store/urls';
 import Cookies from "js-cookie";
@@ -64,6 +65,7 @@ export default function Root() {
       <div>
         <BackdropHolder />
       </div>
+      <Footer />
     </main>
   )
 }

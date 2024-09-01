@@ -19,13 +19,13 @@
     "loginInfo" : {
         "next" : "Next",
         "prev" : "Previous",
+        "phoneMsg" : "Phone numbers will only be shared if both users agree",
         "title" : "Login Information",
+        "gender" : "Gender",
+        "phone" : "Phone Number",
         "email" : "Email",
         "password" : "Password",
-        "confirmPass" : "Confrim Password",
-        "phone" : "Phone Number",
-        "phoneMsg" : "Phone numbers will only be shared if both users agree",
-        "gender" : "Gender"
+        "confirmPass" : "Confrim Password"
     },
     "personalInfo" : {
         "next" : "Next",
@@ -46,8 +46,16 @@
         "title" : "Nationality",
         "nationality" : "Nationality",
         "country" : "Country",
-        "city" : "City (optional)",
+        "city" : "City",
         "residence" : "Residence"
+    },
+    "religion" : {
+        "title": "Religion",
+        "religion": "Religion",
+        "doctrine": "Doctrine",
+        "religiousCommitment": "Religious Commitment",
+        "smoking": "Smoking",
+        "alcoholDrugs": "Alcohol or Drugs"
     },
     "familyStatus" : {
         "title" : "Family Status",
@@ -60,14 +68,6 @@
         "educationLevel" : "Education Level",
         "work" : "Work",
         "financialStatus" : "Financial Status"
-    },
-    "religion" : {
-        "title": "Religion",
-        "religion": "Religion",
-        "doctrine": "Doctrine",
-        "religiousCommitment": "Religious Commitment",
-        "smoking": "Smoking",
-        "alcoholDrugs": "Alcohol or Drugs"
     },
     "description" : {
         "title": "Description",

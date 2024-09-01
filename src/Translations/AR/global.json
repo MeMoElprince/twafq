@@ -19,13 +19,13 @@
     "loginInfo" : {
         "next" : "التالي",
         "prev" : "السابق",
+        "phoneMsg" : "علماً بأن رقم الهاتف لا تتم مشاركته الا بموافقة الطرفين",
         "title" : "بيانات الحساب",
+        "gender" : "الجنس",
+        "phone" : "رقم الهاتف",
         "email" : "البريد الإلكتروني",
         "password" : "كلمة المرور",
-        "confirmPass" : "تأكيد كلمة المرور",
-        "phone" : "رقم الهاتف",
-        "phoneMsg" : "علماً بأن رقم الهاتف لا تتم مشاركته الا بموافقة الطرفين",
-        "gender" : "الجنس"
+        "confirmPass" : "تأكيد كلمة المرور"
     },
     "personalInfo" : {
         "next" : "التالي",
@@ -46,8 +46,16 @@
         "title" : "الجنسية",
         "nationality" : "الجنسية",
         "country" : "البلد",
-        "city" : "المدينة (اختياري)",
+        "city" : "المدينة",
         "residence" : "الإقامة"
+    },
+    "religion" : {
+        "title": "الدين",
+        "religion": "الديانة",
+        "doctrine": "المذهب",
+        "religiousCommitment": "الإلتزام الديني",
+        "smoking": "التدخين",
+        "alcoholDrugs": "الكحول أو المخدرات"
     },
     "familyStatus" : {
         "title" : "الحالة العائلية",
@@ -60,14 +68,6 @@
         "educationLevel" : "المؤهل",
         "work" : "العمل",
         "financialStatus" : "الحالة المادية"
-    },
-    "religion" : {
-        "title": "الدين",
-        "religion": "الديانة",
-        "doctrine": "المذهب",
-        "religiousCommitment": "الإلتزام الديني",
-        "smoking": "التدخين",
-        "alcoholDrugs": "الكحول أو المخدرات"
     },
     "description" : {
         "title": "الوصف",
