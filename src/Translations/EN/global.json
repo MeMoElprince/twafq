@@ -88,5 +88,10 @@
         "subject": "Subject",
         "message": "Message",
         "submit" : "Send"
+    },
+    "aboutSec1": {
+        "title": "Find your perfect match with our unique color test at",
+        "description": "Our unique color test helps you find the ideal partner for marriage. Get personalized match percentages and connect with the one who truly suits you.",
+        "buttonText": "FIND YOUR MATCH"
     }
 }

@@ -55,7 +55,7 @@ export default function Root() {
   const BackDropStyle =
     BackDropActive ? 'opacity-30 imgSettings' : ''
   return (
-    <main className="bg-Black">
+    <main className="bg-White">
       <NavBar />
       <div onClick={() => { setBackDropActive(false) }}>
         <div className={BackDropStyle}>

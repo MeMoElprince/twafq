@@ -15,6 +15,7 @@ import ItemDetails from './Pages/ItemDetails/index'
 import SearchPage from './Pages/SearchPage/index'
 import Contact from './Pages/Contact/index'
 import Blogs from './Pages/Blogs/index'
+import About from "./Pages/About/index"
 
 function App() {
   const { BackDropActive } = useContext(BackDropContext)
@@ -28,6 +29,7 @@ function App() {
           <Route path="SignUp" element={<SignUp />} />
           <Route path="Contact" element={<Contact />} />
           <Route path="Blogs" element={<Blogs />} />
+          <Route path="About" element={<About />} />
           <Route path="TopRated" element={<TopRated />} />
           <Route path="Cart" element={<Cart />} />
           <Route path="Explore" element={<Explore />} />

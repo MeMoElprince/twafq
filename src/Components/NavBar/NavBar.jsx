@@ -50,8 +50,8 @@ const Navbar = () => {
               <Link to="/" className="text-Black hover:text-DarkPink transition-colors duration-150 block rounded-md text-lg font-medium">{t("navbar.home")}</Link>
               <Link to="/services" className="text-Black hover:text-DarkPink transition-colors duration-150 block rounded-md text-lg font-medium">{t("navbar.partner")}</Link>
               <Link to="/services" className="text-Black hover:text-DarkPink transition-colors duration-150 block rounded-md text-lg font-medium">{t("navbar.service")}</Link>
-              <Link to="/blogs" className="text-Black hover:text-DarkPink block transition-colors duration-150 rounded-md text-lg font-medium">{t("navbar.about")}</Link>
-              <Link to="/about" className="text-Black hover:text-DarkPink transition-colors duration-150 block rounded-md text-lg font-medium">{t("navbar.blog")}</Link>
+              <Link to="/about" className="text-Black hover:text-DarkPink block transition-colors duration-150 rounded-md text-lg font-medium">{t("navbar.about")}</Link>
+              <Link to="/blogs" className="text-Black hover:text-DarkPink transition-colors duration-150 block rounded-md text-lg font-medium">{t("navbar.blog")}</Link>
               <Link to="/contact" className="text-Black hover:text-DarkPink block transition-colors duration-150 rounded-md text-lg font-medium">{t("navbar.contact")}</Link>
               <Link to="/login" className="bg-red-500 text-white hover:text-Black transition-colors duration-150 block px-16 py-2 rounded-full text-center mt-6 text-lg">{t("navbar.login")}</Link>
             </div>

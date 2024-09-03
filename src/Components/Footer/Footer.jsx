@@ -10,8 +10,8 @@ function Footer() {
     const { isRTL, setIsRTL } = useLayoutDirection();
 
   return (
-    <footer className="bg-[#101010] p-10 font-[sans-serif] tracking-wide px-16">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+    <footer className="bg-[#101010] p-10 myFont tracking-wide px-16">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 place-items-center">
         <div className="lg:flex lg:items-center">
           <a href="javascript:void(0)">
             <Link to="/">
@@ -20,7 +20,7 @@ function Footer() {
           </a>
         </div>
         <div className="lg:flex lg:items-center">
-          <ul className="flex gap-4">
+          <ul className="center gap-4 h-full">
             <li>
               <a href="javascript:void(0)">
                 <svg xmlns="http://www.w3.org/2000/svg" className="fill-gray-300 hover:fill-white w-7 h-7" viewBox="0 0 24 24">
@@ -51,7 +51,7 @@ function Footer() {
           </ul>
         </div>
 
-        <div>
+        <div className='md:place-self-center place-self-start'>
           <h4 className="text-lg font-semibold mb-6 text-white">{i18n.language == 'ar' ? "تواصل معنا" : "Contact Us"}</h4>
           <ul className="space-y-4">
             <li>
@@ -66,7 +66,7 @@ function Footer() {
           </ul>
         </div>
 
-        <div>
+        <div className='md:place-self-center place-self-start'>
           <h4 className="text-lg font-semibold mb-6 text-white">{i18n.language == 'ar' ? "المعلومات" : "Information"}</h4>
           <ul className="space-y-4">
             <li>
