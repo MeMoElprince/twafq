@@ -33,7 +33,7 @@ export default function FamilyStatus({handleChange, formData, setFormData, error
               htmlFor="FamilyStatus"
               className={`inputLabel absolute top-[15px] ${
                 isRTL ? "-right-2" : "-left-2"
-              } text-Black transform pointer-events-none -translate-y-2.5 px-1 myFont w-[100%] text-[19px] font-semibold`} style={{ top: '-12px' }}
+              } text-Black transform -translate-y-2.5 px-1 myFont w-[100%] text-[19px] font-semibold`} style={{ top: '-12px' }}
             >
               {t("familyStatus.familyStatus")}
             </label>
@@ -80,7 +80,7 @@ export default function FamilyStatus({handleChange, formData, setFormData, error
               htmlFor="MarriageType"
               className={`inputLabel absolute top-[15px] ${
                 isRTL ? "-right-2" : "-left-2"
-              } text-Black transform pointer-events-none -translate-y-2.5 px-1 myFont w-[100%] text-[19px] font-semibold`} style={{ top: '-12px' }}
+              } text-Black transform -translate-y-2.5 px-1 myFont w-[100%] text-[19px] font-semibold`} style={{ top: '-12px' }}
             >
               {t("familyStatus.marriageType")}
             </label>
@@ -107,7 +107,7 @@ export default function FamilyStatus({handleChange, formData, setFormData, error
               htmlFor="Children"
               className={`inputLabel absolute top-[15px] ${
                 isRTL ? "-right-2" : "-left-2"
-              } text-Black transform pointer-events-none -translate-y-2.5 px-1 myFont w-[100%] text-[19px] font-semibold`} style={{ top: '-12px' }}
+              } text-Black transform -translate-y-2.5 px-1 myFont w-[100%] text-[19px] font-semibold`} style={{ top: '-12px' }}
             >
               {t("familyStatus.children")}
             </label>

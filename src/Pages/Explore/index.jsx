@@ -38,8 +38,6 @@ export default function Explore() {
     <div style={{
       background: 'rgba(212, 205, 205, 1)'
     }} className="relative w-full min-h-screen text-Black flex flex-col gap-40">
-
-      <Welcome />
       <Shop
         setProductsUrl={setProductsUrl} ProductsUrl={productsUrl}
         loadingCategories={loadingCategories} setLoadingCategories={setLoadingCategories}

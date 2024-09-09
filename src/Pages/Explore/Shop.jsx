@@ -12,7 +12,7 @@ export default function Shop({ setProductsUrl, ProductsUrl, loadingCategories, l
         <Fillters ProductsUrl={ProductsUrl} setProductsUrl={setProductsUrl} Categories={Categories} loadingProducts={loadingProducts} setLoadingProducts={setLoadingProducts} loadingCategories={loadingCategories} setLoadingCategories={setLoadingCategories} setProducts={setProducts} />
       </div>
       <div className='gap-4 flex flex-grow justify-center flex-wrap'>
-        {
+        {/* {
           !loadingProducts && Products && Products.data?.productItems.length > 0 && Products.data.productItems.map((el) => (
             <DetailsCard key={el.id} id={el.id} img={el.images[0]?.image_url} name={el.name} description={el.description} price={el.price} rating={el.rating} rating_count={el.rating_count} />
           ))
@@ -28,7 +28,7 @@ export default function Shop({ setProductsUrl, ProductsUrl, loadingCategories, l
               return <LoadingSekeleton key={index} />
             })}
           </>
-        }
+        } */}
       </div>
     </div>
   )

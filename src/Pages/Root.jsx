@@ -8,6 +8,7 @@ import Cookies from "js-cookie";
 import { AuthenticationContext } from "../Store/Context/Authentication";
 import { BackDropContext } from "../Store/Context/BackDrop";
 import BackdropHolder from "../Components/Ui-Components/BackdropHolder";
+import AppDownload from "../Components/AppDownload/AppDownload"
 
 export default function Root() {
   const [errorMessage, setErrorMessage] = useState('')
@@ -65,6 +66,7 @@ export default function Root() {
       <div>
         <BackdropHolder />
       </div>
+      <AppDownload />
       <Footer />
     </main>
   )

@@ -31,7 +31,7 @@ export default function Religion({handleChange, formData, setFormData, errorMess
               htmlFor="Religion"
               className={`inputLabel absolute top-[15px] ${
                 isRTL ? "-right-2" : "-left-2"
-              } text-Black transform pointer-events-none -translate-y-2.5 px-1 myFont w-[100%] text-[19px] font-semibold`} style={{ top: '-12px' }}
+              } text-Black transform -translate-y-2.5 px-1 myFont w-[100%] text-[19px] font-semibold`} style={{ top: '-12px' }}
             >
               {t("religion.religion")}
             </label>
@@ -66,7 +66,7 @@ export default function Religion({handleChange, formData, setFormData, errorMess
               htmlFor="Doctrine"
               className={`inputLabel absolute top-[15px] ${
                 isRTL ? "-right-2" : "-left-2"
-              } text-Black transform pointer-events-none -translate-y-2.5 px-1 myFont w-[100%] text-[19px] font-semibold`} style={{ top: '-12px' }}
+              } text-Black transform -translate-y-2.5 px-1 myFont w-[100%] text-[19px] font-semibold`} style={{ top: '-12px' }}
             >
               {t("religion.doctrine")}
             </label>
@@ -102,7 +102,7 @@ export default function Religion({handleChange, formData, setFormData, errorMess
               htmlFor="ReligiousCommitment"
               className={`inputLabel absolute top-[15px] ${
                 isRTL ? "-right-2" : "-left-2"
-              } text-Black transform pointer-events-none -translate-y-2.5 px-1 myFont w-[100%] text-[15px] sm2:text-[19px] font-semibold`} style={{ top: '-12px' }}
+              } text-Black transform -translate-y-2.5 px-1 myFont w-[100%] text-[15px] sm2:text-[19px] font-semibold`} style={{ top: '-12px' }}
             >
               {t("religion.religiousCommitment")}
             </label>
@@ -126,7 +126,7 @@ export default function Religion({handleChange, formData, setFormData, errorMess
               htmlFor="Smoking"
               className={`inputLabel absolute top-[15px] ${
                 isRTL ? "-right-2" : "-left-2"
-              } text-Black transform pointer-events-none -translate-y-2.5 px-1 myFont w-[100%] text-[15px] sm2:text-[19px] font-semibold`} style={{ top: '-12px' }}
+              } text-Black transform -translate-y-2.5 px-1 myFont w-[100%] text-[15px] sm2:text-[19px] font-semibold`} style={{ top: '-12px' }}
             >
               {t("religion.smoking")}
             </label>
@@ -148,7 +148,7 @@ export default function Religion({handleChange, formData, setFormData, errorMess
               htmlFor="AlcoholDrugs"
               className={`inputLabel absolute top-[15px] ${
                 isRTL ? "-right-2" : "-left-2"
-              } text-Black transform pointer-events-none -translate-y-2.5 px-1 myFont w-[100%] text-[15px] sm2:text-[19px] font-semibold`} style={{ top: '-12px' }}
+              } text-Black transform -translate-y-2.5 px-1 myFont w-[100%] text-[15px] sm2:text-[19px] font-semibold`} style={{ top: '-12px' }}
             >
               {t("religion.alcoholDrugs")}
             </label>

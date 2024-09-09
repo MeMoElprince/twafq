@@ -93,5 +93,19 @@
         "title": "Find your perfect match with our unique color test at",
         "description": "Our unique color test helps you find the ideal partner for marriage. Get personalized match percentages and connect with the one who truly suits you.",
         "buttonText": "FIND YOUR MATCH"
+    },
+    "aboutVerify": {
+        "title": "Account Verification",
+        "description": "Verifying your account by providing accurate information helps to build trust with other users and confirms the validity of your details. It also makes it easier for service providers to reach you without the hassle of searching, making it simpler to find your ideal partner. For this reason, Arayes offers an account verification feature to ensure credibility and demonstrate seriousness.",
+        "buttonText": "Verfiy your account"
+    },
+    "ourGoal": {
+        "title": "Our Goal",
+        "description": "Providing a safe and trustworthy environment for meeting and marriage, where individuals can search for their life partners within a framework of mutual trust and respect. We strive to build a connected society that upholds values and ethics, strengthens family and human bonds."
+    },
+    "aboutFeatures": {
+        "question" : "WHY CHOOSE US?",
+        "description": "We are experts in helping young people get married and build stable families. We provide comprehensive services to ensure an ideal experience for members, while taking into account privacy and security."
+        
     }
 }
