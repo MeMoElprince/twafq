@@ -1,6 +1,5 @@
 import { useContext } from "react"
 import { Routes, Route } from "react-router-dom"
-import { ReactLenis } from '@studio-freight/react-lenis'
 import { BackDropContext } from "./Store/Context/BackDrop"
 
 import Root from './Pages/Root'
