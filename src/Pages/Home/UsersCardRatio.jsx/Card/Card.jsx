@@ -61,7 +61,7 @@ export default function Card({ userDetails }) {
                 :
                 userDetails?.gender.en === 'Male' ? Man : Woman 
             }
-            className="w-28 h-w-28 rounded-full pointer-events-none"
+            className="w-28 h-28 rounded-full pointer-events-none"
           />
         </div>
 

@@ -10,6 +10,7 @@ import global_en from "../src/Translations/EN/global.json"
 import global_ar from "../src/Translations/AR/global.json"
 import i18next from "i18next";
 import { initReactI18next, I18nextProvider  } from 'react-i18next';
+import { HelmetProvider } from 'react-helmet-async'
 
 const isRTL = JSON.parse(localStorage.getItem('isRTL')) || false;
 
@@ -30,16 +31,20 @@ i18next.use(initReactI18next).init({
   debug: true,
 });
 
+const helmetContext = {};
+
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <AuthenticationProvider>
-    <BackDropProvider>
-      <BrowserRouter>
-        <LayoutDirectionProvider>
-          <I18nextProvider i18={i18next}>
-            <App />
-          </I18nextProvider>
-        </LayoutDirectionProvider>
-      </BrowserRouter>
-    </BackDropProvider>
-  </AuthenticationProvider>,
+  <HelmetProvider context={helmetContext}>
+    <AuthenticationProvider>
+      <BackDropProvider>
+        <BrowserRouter>
+          <LayoutDirectionProvider>
+            <I18nextProvider i18={i18next}>
+              <App />
+            </I18nextProvider>
+          </LayoutDirectionProvider>
+        </BrowserRouter>
+      </BackDropProvider>
+    </AuthenticationProvider>
+  </HelmetProvider>,
 )

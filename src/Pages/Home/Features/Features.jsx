@@ -66,8 +66,8 @@ export default function Features() {
   ]
 
   return (
-    <section className="">
-        <div className="pb-40 bg-White">
+    <section className="bg-[#eaeaea] w-full py-16">
+        <div className="">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center">
                     <h2

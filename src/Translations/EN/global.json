@@ -106,6 +106,9 @@
     "aboutFeatures": {
         "question" : "WHY CHOOSE US?",
         "description": "We are experts in helping young people get married and build stable families. We provide comprehensive services to ensure an ideal experience for members, while taking into account privacy and security."
-        
+    },
+    "home" :{
+        "title" : "Home",
+        "description" : "Find your perfect match with our unique color test at Arayes"
     }
 }

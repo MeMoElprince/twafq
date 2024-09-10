@@ -12,8 +12,8 @@ export default function AccountVerfiy() {
   const { t, i18n } = useTranslation("global");
 
   return (
-    <section className=" myFont bg-[#eaeaea] py-8">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-24">
+    <section className="myFont bg-White py-8">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-28">
             <div className="center flex-col md4:flex-row justify-center items-center gap-8">
                 <div className="max-w-[90%]">
                     <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">{t("aboutVerify.title")}</h2>

@@ -23,45 +23,26 @@ const dummyDetails =
         "lastName": "سعد",
         "gender": { "ar": "ذكر", "en": "Male" },
         "age": 28,
-        "weight": 75,
-        "height": 175,
-        "skinColor": { "ar": "قمحاوي", "en": "Moderate Brown" },
-        "shape": { "ar": "متوسط", "en": "Average" },
-        "healthCondition": { "ar": "ألم الظهر", "en": "Back pain" },
-        "religion": { "ar": "الإسلام", "en": "Islam" },
-        "doctrine": { "ar": "سني", "en": "Sunni" },
-        "religiousCommitment": { "ar": "ملتزم", "en": "Committed" },
-        "smoking": { "ar": "غير مدخن", "en": "Non-Smoker" },
-        "familyStatus": { "ar": "أعزب", "en": "Single" },
-        "marriageType": { "ar": "الزوجة الأولى", "en": "First Wife" },
-        "children": 0,
-        "educationLevel": { "ar": "درجة البكالوريوس", "en": "Bachelor's Degree" },
-        "financialStatus": { "ar": "متوسط", "en": "Average" },
         "nationality": { "ar": "مصري", "en": "Egyptian" },
         "country": { "ar": "مصر", "en": "Egypt" },
         "city": { "ar": "القاهرة", "en": "Cairo" },
-        "residence": { "ar": "مدينة نصر", "en": "Nasr City" },
-        "work": { "ar": "مهندس معماري", "en": "Architect" },
-        "selfDescription": "أنا شخص هادئ وبسيط.",
-        "partnerDescription": "أبحث عن شريك طيب القلب وصادق.",
-        "phone": "+20 1234567890",
+        "message": "هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذا النص أو العديد من النصوص الأخرى إضافة إلى زيادة عدد الحروف.",
         "isVerified": true,
-        "compatibilityRatio" : 78
     }
 
-export default function UsersCardRatio() {
+export default function Reviews() {
   const { isRTL, setIsRTL } = useLayoutDirection();
   const { t, i18n } = useTranslation("global");
 
 
   return (
-    <div className="w-[85%] h-full flex flex-col gap-8 py-16 pb-32">
+    <div className="w-full px-[7.5%] h-full flex flex-col gap-2 py-16 bg-[#eaeaea]">
         <div className="flex w-full gap-5 flex-wrap">
             <Typography
                 variant="h3"
                 className="MyFont text-2xl sm:text-3xl"
             >
-                {i18n.language === 'ar' ? "الاعضاء الاكثر توافقاً معك" : "Highest compatibility ratio"}
+                {i18n.language === 'ar' ? "آراء الأعضاء" : "Users reviews"}
             </Typography>
             <Button 
                 className={`shadow-none text-Black bg-none border-x-2 rounded-full border-Black  py- px-4 text-base hover:text-DarkPink hover:border-DarkPink`}
@@ -78,22 +59,7 @@ export default function UsersCardRatio() {
               modules={[Navigation, Pagination, Scrollbar, A11y]}
               slidesPerView={1} // Default slides per view
               navigation
-              grabCursor
               dir='rtl'
-              breakpoints={{
-                // when window width is >= 640px
-                640: {
-                  slidesPerView: 1,
-                },
-                // when window width is >= 768px
-                768: {
-                  slidesPerView: 2,
-                },
-                // when window width is >= 1024px
-                1100: {
-                  slidesPerView: 3,
-                },
-              }}
             >
                 {
                   Array.from({ length: 15 }).map((_, index) => (
@@ -113,22 +79,7 @@ export default function UsersCardRatio() {
               modules={[Navigation, Pagination, Scrollbar, A11y]}
               slidesPerView={1} // Default slides per view
               navigation
-              grabCursor
               dir='ltr'
-              breakpoints={{
-                // when window width is >= 640px
-                640: {
-                  slidesPerView: 1,
-                },
-                // when window width is >= 768px
-                768: {
-                  slidesPerView: 2,
-                },
-                // when window width is >= 1024px
-                1100: {
-                  slidesPerView: 3,
-                },
-              }}
             >
                 {
                   Array.from({ length: 15 }).map((_, index) => (
