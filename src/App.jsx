@@ -28,7 +28,6 @@ function App() {
           <Route path="SignUp" element={<SignUp />} />
           <Route path="Contact" element={<Contact />} />
           <Route path="Blogs" element={<Blogs />} />
-          {/* <Route path="About" element={<About />} /> */}
           <Route path="Cart" element={<Cart />} />
           <Route path="Explore" element={<Explore />} />
           <Route path="ItemDetails/:id" element={<ItemDetails />} />
@@ -36,7 +35,6 @@ function App() {
           <Route path="*" element={<Page404 />} />
         </Route>
       </Routes>
-      <ReactLenis root={!BackDropActive} />
     </>
   )
 }

@@ -12,12 +12,12 @@ export default function AccountVerfiy() {
   const { t, i18n } = useTranslation("global");
 
   return (
-    <section className="bg-White myFont">
+    <section className=" myFont bg-[#eaeaea] py-8">
         <div className="container mx-auto px-4 sm:px-6 lg:px-24">
-            <div className="grid grid-cols-1 md4:grid-cols-2 items-center gap-8">
+            <div className="center flex-col md4:flex-row justify-center items-center gap-8">
                 <div className="max-w-[90%]">
                     <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">{t("aboutVerify.title")}</h2>
-                    <p className="mt-4 text-gray-600 text-lg">{t("aboutVerify.description")}</p>
+                    <p className="mt-4 text-gray-600 text-lg w-[100%] md4:w-[90%]">{t("aboutVerify.description")}</p>
                     <div className="mt-8 group transition-all duration-300">
                         <a href="#" className="text-DarkPink hover:text-[#e84762] font-medium text-lg">{t("aboutVerify.buttonText")}
                             {isRTL ? <span className="mr-2 group-hover:mr-4 transition-all duration-300">&#8592;</span> : <span className="ml-2 group-hover:ml-4 transition-all duration-300">&#8594;</span>}

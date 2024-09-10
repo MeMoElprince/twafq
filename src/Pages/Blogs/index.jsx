@@ -29,7 +29,7 @@ export default function Blogs(){
     return(
         <div className='w-full flex justify-center items-center flex-col bg-White myFont min-h-screen'>
             <div className="h-full relative py-36 w-full">
-                <div class="absolute inset-0 h-full w-full bg-White [background:radial-gradient(125%_125%_at_50%_10%,#fff_50%,#e84762_100%)]"></div>
+                <div className="absolute inset-0 h-full w-full bg-White [background:radial-gradient(125%_125%_at_50%_10%,#fff_50%,#e84762_100%)]"></div>
                 <div className="w-[90%] h-full mx-auto">
                     <div className="text-center">
                     <h2 className="text-3xl font-extrabold text-[#333] inline-block relative after:absolute after:w-4/6 after:h-1 after:left-0 after:right-0 after:-bottom-4 after:mx-auto after:bg-DarkPink after:rounded-full">{i18n.language === 'ar' ? 'المدونة' : 'Blogs'}</h2>

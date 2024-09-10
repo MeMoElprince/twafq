@@ -88,6 +88,7 @@ export default function Features() {
                         {
                             features.map((feature, index) => (
                                 <SingleFeature 
+                                    key={index}
                                     title = {i18n.language === 'ar' ? feature.title.ar : feature.title.en}
                                     description= {i18n.language === 'ar' ? feature.description.ar : feature.description.en}
                                 />

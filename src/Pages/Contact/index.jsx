@@ -22,12 +22,16 @@ export default function Contact(){
 				[name]: type === "checkbox" ? checked : value
 			}
 		})
-        console.log(formData);
+        // console.log(formData);
 	}
+
+    function handleSubmit(event) {
+        event.preventDefault()
+    }
     
     return(
         <div className='w-full flex justify-center items-center flex-col bg-White myFont min-h-screen'>
-            <div className="grid sm:grid-cols-2 items-start gap-16 p-4 font-[sans-serif] h-full w-[90%] mt-20">
+            <div className="grid sm:grid-cols-2 items-start gap-16 p-4 myFont h-full w-[90%] mt-20">
                 <div>
                     <h1 className="text-gray-800 text-3xl font-extrabold">{t("contact.title")}</h1>
                     <p className="text-sm text-gray-500 mt-4 font-medium">{t("contact.description")}</p>
@@ -90,7 +94,7 @@ export default function Contact(){
                     </div>
                 </div>
 
-                <form className="ml-auto space-y-2 w-full">
+                <form className="ml-auto space-y-2 w-full" onSubmit={handleSubmit}>
                     <div className='flex flex-col gap-1'>
                         <label htmlFor="myName" className='myFont text-md font-medium ml-1 text-Black'>{t("contact.name")}</label>
                         <input type='text' id='myName' name='name' value={formData.name} onChange={handleChange}
@@ -111,7 +115,7 @@ export default function Contact(){
                         <textarea id='myMessage' rows="6" name='message' value={formData.message} onChange={handleChange}
                             className="w-full rounded-md px-4 bg-[#E1E1E1] text-Black text-sm py-3 outline-DarkPink resize-none"></textarea>
                     </div>
-                    <button type='button'
+                    <button
                         className="text-white bg-DarkPink hover:bg-[#e84762] tracking-wide rounded-md text-lg px-4 py-3 w-full !mt-6">{t("contact.submit")}</button>
                 </form>
             </div>

@@ -9,6 +9,7 @@ import { AuthenticationContext } from "../Store/Context/Authentication";
 import { BackDropContext } from "../Store/Context/BackDrop";
 import BackdropHolder from "../Components/Ui-Components/BackdropHolder";
 import AppDownload from "../Components/AppDownload/AppDownload"
+import RateUs from "../Components/RateUs/RateUs"
 
 export default function Root() {
   const [errorMessage, setErrorMessage] = useState('')
@@ -66,7 +67,10 @@ export default function Root() {
       <div>
         <BackdropHolder />
       </div>
-      <AppDownload />
+      <div className="center w-[full] bg-Black gap-0 md4:gap-32 px-16 md4:px-32 md4:flex-row flex-col pt-16 pb-2 -mb-1">
+        <RateUs />
+        <AppDownload />
+      </div>
       <Footer />
     </main>
   )

@@ -6,12 +6,12 @@ export default function AppDownload() {
     const { t, i18n } = useTranslation("global");
     const { isRTL, setIsRTL } = useLayoutDirection();
   return (
-    <section id="download" aria-label="" className="bg-Black myFont">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <section id="download" aria-label="" className="bg-Black myFont w-full">
+        <div className="">
             <div
-            className="relative -mx-4 overflow-hidden px-4 py-20 sm:-mx-6 sm:px-6 md:mx-0 md:rounded-5xl md:px-16 xl:px-24 xl:py-24">
-            <div className="relative mx-auto grid max-w-2xl gap-x-32 gap-y-2 text-center xl:max-w-none">
-                <h4 className="text-4xl font-bold tracking-tight text-White md:text-5xl lg:text-7xl">
+            className="relative overflow-hidden pt-16 md:rounded-5xl xl:py-24">
+            <div className="relative mx-auto grid gap-y-2 text-center xl:max-w-none">
+                <h4 className="text-2xl font-medium tracking-tight text-White md:text-3xl lg:text-3xl">
                     {isRTL ? "قم بتحميل التطبيق" : "Download the application"}
                 </h4>
                 <div className="mt-12 flex flex-wrap justify-center gap-x-6 gap-y-4">
