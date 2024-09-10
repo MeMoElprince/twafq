@@ -7,6 +7,16 @@ import { useLayoutDirection } from '../../../Store/Context/LayoutDirectionContex
 import {useTranslation} from "react-i18next"
 import Card from "./Card/Card";
 
+import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
+
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
+
 const dummyDetails = 
     {
         "firstName": "احمد",
@@ -35,7 +45,8 @@ const dummyDetails =
         "selfDescription": "أنا شخص هادئ وبسيط.",
         "partnerDescription": "أبحث عن شريك طيب القلب وصادق.",
         "phone": "+20 1234567890",
-        "isVerified": false
+        "isVerified": true,
+        "compatibilityRatio" : 78
     }
 
 export default function UsersCardRatio() {
@@ -44,7 +55,7 @@ export default function UsersCardRatio() {
 
 
   return (
-    <div className="w-[85%] h-full flex flex-col gap-8 py-16">
+    <div className="w-[85%] h-full flex flex-col gap-8 py-16 pb-32">
         <div className="flex w-full gap-5 flex-wrap">
             <Typography
                 variant="h3"
@@ -58,8 +69,77 @@ export default function UsersCardRatio() {
                 عرض الكل
             </Button>
         </div>
-
-        <Card userDetails={dummyDetails} />
+        
+        {
+          isRTL &&
+          (
+            <Swiper
+              className="w-[100%] py-5"
+              modules={[Navigation, Pagination, Scrollbar, A11y]}
+              slidesPerView={1} // Default slides per view
+              navigation
+              grabCursor
+              dir='rtl'
+              breakpoints={{
+                // when window width is >= 640px
+                640: {
+                  slidesPerView: 1,
+                },
+                // when window width is >= 768px
+                768: {
+                  slidesPerView: 2,
+                },
+                // when window width is >= 1024px
+                1100: {
+                  slidesPerView: 3,
+                },
+              }}
+            >
+                {
+                  Array.from({ length: 15 }).map((_, index) => (
+                    <SwiperSlide key={index}>
+                      <Card userDetails={dummyDetails}/>
+                    </SwiperSlide>
+                  ))
+                }
+            </Swiper>
+          )
+        }
+        {
+          !isRTL &&
+          (
+            <Swiper
+              className="w-[100%] py-5"
+              modules={[Navigation, Pagination, Scrollbar, A11y]}
+              slidesPerView={1} // Default slides per view
+              navigation
+              grabCursor
+              dir='ltr'
+              breakpoints={{
+                // when window width is >= 640px
+                640: {
+                  slidesPerView: 1,
+                },
+                // when window width is >= 768px
+                768: {
+                  slidesPerView: 2,
+                },
+                // when window width is >= 1024px
+                1100: {
+                  slidesPerView: 3,
+                },
+              }}
+            >
+                {
+                  Array.from({ length: 15 }).map((_, index) => (
+                    <SwiperSlide key={index}>
+                      <Card userDetails={dummyDetails}/>
+                    </SwiperSlide>
+                  ))
+                }
+            </Swiper>
+          )
+        }
     </div>
   );
 }

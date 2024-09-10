@@ -98,22 +98,22 @@ export default function Contact(){
                     <div className='flex flex-col gap-1'>
                         <label htmlFor="myName" className='myFont text-md font-medium ml-1 text-Black'>{t("contact.name")}</label>
                         <input type='text' id='myName' name='name' value={formData.name} onChange={handleChange}
-                        className="w-full rounded-md py-3 px-4 bg-[#E1E1E1] text-Black text-sm outline-DarkPink" />
+                        className="border border-Black/15 w-full rounded-md py-3 px-4 bg-[#E1E1E1] text-Black text-sm outline-DarkPink" />
                     </div>
                     <div className='flex flex-col gap-1'>
                         <label htmlFor="myEmail" className='myFont text-md font-medium ml-1 text-Black'>{t("contact.email")}</label>
                         <input type='email' id='myEmail' name='email' value={formData.email} onChange={handleChange}
-                            className="w-full rounded-md py-3 px-4 bg-[#E1E1E1] text-Black text-sm outline-DarkPink" />
+                            className="border border-Black/15 w-full rounded-md py-3 px-4 bg-[#E1E1E1] text-Black text-sm outline-DarkPink" />
                     </div>
                     <div className='flex flex-col gap-1'>
                         <label htmlFor="subject" className='myFont text-md font-medium ml-1 text-Black'>{t("contact.subject")}</label>
                         <input type='text' id='subject' name='subject' value={formData.subject} onChange={handleChange}
-                            className="w-full rounded-md py-3 px-4 bg-[#E1E1E1] text-Black text-sm outline-DarkPink" />
+                            className="border border-Black/15 w-full rounded-md py-3 px-4 bg-[#E1E1E1] text-Black text-sm outline-DarkPink" />
                     </div>
                     <div className='flex flex-col gap-1'>
                         <label htmlFor="myMessage" className='myFont text-md font-medium ml-1 text-Black'>{t("contact.message")}</label>
                         <textarea id='myMessage' rows="6" name='message' value={formData.message} onChange={handleChange}
-                            className="w-full rounded-md px-4 bg-[#E1E1E1] text-Black text-sm py-3 outline-DarkPink resize-none"></textarea>
+                            className="border border-Black/15 w-full rounded-md px-4 bg-[#E1E1E1] text-Black text-sm py-3 outline-DarkPink resize-none"></textarea>
                     </div>
                     <button
                         className="text-white bg-DarkPink hover:bg-[#e84762] tracking-wide rounded-md text-lg px-4 py-3 w-full !mt-6">{t("contact.submit")}</button>
