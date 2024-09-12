@@ -1,10 +1,10 @@
 import React from "react";
-import { useLayoutDirection } from "../../../../Store/Context/LayoutDirectionContext";
+import { useLayoutDirection } from "../../../Store/Context/LayoutDirectionContext";
 import { useTranslation } from "react-i18next";
-import Woman from '../../../../assets/Avatars/woman.png'
-import Man from '../../../../assets/Avatars/man.png'
-import verifiedMan from '../../../../assets/Avatars/verifiedMan.png'
-import verifiedWoman from '../../../../assets/Avatars/verifiedWoman.png'
+import Woman from '../../../assets/Avatars/woman.png'
+import Man from '../../../assets/Avatars/man.png'
+import verifiedMan from '../../../assets/Avatars/verifiedMan.png'
+import verifiedWoman from '../../../assets/Avatars/verifiedWoman.png'
 import { FaLocationDot } from "react-icons/fa6";
 import { MdVerified } from "react-icons/md";
 import { Link } from 'react-router-dom';
@@ -17,7 +17,7 @@ export default function Card({ userDetails }) {
   var english = /^[A-Za-z]*$/;
 
   return (
-    <div className="bg-white p-6 select-none relative pt-[82px] border border-Black/20 w-[290px] rounded-2xl myFont overflow-hidden mx-auto mt-4">
+    <div className="bg-white p-6 select-none relative pt-[82px] border border-Black/20 w-[290px] rounded-2xl myFont overflow-hidden mt-4">
       
       <div className="w-full bg-Black/20 h-[50px] absolute top-0 left-0 flex gap-4">
         {

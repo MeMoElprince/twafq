@@ -1,8 +1,8 @@
 const APIURL = import.meta.env.VITE_API_URL;
 
-const SignupUrl = () => (`${APIURL}api/v1/users/signup`);
+const SignupUrl = () => (`${APIURL}api/signup`);
 const LoginUrl = () => (`${APIURL}api/signin`);
-const MyDataUrl = () => (`${APIURL}api/v1/users/getMe`);
+const MyDataUrl = () => (`${APIURL}api/profile`);
 const updateMyData = () => (`${APIURL}api/v1/users/updateMe`);
 const changeMyPassword = () => (`${APIURL}api/v1/users/change-password`);
 const VerifyOTP = () => (`${APIURL}api/v1/users/verify`);
@@ -19,7 +19,7 @@ const updateAddress = (id) => (`${APIURL}api/v1/addresses/${id}`);
 const Checkout = () => (`${APIURL}api/v1/sales/checkout`);
 const popularProdcuts = () => (`${APIURL}api/v1/products/popular`);
 const getCategories = () => (`${APIURL}api/v1/categories`);
-const getAllProducts = () => (`${APIURL}api/v1/products/explore?`);
+const getAllUsers = () => (`${APIURL}api/v1/users/search?`);
 const getSingleItem = (id) => (`${APIURL}api/v1/products/items/${id}`);
 const addItemToCart = (id) => (`${APIURL}api/v1/products/${id}/carts/item`);
 const getFav = () => (`${APIURL}api/v1/favourites`);
@@ -46,7 +46,7 @@ export {
   updateMyData,
   changeMyPassword,
   getCategories,
-  getAllProducts,
+  getAllUsers,
   getSingleItem,
   addItemToCart,
   getFav,

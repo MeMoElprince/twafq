@@ -11,7 +11,7 @@ const dummyDetails =
     {
         "firstName": "احمد",
         "lastName": "سعد",
-        "gender": { "ar": "ذكر", "en": "Female" },
+        "gender": { "ar": "ذكر", "en": "Male" },
         "age": 28,
         "weight": 75,
         "height": 175,

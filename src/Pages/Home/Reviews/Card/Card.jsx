@@ -16,7 +16,7 @@ export default function Card({ userDetails }) {
   const { t, i18n } = useTranslation("global");
 
   return (
-    <div className="p-6 select-none relative pt-[82px] border w-[90%] rounded-2xl myFont overflow-hidden mx-auto mt-4">
+    <div className="p-6 select-none relative pt-[82px] w-[90%] rounded-2xl myFont overflow-hidden mx-auto mt-4">
 
       <div className="flex flex-col items-center gap-4">
         <div className="min-h-[110px]">

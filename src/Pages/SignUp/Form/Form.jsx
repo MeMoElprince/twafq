@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect, useContext, useLayoutEffect } from 'react'
 import Fetch from '../../../Components/CustomHooks/Fetch'
-import { LoginUrl } from '../../../Store/urls'
+import { SignupUrl } from '../../../Store/urls'
 import { Link, useNavigate } from 'react-router-dom'
 import Styles from '../Styling.module.css'
 import { AuthenticationContext } from '../../../Store/Context/Authentication'
@@ -18,12 +18,13 @@ import ColorTest from './Steps/ColorTest'
 
 
 export default function Form() {
-	// const { isLogedIn, setIsLogedIn, setToken } = useContext(AuthenticationContext)
+	const { isLogedIn, setIsLogedIn, setToken } = useContext(AuthenticationContext)
 	const { isRTL, setIsRTL } = useLayoutDirection();
 	const { t, i18n } = useTranslation("global");
+	const [type, setType] = useState("signup");
 	const [step, setStep] = useState(0)
 	const [loading, setLoading] = useState(false)
-	const [data, setData] = useState(null)
+	const [data, setData] = useState(0)
 	const [errorMessage, setErrorMessage] = useState('')
 	const Navigate = useNavigate()
 	const [currPerc, setCurrPerc] = useState(0)
@@ -45,7 +46,7 @@ export default function Form() {
 			health: ["", ""],
 			nationality : ["", ""],
 			country : ["", "", ""],
-			city : ["", ""],
+			city : ["القاهرة", "Cairo"],
 			residence : ["", ""],
 			familyStatus : ["", ""],
 			marriageType : ["", ""],
@@ -74,66 +75,70 @@ export default function Form() {
 
 
 	  function handleChange(event) {
-				const { name, value, type, checked, dataset } = event.target;
-			
-				const isMultiValue = ['skinColor', 'shape', 'health', 'nationality', 'country', 'city', 'residence',
-					'familyStatus', 'marriageType', 'gender', 'smoking', 'religiousCommitment', 'doctrine', 'religion',
-					'alcoholDrgus', 'educationLevel', 'financialStatus'
-				].includes(name);
-			
-				setFormData(prevFormData => {
-					let newValue;
-					if (type === "checkbox"){
-						newValue = checked;
-					}else if (isMultiValue){
-						const valueHolder = JSON.parse(value);
-						newValue = valueHolder;
-					}else{
-						newValue = value;
-					}
-					return {
-						...prevFormData,
-						[name]: newValue
-					};
-				});
-				console.log(formData)
-			}
+			const { name, value, type, checked, dataset } = event.target;
+		
+			const isMultiValue = ['skinColor', 'shape', 'health', 'nationality', 'country', 'city', 'residence',
+				'familyStatus', 'marriageType', 'gender', 'smoking', 'religiousCommitment', 'doctrine', 'religion',
+				'alcoholDrgus', 'educationLevel', 'financialStatus'
+			].includes(name);
+		
+			setFormData(prevFormData => {
+				let newValue;
+				if (type === "checkbox"){
+					newValue = checked;
+				}else if (isMultiValue){
+					const valueHolder = JSON.parse(value);
+					newValue = valueHolder;
+				}else{
+					newValue = value;
+				}
+				return {
+					...prevFormData,
+					[name]: newValue
+				};
+			});
+			console.log(formData)
+		}
 	
 
 	function handleSubmit(e) {
 		e.preventDefault();
-		// if (loading) return;
-		// if (formData.email === '' || formData.password === '') {
-		// 	setErrorMessage('Please fill all fields')
-		// 	return
-		// }
-		// setLoading(true)
-		// setErrorMessage('')
-		// Fetch({ url: LoginUrl(), setLoading, setData, setErrorMessage, method: 'POST', body: formData })
+		if (loading) return;
+		if (formData.email === '' || formData.password === '') {
+			setErrorMessage('Please fill all fields')
+			return
+		}
+		setLoading(true)
+		setErrorMessage('')
+		Fetch({ url: SignupUrl(), setLoading, setData, setErrorMessage, method: 'POST', body: formData })
 	}
+
 	useEffect(() => {
-		if (data?.status !== 'success') return;
-		setToken(data.data.token);
-		if (!data.data.active) {
+		if (!data) return;
+		// setToken(data.data.token);
+		if (false) {
 			setType('otp')
 		} else {
 			setIsLogedIn(true)
 		}
+		console.log(data);
 	}, [data])
-	// useEffect(() => {
-	// 	if (isLogedIn) {
-	// 		Navigate('/')
-	// 	}
-	// }, [])
-	// useEffect(() => {
-	// 	if (isLogedIn) {
-	// 		Navigate('/')
-	// 		window.location.reload();
-	// 	}
-	// }, [isLogedIn])
 
-	// if (isLogedIn && Type !== 'otp')
-	// 	return <div className='w-screen h-screen bg-DarkerBlue' />
+	useEffect(() => {
+		if (isLogedIn) {
+			Navigate('/')
+		}
+	}, [])
+	
+	useEffect(() => {
+		if (isLogedIn) {
+			Navigate('/')
+			window.location.reload();
+		}
+	}, [isLogedIn])
+
+	if (isLogedIn && type !== 'otp')
+		return <div className='w-screen h-screen bg-Black' />
 
 	function handleStep(type) {
 		setStep(prevStep => {
@@ -161,8 +166,6 @@ export default function Form() {
 		return () => clearTimeout(timer);
 	  }, [step, currPerc]);
 
-	  
-
 
 	return (
 		<>
@@ -173,14 +176,14 @@ export default function Form() {
 						<div className={`myFont bg-gradient-to-tr from-Blue to-DarkPink h-full rounded-full transition-all duration-500`} style={{ width: `${currPerc}%` }}></div>
 						<div className='myFont w-full h-full center rounded-full absolute font-semibold text-[18px]'>{`${currPerc}%`}</div>
 					</div>
-					{step === 0 && <LoginInfo handleStep = {handleStep} handleChange = {handleChange} formData={formData} setFormData = {setFormData} errorMessage = {errorMessage} setErrorMessage = {setErrorMessage} />}
-					{step === 1 && <PersonalInfo handleStep = {handleStep} handleChange = {handleChange} formData={formData} setFormData = {setFormData} errorMessage = {errorMessage} setErrorMessage = {setErrorMessage} />}
-					{step === 2 && <Nationality handleStep = {handleStep} handleChange = {handleChange} formData={formData} setFormData = {setFormData} errorMessage = {errorMessage} setErrorMessage = {setErrorMessage} />}
-					{step === 3 && <Religion handleStep = {handleStep} handleChange = {handleChange} formData={formData} setFormData = {setFormData} errorMessage = {errorMessage} setErrorMessage = {setErrorMessage} />}
-					{step === 4 && <FamilyStatus handleStep = {handleStep} handleChange = {handleChange} formData={formData} setFormData = {setFormData} errorMessage = {errorMessage} setErrorMessage = {setErrorMessage} />}
-					{step === 5 && <Education handleStep = {handleStep} handleChange = {handleChange} formData={formData} setFormData = {setFormData} errorMessage = {errorMessage} setErrorMessage = {setErrorMessage} />}
-					{step === 6 && <Description handleStep = {handleStep} handleChange = {handleChange} formData={formData} setFormData = {setFormData} errorMessage = {errorMessage} setErrorMessage = {setErrorMessage} />}
-					{step === 7 && <ColorTest handleStep = {handleStep} handleChange = {handleChange} formData={formData} setFormData = {setFormData} errorMessage = {errorMessage} setErrorMessage = {setErrorMessage} />}
+					{type === "signup" && step === 0 && <LoginInfo handleStep = {handleStep} handleChange = {handleChange} formData={formData} setFormData = {setFormData} errorMessage = {errorMessage} setErrorMessage = {setErrorMessage} />}
+					{type === "signup" && step === 1 && <PersonalInfo handleStep = {handleStep} handleChange = {handleChange} formData={formData} setFormData = {setFormData} errorMessage = {errorMessage} setErrorMessage = {setErrorMessage} />}
+					{type === "signup" && step === 2 && <Nationality handleStep = {handleStep} handleChange = {handleChange} formData={formData} setFormData = {setFormData} errorMessage = {errorMessage} setErrorMessage = {setErrorMessage} />}
+					{type === "signup" && step === 3 && <Religion handleStep = {handleStep} handleChange = {handleChange} formData={formData} setFormData = {setFormData} errorMessage = {errorMessage} setErrorMessage = {setErrorMessage} />}
+					{type === "signup" && step === 4 && <FamilyStatus handleStep = {handleStep} handleChange = {handleChange} formData={formData} setFormData = {setFormData} errorMessage = {errorMessage} setErrorMessage = {setErrorMessage} />}
+					{type === "signup" && step === 5 && <Education handleStep = {handleStep} handleChange = {handleChange} formData={formData} setFormData = {setFormData} errorMessage = {errorMessage} setErrorMessage = {setErrorMessage} />}
+					{type === "signup" && step === 6 && <Description handleStep = {handleStep} handleChange = {handleChange} formData={formData} setFormData = {setFormData} errorMessage = {errorMessage} setErrorMessage = {setErrorMessage} />}
+					{type === "signup" && step === 7 && <ColorTest handleStep = {handleStep} handleChange = {handleChange} formData={formData} setFormData = {setFormData} errorMessage = {errorMessage} setErrorMessage = {setErrorMessage} handleSubmit = {handleSubmit} />}
 				</div>
 			</section>
 		</>

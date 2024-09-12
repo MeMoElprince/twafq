@@ -18,7 +18,7 @@ export default function Religion({handleChange, formData, setFormData, errorMess
                   value={formData.religion ? JSON.stringify(formData.religion) : ''}
                   onChange={handleChange}
                   name="religion"
-                  aria-label={i18n.language == 'ar' ? 'الديانة' : 'Religion'}
+                  aria-label={i18n.language === 'ar' ? 'الديانة' : 'Religion'}
                   className={`myFont w-full py-2 px-3 border-b-[3px] ${
                     formData.religion ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
                   } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-pointer`}
@@ -42,7 +42,7 @@ export default function Religion({handleChange, formData, setFormData, errorMess
                   value={formData.doctrine ? JSON.stringify(formData.doctrine) : ''}
                   onChange={handleChange}
                   name="doctrine"
-                  aria-label={i18n.language == 'ar' ? 'المذهب' : 'Doctrine'}
+                  aria-label={i18n.language === 'ar' ? 'المذهب' : 'Doctrine'}
                   className={`myFont w-full py-2 px-3 border-b-[3px] ${
                     formData.doctrine ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
                   } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-pointer`}
@@ -77,25 +77,25 @@ export default function Religion({handleChange, formData, setFormData, errorMess
                   value={formData.religiousCommitment ? JSON.stringify(formData.religiousCommitment) : ''}
                   onChange={handleChange}
                   name="religiousCommitment"
-                  aria-label={i18n.language == 'ar' ? 'الإلتزام الديني' : 'Religious Commitment'}
+                  aria-label={i18n.language === 'ar' ? 'الإلتزام الديني' : 'Religious Commitment'}
                   className={`myFont w-full py-2 px-3 border-b-[3px] ${
                     formData.religiousCommitment ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
                   } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-pointer`}
               >
                   <option value={JSON.stringify(["", ""])}>
-                      {i18n.language == 'ar' ? '-- اختر --' : '-- Choose --'}
+                      {i18n.language === 'ar' ? '-- اختر --' : '-- Choose --'}
                   </option>
                   <option value={JSON.stringify(['غير ملتزم', 'Not Committed'])}>
-                      {i18n.language == 'ar' ? 'غير ملتزم' : 'Not Committed'}
+                      {i18n.language === 'ar' ? 'غير ملتزم' : 'Not Committed'}
                   </option>
                   <option value={JSON.stringify(['ملتزم قليلاً', 'Slightly Committed'])}>
-                      {i18n.language == 'ar' ? 'ملتزم قليلاً' : 'Slightly Committed'}
+                      {i18n.language === 'ar' ? 'ملتزم قليلاً' : 'Slightly Committed'}
                   </option>
                   <option value={JSON.stringify(['ملتزم', 'Committed'])}>
-                      {i18n.language == 'ar' ? 'ملتزم' : 'Committed'}
+                      {i18n.language === 'ar' ? 'ملتزم' : 'Committed'}
                   </option>
                   <option value={JSON.stringify(['ملتزم جداً', 'Highly Committed'])}>
-                      {i18n.language == 'ar' ? 'ملتزم جداً' : 'Highly Committed'}
+                      {i18n.language === 'ar' ? 'ملتزم جداً' : 'Highly Committed'}
                   </option>
             </select>
           <label
@@ -113,7 +113,7 @@ export default function Religion({handleChange, formData, setFormData, errorMess
                   value={formData.smoking ? JSON.stringify(formData.smoking) : ''}
                   onChange={handleChange}
                   name="smoking"
-                  aria-label={i18n.language == 'ar' ? 'التدخين' : 'Smoking'}
+                  aria-label={i18n.language === 'ar' ? 'التدخين' : 'Smoking'}
                   className={`myFont w-full py-2 px-3 border-b-[3px] ${
                     formData.smoking ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
                   } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-pointer`}
@@ -137,12 +137,12 @@ export default function Religion({handleChange, formData, setFormData, errorMess
                   value={formData.alcoholdrugs ? JSON.stringify(formData.alcoholdrugs) : ''}
                   onChange={handleChange}
                   name="alcoholdrugs"
-                  aria-label={i18n.language == 'ar' ? 'الكحول أو المخدرات' : 'alcohol or drugs'}
+                  aria-label={i18n.language === 'ar' ? 'الكحول أو المخدرات' : 'alcohol or drugs'}
                   className={`myFont w-full py-2 px-3 border-b-[3px] ${
                     formData.alcoholDrugs ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
                   } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-pointer`}
               >
-                  <option value={JSON.stringify(["", ""])}>{i18n.language == 'ar' ? '-- اختر --' : '-- Choose --'}</option>
+                  <option value={JSON.stringify(["", ""])}>{i18n.language === 'ar' ? '-- اختر --' : '-- Choose --'}</option>
           </select>
           <label
               htmlFor="AlcoholDrugs"

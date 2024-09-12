@@ -20,7 +20,7 @@ export default function Nationality({handleChange, formData, setFormData, errorM
                   value={formData.nationality ? JSON.stringify(formData.nationality) : ''}
                   onChange={handleChange}
                   name="nationality"
-                  aria-label={i18n.language == 'ar' ? 'الجنسية' : 'Nationality'}
+                  aria-label={i18n.language === 'ar' ? 'الجنسية' : 'Nationality'}
                   className={`myFont w-full py-2 px-3 border-b-[3px] ${
                     formData.nationality ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
                   } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-pointer`}
@@ -50,7 +50,7 @@ export default function Nationality({handleChange, formData, setFormData, errorM
                   value={formData.country ? JSON.stringify(formData.country) : ''}
                   onChange={handleChange}
                   name="country"
-                  aria-label={i18n.language == 'ar' ? 'البلد' : 'country'}
+                  aria-label={i18n.language === 'ar' ? 'البلد' : 'country'}
                   className={`myFont w-full py-2 px-3 border-b-[3px] ${
                     formData.country ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
                   } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-pointer`}
@@ -80,7 +80,7 @@ export default function Nationality({handleChange, formData, setFormData, errorM
                   value={formData.city ? JSON.stringify(formData.city) : ''}
                   onChange={handleChange}
                   name="city"
-                  aria-label={i18n.language == 'ar' ? 'المدينة' : 'City'}
+                  aria-label={i18n.language === 'ar' ? 'المدينة' : 'City'}
                   className={`myFont w-full py-2 px-3 border-b-[3px] ${
                     formData.city ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
                   } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-pointer`}
@@ -103,7 +103,7 @@ export default function Nationality({handleChange, formData, setFormData, errorM
                   value={formData.residence ? JSON.stringify(formData.residence) : ''}
                   onChange={handleChange}
                   name="residence"
-                  aria-label={i18n.language == 'ar' ? 'الإقامة' : 'Residence'}
+                  aria-label={i18n.language === 'ar' ? 'الإقامة' : 'Residence'}
                   className={`myFont w-full py-2 px-3 border-b-[3px] ${
                     formData.residence ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
                   } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-pointer`}

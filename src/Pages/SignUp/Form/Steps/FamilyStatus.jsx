@@ -18,7 +18,7 @@ export default function FamilyStatus({handleChange, formData, setFormData, error
                   value={formData.familyStatus ? JSON.stringify(formData.familyStatus) : ''}
                   onChange={handleChange}
                   name="familyStatus"
-                  aria-label={i18n.language == 'ar' ? 'الحالة العائلية' : 'Family Status'}
+                  aria-label={i18n.language === 'ar' ? 'الحالة العائلية' : 'Family Status'}
                   className={`myFont w-full py-2 px-3 border-b-[3px] ${
                     formData.familyStatus ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
                   } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-pointer`}
@@ -44,7 +44,7 @@ export default function FamilyStatus({handleChange, formData, setFormData, error
                   value={formData.marriageType ? JSON.stringify(formData.marriageType) : ''}
                   onChange={handleChange}
                   name="marriageType"
-                  aria-label={i18n.language == 'ar' ? 'نوع الزواج' : 'Marriage Type'}
+                  aria-label={i18n.language === 'ar' ? 'نوع الزواج' : 'Marriage Type'}
                   className={`myFont w-full py-2 px-3 border-b-[3px] ${
                     formData.marriageType ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
                   } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-pointer`}
@@ -91,12 +91,12 @@ export default function FamilyStatus({handleChange, formData, setFormData, error
                   value={formData.children}
                   onChange={handleChange}
                   name="children"
-                  aria-label={i18n.language == 'ar' ? 'الأطفال' : 'Children'}
+                  aria-label={i18n.language === 'ar' ? 'الأطفال' : 'Children'}
                   className={`myFont w-full py-2 px-3 border-b-[3px] ${
                     formData.children ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
                   } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-pointer`}
               >
-                  <option value="">{i18n.language == 'ar' ? '-- اختر --' : '-- Choose --'}</option>
+                  <option value="">{i18n.language === 'ar' ? '-- اختر --' : '-- Choose --'}</option>
                 {[...Array(11)].map((_, index) => (
                     <option key={index} value={index}>
                         {index}

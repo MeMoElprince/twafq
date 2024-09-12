@@ -3,7 +3,7 @@ import { useLayoutDirection } from '../../../../Store/Context/LayoutDirectionCon
 import {useTranslation} from "react-i18next"
 import Styles from '../../Styling.module.css'
 
-export default function ColorTest({handleChange, formData, setFormData, errorMessage, setErrorMessage, handleStep}) {
+export default function ColorTest({handleChange, formData, setFormData, errorMessage, setErrorMessage, handleStep, handleSubmit}) {
   const { isRTL, setIsRTL } = useLayoutDirection();
   const { t, i18n } = useTranslation("global");
   const colors = ["#ffffff", "#FF8081", "#FF0000", "#FF6040", "#FF4001", "#FE6F21", "#FF7F00", "#F18F10"];
@@ -63,7 +63,7 @@ export default function ColorTest({handleChange, formData, setFormData, errorMes
               {t("personalInfo.prev")}
             </button>
             <button
-              onClick={() => handleStep(1)}
+              onClick={handleSubmit}
               className={`${
                 Styles.loginBtnAnimate
               } bg-Black myFont text-White text-[18px] sm2:text-[22px] w-[100%] py-[14px] rounded-full

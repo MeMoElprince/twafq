@@ -5,11 +5,9 @@ import { BackDropContext } from "./Store/Context/BackDrop"
 import Root from './Pages/Root'
 import Login from './Pages/Login/index'
 import SignUp from './Pages/SignUp/index'
-import Cart from './Pages/Cart/index'
 import Page404 from './Pages/Page404/index'
 import Explore from './Pages/Explore/index'
 import ItemDetails from './Pages/ItemDetails/index'
-import SearchPage from './Pages/SearchPage/index'
 import Contact from './Pages/Contact/index'
 import Blogs from './Pages/Blogs/index'
 import Home from "./Pages/Home/index"
@@ -22,12 +20,10 @@ function App() {
       <Routes>
         <Route path="/" element={<Root />} >
           <Route index element={<Home />} />
-          <Route path="/Search/:name" element={<SearchPage />} />
           <Route path="Login" element={<Login />} />
           <Route path="SignUp" element={<SignUp />} />
           <Route path="Contact" element={<Contact />} />
           <Route path="Blogs" element={<Blogs />} />
-          <Route path="Cart" element={<Cart />} />
           <Route path="Explore" element={<Explore />} />
           <Route path="ItemDetails/:id" element={<ItemDetails />} />
           <Route path="UserProfile/:id" element={<UserProfile />} />

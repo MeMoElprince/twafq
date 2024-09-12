@@ -36,8 +36,9 @@ export default function Reviews() {
 
 
   return (
-    <div className="w-full px-[7.5%] h-full flex flex-col gap-2 py-16 bg-[#eaeaea]">
-        <div className="flex w-full gap-5 flex-wrap">
+    <div className="relative w-full px-[7.5%] h-full flex flex-col gap-2 py-16 bg-[#eaeaea]">
+        
+        <div className="flex w-full gap-5 flex-wrap z-10">
             <Typography
                 variant="h3"
                 className="MyFont text-2xl sm:text-3xl"
