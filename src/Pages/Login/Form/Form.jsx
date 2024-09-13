@@ -1,20 +1,18 @@
-import { useState, useRef, useEffect, useContext } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import Fetch from '../../../Components/CustomHooks/Fetch'
 import { LoginUrl } from '../../../Store/urls'
 import { Link, useNavigate } from 'react-router-dom'
 import Styles from '../Styling.module.css'
-import Bear from './assets/Bear.png'
 import { AuthenticationContext } from '../../../Store/Context/Authentication'
 import VarifyCode from '../VarifyCode'
 import ForgotPassword from '../ForgotPassword'
-import loginBackground from './assets/LoginBackground.jpg'
 import { useLayoutDirection } from '../../../Store/Context/LayoutDirectionContext'
-import { IoMenu , IoClose } from "react-icons/io5";
 import {useTranslation} from "react-i18next"
+import Cookies from 'js-cookie'
 
 
 export default function Form() {
-	// const { isLogedIn, setIsLogedIn, setToken } = useContext(AuthenticationContext)
+	const { isLogedIn, setIsLogedIn, setToken } = useContext(AuthenticationContext)
 	const { isRTL, setIsRTL } = useLayoutDirection();
 	const { t, i18n } = useTranslation("global");
 	const [Type, setType] = useState('login')
@@ -43,40 +41,43 @@ export default function Form() {
 		e.preventDefault();
 		if (loading) return;
 		if (formData.email === '' || formData.password === '') {
-			setErrorMessage('Please fill all fields')
+			setErrorMessage(i18n.language === 'ar' ? 'الرجاء ملئ جميع البيانات' : 'Please fill all fields')
 			return
 		}
-		setLoading(true)
 		setErrorMessage('')
-		Fetch({ url: LoginUrl(), setLoading, setData, setErrorMessage, method: 'POST', body: formData })
+			Fetch({ url: LoginUrl(), setLoading, setData, setErrorMessage, method: 'POST', body: formData })
 	}
+
+	
 	useEffect(() => {
-		if (data?.status !== 'success') return;
-		setToken(data.data.token);
-		if (!data.data.active) {
+		if (!data) return;
+		setToken(data.token);
+		if (false) {
 			setType('otp')
 		} else {
 			setIsLogedIn(true)
+			Cookies.set('token', data.token, { expires: 7 });
 		}
 	}, [data])
-	// useEffect(() => {
-	// 	if (isLogedIn) {
-	// 		Navigate('/')
-	// 	}
-	// }, [])
-	// useEffect(() => {
-	// 	if (isLogedIn) {
-	// 		Navigate('/')
-	// 		window.location.reload();
-	// 	}
-	// }, [isLogedIn])
 
-	// if (isLogedIn && Type !== 'otp')
-	// 	return <div className='w-screen h-screen bg-DarkerBlue' />
+	useEffect(() => {
+		if (isLogedIn) {
+			Navigate('/')
+		}
+	}, [])
+
+	useEffect(() => {
+		if (isLogedIn) {
+			Navigate('/')
+			window.location.reload();
+		}
+	}, [isLogedIn])
+
+
 	return (
 		<>
 			<section className={`${Styles.formContainer} relative min-h-screen w-screen bg-White flex content-center items-center justify-center`}>
-				<div className={`${Styles.exactForm} relative border-Black/5 shadow-lg mt-20 border-2 w-[80%] py-8 min-h-[6%] md:w-[50%] lg2:w-[30%] rounded-2xl center flex-col gap-8`}>
+				<div className={`${Styles.exactForm} relative border-Black/5 shadow-lg mt-20 border-2 w-[80%] py-8 min-h-[6%] md:w-[50%] lg2:w-[35%] rounded-2xl center flex-col gap-8`}>
 					{/* <img src={Bear} alt='bear-img' className='absolute top-[-120px] w-[140px] select-none pointer-events-none' /> */}
 					{Type === 'login' && <>
 						<h2 className='Title text-Black myFont text-[32px] font-semibold'>{t("login.title")}</h2>

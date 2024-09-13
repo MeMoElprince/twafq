@@ -19,7 +19,7 @@ export default function Target() {
         <div className="w-full h-full center flex-col absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 gap-8 z-20">
             <Typography
                 variant="h1"
-                className={`leading-tight text-White`}
+                className={`leading-tight text-White text-4xl`}
               >
                 {t("ourGoal.title")}
               </Typography>

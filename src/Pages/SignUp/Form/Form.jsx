@@ -4,7 +4,6 @@ import { SignupUrl } from '../../../Store/urls'
 import { Link, useNavigate } from 'react-router-dom'
 import Styles from '../Styling.module.css'
 import { AuthenticationContext } from '../../../Store/Context/Authentication'
-import loginBackground from './assets/LoginBackground.jpg'
 import { useLayoutDirection } from '../../../Store/Context/LayoutDirectionContext'
 import {useTranslation} from "react-i18next"
 import LoginInfo from './Steps/LoginInfo'
@@ -21,10 +20,9 @@ export default function Form() {
 	const { isLogedIn, setIsLogedIn, setToken } = useContext(AuthenticationContext)
 	const { isRTL, setIsRTL } = useLayoutDirection();
 	const { t, i18n } = useTranslation("global");
-	const [type, setType] = useState("signup");
 	const [step, setStep] = useState(0)
 	const [loading, setLoading] = useState(false)
-	const [data, setData] = useState(0)
+	const [data, setData] = useState(null)
 	const [errorMessage, setErrorMessage] = useState('')
 	const Navigate = useNavigate()
 	const [currPerc, setCurrPerc] = useState(0)
@@ -65,14 +63,6 @@ export default function Form() {
 		}
 	)
 
-	useEffect(() => {
-		setIsRTL(i18n.language === "ar");
-	  }, [i18n.language]);
-	
-	  const handleLangChange = (lang) => {
-		i18n.changeLanguage(lang);
-	  };
-
 
 	  function handleChange(event) {
 			const { name, value, type, checked, dataset } = event.target;
@@ -97,7 +87,7 @@ export default function Form() {
 					[name]: newValue
 				};
 			});
-			console.log(formData)
+			// console.log(formData)
 		}
 	
 
@@ -108,28 +98,18 @@ export default function Form() {
 			setErrorMessage('Please fill all fields')
 			return
 		}
-		setLoading(true)
 		setErrorMessage('')
 		Fetch({ url: SignupUrl(), setLoading, setData, setErrorMessage, method: 'POST', body: formData })
 	}
 
 	useEffect(() => {
-		if (!data) return;
-		// setToken(data.data.token);
-		if (false) {
-			setType('otp')
-		} else {
-			setIsLogedIn(true)
+		if (!data) return
+		if (data.statusCode === '200') {
+			Navigate('/login');
 		}
-		console.log(data);
 	}, [data])
 
-	useEffect(() => {
-		if (isLogedIn) {
-			Navigate('/')
-		}
-	}, [])
-	
+
 	useEffect(() => {
 		if (isLogedIn) {
 			Navigate('/')
@@ -137,8 +117,6 @@ export default function Form() {
 		}
 	}, [isLogedIn])
 
-	if (isLogedIn && type !== 'otp')
-		return <div className='w-screen h-screen bg-Black' />
 
 	function handleStep(type) {
 		setStep(prevStep => {
@@ -171,19 +149,18 @@ export default function Form() {
 		<>
 			<section className={`${Styles.formContainer} relative min-h-screen w-screen bg-White flex content-center items-center justify-center py-20 overflow-hidden`}>
 				<div className={`${Styles.exactForm} ${step === 7 ? Styles.step7 : Styles.notstep7}  relative border-Black/5 shadow-lg mt-20 border-2 py-8 min-h-[6%]  transition-all duration-300 rounded-2xl center flex-col gap-8`}>
-					{/* <img src={Bear} alt='bear-img' className='absolute top-[-120px] w-[140px] select-none pointer-events-none' /> */}
 					<div className='mx-6 p-0 flex relative myFont w-[80%] bg-LighterPink/70 h-12 rounded-full overflow-hidden'>
 						<div className={`myFont bg-gradient-to-tr from-Blue to-DarkPink h-full rounded-full transition-all duration-500`} style={{ width: `${currPerc}%` }}></div>
 						<div className='myFont w-full h-full center rounded-full absolute font-semibold text-[18px]'>{`${currPerc}%`}</div>
 					</div>
-					{type === "signup" && step === 0 && <LoginInfo handleStep = {handleStep} handleChange = {handleChange} formData={formData} setFormData = {setFormData} errorMessage = {errorMessage} setErrorMessage = {setErrorMessage} />}
-					{type === "signup" && step === 1 && <PersonalInfo handleStep = {handleStep} handleChange = {handleChange} formData={formData} setFormData = {setFormData} errorMessage = {errorMessage} setErrorMessage = {setErrorMessage} />}
-					{type === "signup" && step === 2 && <Nationality handleStep = {handleStep} handleChange = {handleChange} formData={formData} setFormData = {setFormData} errorMessage = {errorMessage} setErrorMessage = {setErrorMessage} />}
-					{type === "signup" && step === 3 && <Religion handleStep = {handleStep} handleChange = {handleChange} formData={formData} setFormData = {setFormData} errorMessage = {errorMessage} setErrorMessage = {setErrorMessage} />}
-					{type === "signup" && step === 4 && <FamilyStatus handleStep = {handleStep} handleChange = {handleChange} formData={formData} setFormData = {setFormData} errorMessage = {errorMessage} setErrorMessage = {setErrorMessage} />}
-					{type === "signup" && step === 5 && <Education handleStep = {handleStep} handleChange = {handleChange} formData={formData} setFormData = {setFormData} errorMessage = {errorMessage} setErrorMessage = {setErrorMessage} />}
-					{type === "signup" && step === 6 && <Description handleStep = {handleStep} handleChange = {handleChange} formData={formData} setFormData = {setFormData} errorMessage = {errorMessage} setErrorMessage = {setErrorMessage} />}
-					{type === "signup" && step === 7 && <ColorTest handleStep = {handleStep} handleChange = {handleChange} formData={formData} setFormData = {setFormData} errorMessage = {errorMessage} setErrorMessage = {setErrorMessage} handleSubmit = {handleSubmit} />}
+					{step === 0 && <LoginInfo handleStep = {handleStep} handleChange = {handleChange} formData={formData} setFormData = {setFormData} errorMessage = {errorMessage} setErrorMessage = {setErrorMessage} />}
+					{step === 1 && <PersonalInfo handleStep = {handleStep} handleChange = {handleChange} formData={formData} setFormData = {setFormData} errorMessage = {errorMessage} setErrorMessage = {setErrorMessage} />}
+					{step === 2 && <Nationality handleStep = {handleStep} handleChange = {handleChange} formData={formData} setFormData = {setFormData} errorMessage = {errorMessage} setErrorMessage = {setErrorMessage} />}
+					{step === 3 && <Religion handleStep = {handleStep} handleChange = {handleChange} formData={formData} setFormData = {setFormData} errorMessage = {errorMessage} setErrorMessage = {setErrorMessage} />}
+					{step === 4 && <FamilyStatus handleStep = {handleStep} handleChange = {handleChange} formData={formData} setFormData = {setFormData} errorMessage = {errorMessage} setErrorMessage = {setErrorMessage} />}
+					{step === 5 && <Education handleStep = {handleStep} handleChange = {handleChange} formData={formData} setFormData = {setFormData} errorMessage = {errorMessage} setErrorMessage = {setErrorMessage} />}
+					{step === 6 && <Description handleStep = {handleStep} handleChange = {handleChange} formData={formData} setFormData = {setFormData} errorMessage = {errorMessage} setErrorMessage = {setErrorMessage} />}
+					{step === 7 && <ColorTest handleStep = {handleStep} handleChange = {handleChange} formData={formData} setFormData = {setFormData} errorMessage = {errorMessage} setErrorMessage = {setErrorMessage} handleSubmit = {handleSubmit} />}
 				</div>
 			</section>
 		</>

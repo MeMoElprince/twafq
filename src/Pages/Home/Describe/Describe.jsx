@@ -33,7 +33,7 @@ export default function Describe() {
           </div> */}
           <Typography
             variant="h1"
-            className={`mb-8 leading-tight font-Black`}
+            className={`mb-8 leading-tight font-Black text-4xl`}
           >
             {t("aboutSec1.title")} <span className="text-DarkPink">{`${i18n.language == 'ar' ? "عرايس" : "Arayes"}`}</span>
           </Typography>
@@ -47,7 +47,7 @@ export default function Describe() {
           </div>
         </div>
       </div>
-      <div className="basis-[70%] h-full hidden lg2:flex">
+      <div className="basis-[60%] h-full hidden lg2:flex">
         <img src={Img} alt="components" className="w-[80%] min-w-[400px] imgSettings" />
       </div>
     </header>

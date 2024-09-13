@@ -1,28 +1,27 @@
 export default async function Fetch({ url, setData, setLoading, setErrorMessage, method, body, Token, Type = 'json' }) {
   const headers = Type === 'json' ? { 'Content-Type': 'application/json' } : {};
   if (Token) headers.Authorization = `Bearer ${Token}`;
-  const modifiedBodyy = Type === 'json' ? JSON.stringify(body) : body;
+  const modifiedBody = Type === 'json' ? JSON.stringify(body) : body;
   try {
+    if (setLoading) setLoading(true)
     const response = await fetch(url, {
       method,
       headers,
-      body: modifiedBodyy
+      body: modifiedBody
     })
-
-    console.log(response);
-    
-    const msg = response.text();
-
-    setData(response.ok)
+    const string = await response.text();
+    const data = string === "" ? {} : JSON.parse(string);
     if (!response.ok) {
-      throw new Error(msg || 'An error occurred')
-    }else{
-      console.log(msg);
+      throw new Error(data.message)
     }
+    if (setData) setData(data)
+
+    console.log(data);
+    
   } catch (error) {
-    setErrorMessage(error.message || 'An unknown error occurred')
+    if (setErrorMessage) setErrorMessage(error.message)
     console.error(error)
   } finally {
-    setLoading(false)
+    if (setLoading) setLoading(false)
   }
 }

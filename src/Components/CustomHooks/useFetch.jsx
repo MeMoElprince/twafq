@@ -1,41 +1,48 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react';
 
-export default function useFetch({ url, setErrorMessage, method, body, Token }) {
-  const [data, setData] = useState(null);
+export default function useFetch({ url, setErrorMessage, method = 'GET', body, Token, reRender = 1 }) {
+  const [retData, setRetData] = useState(null);
   const [loading, setLoading] = useState(true);
+  
   const headers = {
     'Content-Type': 'application/json',
-  }
+  };
+  
   if (Token) headers.Authorization = `Bearer ${Token}`;
+  
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true);
       try {
-        setLoading(true)
-        const response = await fetch(url, {
-          method: method,
+        const options = {
+          method,
           headers,
-          body: JSON.stringify(body)
-        })
+        };
+
+        if (body && (method !== 'GET' && method !== 'HEAD')) {
+          options.body = JSON.stringify(body);
+        }
+
+        const response = await fetch(url, options);
+        
         const string = await response.text();
-        const data = string === "" ? {} : JSON.parse(string);
-        const Status = response.status;
-        if (Status >= 200 && Status < 300) {
-          data.status = 'success'
+        const data = string ? JSON.parse(string) : {};
+        
+        if (!response.ok) {
+          throw new Error(data.error || 'Something went wrong');
         }
 
-        setData(data)
-        if (data.status !== 'success') {
-          throw new Error(data.message)
-        }
+        setRetData(data);
       } catch (error) {
-        if(setErrorMessage)
-          setErrorMessage(error.message)
+        if (setErrorMessage) setErrorMessage(error.message);
+        console.error(error);
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
-    }
-    fetchData()
-  }, [url])
+    };
 
-  return { data, loading }
+    fetchData();
+  }, [url, reRender, method, body]); // Include method and body in dependency array for consistency
+
+  return { retData, loading };
 }
