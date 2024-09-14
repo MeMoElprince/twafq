@@ -175,7 +175,7 @@ export default function Form({editActive, setEditActive}) {
 					{step === 4 && <Education handleChange = {handleChange} formData={formData} setFormData = {setFormData} errorMessage = {errorMessage} setErrorMessage = {setErrorMessage} />}
 					{step === 5 && <Description handleChange = {handleChange} formData={formData} setFormData = {setFormData} errorMessage = {errorMessage} setErrorMessage = {setErrorMessage} />}
 					{step === 6 && <ResetPassword handlePasswordChange = {handlePasswordChange} passwordData={passwordData} setPasswordData = {setPasswordData} errorMessage = {errorMessage} setErrorMessage = {setErrorMessage} />}
-					<div className="center gap-4 w-[73%] flex-col-reverse sm:flex-row">
+					<div className="center gap-4 w-[73%] flex-col-reverse sm:flex-row py-6">
 						<button
 							onClick={() => setEditActive(0)}
 							className={`${
