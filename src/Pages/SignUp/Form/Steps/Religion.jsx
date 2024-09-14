@@ -126,7 +126,7 @@ export default function Religion({handleChange, formData, setFormData, errorMess
               htmlFor="Smoking"
               className={`inputLabel absolute top-[15px] ${
                 isRTL ? "-right-2" : "-left-2"
-              } text-Black transform -translate-y-2.5 px-1 myFont w-[100%] text-[15px] sm2:text-[19px] font-semibold`} style={{ top: '-12px' }}
+              } text-Black transform -translate-y-2.5 px-1 myFont w-[100%] sm2:text-[19px] font-semibold`} style={{ top: '-12px' }}
             >
               {t("religion.smoking")}
             </label>

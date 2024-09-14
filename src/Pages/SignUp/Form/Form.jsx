@@ -1,11 +1,9 @@
-import { useState, useRef, useEffect, useContext, useLayoutEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import Fetch from '../../../Components/CustomHooks/Fetch'
 import { SignupUrl } from '../../../Store/urls'
 import { Link, useNavigate } from 'react-router-dom'
 import Styles from '../Styling.module.css'
 import { AuthenticationContext } from '../../../Store/Context/Authentication'
-import { useLayoutDirection } from '../../../Store/Context/LayoutDirectionContext'
-import {useTranslation} from "react-i18next"
 import LoginInfo from './Steps/LoginInfo'
 import PersonalInfo from './Steps/PersonalInfo'
 import Nationality from './Steps/Nationality'
@@ -17,15 +15,15 @@ import ColorTest from './Steps/ColorTest'
 
 
 export default function Form() {
-	const { isLogedIn, setIsLogedIn, setToken } = useContext(AuthenticationContext)
-	const { isRTL, setIsRTL } = useLayoutDirection();
-	const { t, i18n } = useTranslation("global");
-	const [step, setStep] = useState(0)
+	const { isLogedIn} = useContext(AuthenticationContext)
+	const [step, setStep] = useState(6)
 	const [loading, setLoading] = useState(false)
 	const [data, setData] = useState(null)
 	const [errorMessage, setErrorMessage] = useState('')
 	const Navigate = useNavigate()
 	const [currPerc, setCurrPerc] = useState(0)
+	const [isSelected, setIsSelected] = useState([]);
+	const [colors, setColors] = useState([]);
 	const [formData, setFormData] = useState(
 		{
 			gender: ["", ""],
@@ -59,7 +57,7 @@ export default function Form() {
 			alcoholDrgus : ["", ""],
 			selfDescription: '',
 			partnerDescription: '',
-			isChecked: false
+			isChecked: false,
 		}
 	)
 
@@ -87,19 +85,28 @@ export default function Form() {
 					[name]: newValue
 				};
 			});
-			// console.log(formData)
 		}
 	
 
 	function handleSubmit(e) {
 		e.preventDefault();
 		if (loading) return;
-		if (formData.email === '' || formData.password === '') {
-			setErrorMessage('Please fill all fields')
-			return
+		// if (formData.email === '' || formData.password === '') {
+		// 	setErrorMessage('Please fill all fields')
+		// 	return
+		// }
+		let ansHolder = [];
+		for(let i = 0; i<isSelected.length; i++){
+			if(isSelected[i]){
+				ansHolder.push(colors[i].index);
+			}
+		}
+		const RET = {
+			...formData,
+			colorAnswers: ansHolder
 		}
 		setErrorMessage('')
-		Fetch({ url: SignupUrl(), setLoading, setData, setErrorMessage, method: 'POST', body: formData })
+		Fetch({ url: SignupUrl(), setLoading, setData, setErrorMessage, method: 'POST', body: RET })
 	}
 
 	useEffect(() => {
@@ -160,7 +167,7 @@ export default function Form() {
 					{step === 4 && <FamilyStatus handleStep = {handleStep} handleChange = {handleChange} formData={formData} setFormData = {setFormData} errorMessage = {errorMessage} setErrorMessage = {setErrorMessage} />}
 					{step === 5 && <Education handleStep = {handleStep} handleChange = {handleChange} formData={formData} setFormData = {setFormData} errorMessage = {errorMessage} setErrorMessage = {setErrorMessage} />}
 					{step === 6 && <Description handleStep = {handleStep} handleChange = {handleChange} formData={formData} setFormData = {setFormData} errorMessage = {errorMessage} setErrorMessage = {setErrorMessage} />}
-					{step === 7 && <ColorTest handleStep = {handleStep} handleChange = {handleChange} formData={formData} setFormData = {setFormData} errorMessage = {errorMessage} setErrorMessage = {setErrorMessage} handleSubmit = {handleSubmit} />}
+					{step === 7 && <ColorTest colors={colors} setColors={setColors} isSelected={isSelected} setIsSelected={setIsSelected} handleStep = {handleStep} handleChange = {handleChange} formData={formData} setFormData = {setFormData} errorMessage = {errorMessage} setErrorMessage = {setErrorMessage} handleSubmit = {handleSubmit} />}
 				</div>
 			</section>
 		</>

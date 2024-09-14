@@ -33,7 +33,7 @@ export default function Describe() {
           </div> */}
           <Typography
             variant="h1"
-            className={`mb-8 leading-tight font-Black text-4xl`}
+            className={`mb-8 leading-normal font-Black text-4xl`}
           >
             {t("aboutSec1.title")} <span className="text-DarkPink">{`${i18n.language == 'ar' ? "عرايس" : "Arayes"}`}</span>
           </Typography>

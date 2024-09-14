@@ -17,7 +17,7 @@ export default function Card({ userDetails }) {
   var english = /^[A-Za-z]*$/;
 
   return (
-    <div className="bg-white p-6 select-none relative pt-[82px] border border-Black/20 w-[290px] rounded-2xl myFont overflow-hidden mx-auto mt-4">
+    <div className="bg-white p-6 select-none relative pt-[82px] border border-Black/20 w-[80%] max-w-[400px] lg2:w-[290px] rounded-2xl myFont overflow-hidden mt-4 mx-auto lg2:mx-0">
       
       <div className="w-full bg-Black/20 h-[50px] absolute top-0 left-0 flex gap-4">
         {

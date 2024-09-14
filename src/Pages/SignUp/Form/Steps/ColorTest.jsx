@@ -1,13 +1,30 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { useLayoutDirection } from '../../../../Store/Context/LayoutDirectionContext'
 import {useTranslation} from "react-i18next"
 import Styles from '../../Styling.module.css'
+import { getColorsUrl } from "../../../../Store/urls";
 
-export default function ColorTest({handleChange, formData, setFormData, errorMessage, setErrorMessage, handleStep, handleSubmit}) {
+export default function ColorTest({handleChange, isSelected, colors, setColors, setIsSelected, formData, setFormData, errorMessage, setErrorMessage, handleStep, handleSubmit}) {
   const { isRTL, setIsRTL } = useLayoutDirection();
   const { t, i18n } = useTranslation("global");
-  const colors = ["#ffffff", "#FF8081", "#FF0000", "#FF6040", "#FF4001", "#FE6F21", "#FF7F00", "#F18F10"];
-  const [isSelected, setIsSelected] = useState([0, 1, 1, 0, 0, 1, 1, 1]);
+
+  useEffect(() => {
+    const fetchColors = async () => {
+      try {
+        const response = await fetch(getColorsUrl());
+        const data = await response.json();
+        console.log(data);
+        setColors(data);
+        setIsSelected(new Array(data.length).fill(0));
+      } catch (error) {
+        console.error("Error fetching colors:", error);
+      }
+    };
+    fetchColors();
+  }, []);
+
+  // colors.forEach((color) => {if(color.hexCode.length !== 7) console.log(color)});
+
   return (
     <>
       <h2 className="Title text-Black myFont text-[25px] font-semibold">
@@ -26,7 +43,7 @@ export default function ColorTest({handleChange, formData, setFormData, errorMes
               })}
               className={`w-20 h-20 md3:w-32 md3:h-32 rounded-2xl center bg-[#DDDDDD] cursor-pointer ${isSelected[index] ? 'border-[6px] border-DarkPink' : ''}`}
             >
-              <div className={`w-14 h-14 md3:w-24 md3:h-24 rounded-xl shadow-custom border border-Black/25`} style={{background: `${color}`}}></div>
+              <div className={`w-14 h-14 md3:w-24 md3:h-24 rounded-xl shadow-custom border border-Black/25`} style={{background: `${color.hexCode === '#80' ? "#000050" : color.hexCode}`}}></div>
             </span>
           ))}
         </div>
@@ -78,7 +95,7 @@ export default function ColorTest({handleChange, formData, setFormData, errorMes
                       
                       `}
             >
-              {t("personalInfo.next")}
+              {i18n.language === 'ar' ? "إنشاء حساب" : "Sign up"}
             </button>
         </div>
         <p className="text-red-700 font-bold -mb-5 -mt-5">{errorMessage}</p>

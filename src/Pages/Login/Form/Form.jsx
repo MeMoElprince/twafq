@@ -4,11 +4,9 @@ import { LoginUrl } from '../../../Store/urls'
 import { Link, useNavigate } from 'react-router-dom'
 import Styles from '../Styling.module.css'
 import { AuthenticationContext } from '../../../Store/Context/Authentication'
-import VarifyCode from '../VarifyCode'
 import ForgotPassword from '../ForgotPassword'
 import { useLayoutDirection } from '../../../Store/Context/LayoutDirectionContext'
 import {useTranslation} from "react-i18next"
-import Cookies from 'js-cookie'
 
 
 export default function Form() {
@@ -52,13 +50,9 @@ export default function Form() {
 	useEffect(() => {
 		if (!data) return;
 		setToken(data.token);
-		if (false) {
-			setType('otp')
-		} else {
-			setIsLogedIn(true)
-			Cookies.set('token', data.token, { expires: 7 });
-		}
+		setIsLogedIn(true)
 	}, [data])
+
 
 	useEffect(() => {
 		if (isLogedIn) {
@@ -127,13 +121,13 @@ export default function Form() {
 								{t("login.title")}
 							</button>
 							<p className='text-red-700 font-bold -mb-5 -mt-5'>{errorMessage}</p>
-							<div className={`${Styles.dontHaveAccount} center gap-2`}>
-								<p className='myFont text-[14px] md2:text-[18px]  text-center'>
+							<div className={`${Styles.dontHaveAccount} center gap-2 w-full`}>
+								<p className='myFont text-[13px] sm:text-[18px] text-center'>
 								{t("login.haveAcc")}
 								</p>
-								<Link to='/SignUp'>
+								<Link to='/SignUp' className='self-center'>
 									<button className={`${Styles.clickableButton}`}>
-										<p className='myFont text-[14px] md2:text-[18px] text-center opacity-80 font-medium underline'>
+										<p className='myFont text-[13px] sm:text-[18px] text-center opacity-80 font-medium underline mb-[2px]'>
 										{t("login.signup")}
 										</p>
 									</button>
@@ -141,7 +135,6 @@ export default function Form() {
 							</div>
 						</form>
 					</>}
-					{Type === 'otp' && <VarifyCode email={formData.email} />}
 					{Type === 'forgotpassword' && <ForgotPassword setLoginType={setType} />}
 				</div>
 			</section>

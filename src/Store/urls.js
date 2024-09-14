@@ -3,6 +3,7 @@ const APIURL = import.meta.env.VITE_API_URL;
 const SignupUrl = () => (`${APIURL}api/signup`);
 const LoginUrl = () => (`${APIURL}api/signin`);
 const MyDataUrl = () => (`${APIURL}api/profile`);
+const getColorsUrl = () => (`${APIURL}api/colors`)
 const updateMyData = () => (`${APIURL}api/v1/users/updateMe`);
 const changeMyPassword = () => (`${APIURL}api/v1/users/change-password`);
 const VerifyOTP = () => (`${APIURL}api/v1/users/verify`);
@@ -38,6 +39,7 @@ export {
   deleteFromCart,
   updateFromCart,
   getCountries,
+  getColorsUrl,
   getMyDefaultAddress,
   addNewAddress,
   updateAddress,

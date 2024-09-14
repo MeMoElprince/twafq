@@ -37,10 +37,12 @@ export default function AuthenticationProvider({ children }) {
   const [selfDescription, setSelfDescription] = useState('');
   const [partnerDescription, setPartnerDescription] = useState('');
   const [isChecked, setIsChecked] = useState(false);
+  const [colorAnswers, setColorAnswers] = useState([]);
 
   useEffect(() => {
     if (!isLogedIn) {
       Cookies.remove('token');
+      console.log("token deleted");
       setToken('');
       // Reset all fields when logged out
       setGender(["", ""]);
@@ -73,8 +75,10 @@ export default function AuthenticationProvider({ children }) {
       setSelfDescription('');
       setPartnerDescription('');
       setIsChecked(false);
+      setColorAnswers([]);
     } else {
       Cookies.set('token', Token, { expires: 7 });
+      localStorage.setItem('token', Token);
     }
   }, [isLogedIn]);
 
@@ -111,7 +115,8 @@ export default function AuthenticationProvider({ children }) {
       smoking, setSmoking,
       selfDescription, setSelfDescription,
       partnerDescription, setPartnerDescription,
-      isChecked, setIsChecked
+      isChecked, setIsChecked,
+      colorAnswers, setColorAnswers
     }}>
       {children}
     </AuthenticationContext.Provider>

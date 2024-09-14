@@ -74,34 +74,46 @@ export default function UsersCardRatio() {
           isRTL &&
           (
             <Swiper
-              className="w-[100%] py-5"
-              modules={[Navigation, Pagination, Scrollbar, A11y]}
-              slidesPerView={1} // Default slides per view
-              navigation
-              grabCursor
-              dir='rtl'
-              breakpoints={{
-                // when window width is >= 640px
-                640: {
-                  slidesPerView: 1,
-                },
-                // when window width is >= 768px
-                768: {
-                  slidesPerView: 2,
-                },
-                // when window width is >= 1024px
-                1100: {
-                  slidesPerView: 3,
-                },
-              }}
-            >
-                {
-                  Array.from({ length: 15 }).map((_, index) => (
-                    <SwiperSlide key={index}>
-                      <Card userDetails={dummyDetails}/>
-                    </SwiperSlide>
-                  ))
-                }
+                className="w-[100%] py-5"
+                modules={[Navigation, Pagination, Scrollbar, A11y]}
+                slidesPerView={1}
+                spaceBetween={100}
+                centeredSlides={true}
+                navigation
+                grabCursor
+                dir="rtl"
+                breakpoints={{
+                  620: {
+                    slidesPerView: 1,
+                    spaceBetween: 50,
+                    centeredSlides: true,
+                    centeredSlidesBounds: true,
+                  },
+                  1100: {
+                    slidesPerView: 3,
+                    spaceBetween: 30,
+                    centeredSlides: true,
+                    centeredSlidesBounds: true,
+                  },
+                  1180: {
+                    slidesPerView: 3,
+                    spaceBetween: 40,
+                    centeredSlides: false,
+                    centeredSlidesBounds: false,
+                  },
+                  1440: {
+                    slidesPerView: 4,
+                    spaceBetween: 20,
+                    centeredSlides: false,
+                    centeredSlidesBounds: false,
+                  },
+                }}
+              >
+                {Array.from({ length: 15 }).map((_, index) => (
+                  <SwiperSlide key={index}>
+                    <Card userDetails={dummyDetails} />
+                  </SwiperSlide>
+                ))}
             </Swiper>
           )
         }
@@ -109,34 +121,46 @@ export default function UsersCardRatio() {
           !isRTL &&
           (
             <Swiper
-              className="w-[100%] py-5"
-              modules={[Navigation, Pagination, Scrollbar, A11y]}
-              slidesPerView={1} // Default slides per view
-              navigation
-              grabCursor
-              dir='ltr'
-              breakpoints={{
-                // when window width is >= 640px
-                640: {
-                  slidesPerView: 1,
-                },
-                // when window width is >= 768px
-                768: {
-                  slidesPerView: 2,
-                },
-                // when window width is >= 1024px
-                1100: {
-                  slidesPerView: 3,
-                },
-              }}
-            >
-                {
-                  Array.from({ length: 15 }).map((_, index) => (
-                    <SwiperSlide key={index}>
-                      <Card userDetails={dummyDetails}/>
-                    </SwiperSlide>
-                  ))
-                }
+                className="w-[100%] py-5"
+                modules={[Navigation, Pagination, Scrollbar, A11y]}
+                slidesPerView={1}
+                spaceBetween={100}
+                centeredSlides={true}
+                navigation
+                grabCursor
+                dir="ltr"
+                breakpoints={{
+                  620: {
+                    slidesPerView: 1,
+                    spaceBetween: 50,
+                    centeredSlides: true,
+                    centeredSlidesBounds: true,
+                  },
+                  1100: {
+                    slidesPerView: 3,
+                    spaceBetween: 30,
+                    centeredSlides: true,
+                    centeredSlidesBounds: true,
+                  },
+                  1180: {
+                    slidesPerView: 3,
+                    spaceBetween: 40,
+                    centeredSlides: false,
+                    centeredSlidesBounds: false,
+                  },
+                  1440: {
+                    slidesPerView: 4,
+                    spaceBetween: 20,
+                    centeredSlides: false,
+                    centeredSlidesBounds: false,
+                  },
+                }}
+              >
+                {Array.from({ length: 15 }).map((_, index) => (
+                  <SwiperSlide key={index}>
+                    <Card userDetails={dummyDetails} />
+                  </SwiperSlide>
+                ))}
             </Swiper>
           )
         }

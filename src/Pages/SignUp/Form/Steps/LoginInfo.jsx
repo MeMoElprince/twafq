@@ -126,7 +126,8 @@ export default function LoginInfo({handleChange, formData, setFormData, errorMes
             htmlFor="userPassword"
             className={`inputLabel absolute top-[15px] ${
                 isRTL ? "-right-2" : "-left-2"
-              } text-Black transform -translate-y-2.5 myFont text-lg w-[100%] -z-20`}
+              } text-Black transform -translate-y-2.5 myFont text-[14px] w-[100%] -z-20`}
+              style={{fontSize: "14px"}}
           >
             {t("loginInfo.confirmPass")}
           </label>

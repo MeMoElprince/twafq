@@ -29,7 +29,7 @@ export default function RateUs() {
 
   return (
     <form className='flex flex-col gap-4 w-full' onSubmit={handleSubmit}>
-        <label htmlFor="myMessage" className='myFont text-2xl md:text-3xl sm:text-3xl font-medium ml-1 text-White'>
+        <label htmlFor="myMessage" className='myFont text-2xl md:text-3xl w-max sm:text-3xl font-medium ml-1 text-White'>
             {i18n.language === 'ar' ? "شارك قصتك" : "Share your story"}
         </label>
         <textarea id='myMessage' rows="6" name='message' value={formData.message} onChange={handleChange} placeholder= {isRTL ? "اكتب قصتك..." : "Type your story..."}

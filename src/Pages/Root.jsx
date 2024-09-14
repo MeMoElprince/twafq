@@ -6,12 +6,15 @@ import useFetch from '../Components/CustomHooks/useFetch'
 import { MyDataUrl } from '../Store/urls';
 import Cookies from "js-cookie";
 import { AuthenticationContext } from "../Store/Context/Authentication";
-
-import BackdropHolder from "../Components/Ui-Components/BackdropHolder";
 import AppDownload from "../Components/AppDownload/AppDownload"
 import RateUs from "../Components/RateUs/RateUs"
+import { useLayoutDirection } from "../Store/Context/LayoutDirectionContext"
+import { useTranslation } from "react-i18next"
 
 export default function Root() {
+  const { isRTL, setIsRTL } = useLayoutDirection();
+	const { t, i18n } = useTranslation("global");
+
   const [errorMessage, setErrorMessage] = useState('');
   
   const {
@@ -43,7 +46,8 @@ export default function Root() {
     setSmoking,
     setSelfDescription,
     setPartnerDescription,
-    setIsChecked
+    setIsChecked,
+    setColorAnswers,
   } = useContext(AuthenticationContext);
   
   const { retData: data } = useFetch({
@@ -61,40 +65,41 @@ export default function Root() {
     if (data) {
       setIsLogedIn(true);
 
-      const user = data.user;
+      const user = data;
 
       setFirstName(user?.firstName || '');
       setLastName(user?.lastName || '');
-      setEmail(user?.email || '');
-      setGender([user?.gender || '', '']);
+      setEmail(user?.username || '');
+      setGender([user?.gender[!isRTL] || '', '']);
       setPhone(user?.phone || '');
       setAge(user?.age || '');
       setWeight(user?.weight || '');
       setHeight(user?.height || '');
-      setSkinColor([user?.skinColor || '', '']);
-      setShape([user?.shape || '', '']);
-      setHealth([user?.health || '', '']);
-      setNationality([user?.nationality || '', '']);
-      setCountry([user?.country || '', '', '']);
-      setCity([user?.city || '', '']);
-      setResidence([user?.residence || '', '']);
-      setFamilyStatus([user?.familyStatus || '', '']);
-      setMarriageType([user?.marriageType || '', '']);
+      setSkinColor([user?.skinColor[!isRTL] || '', '']);
+      setShape([user?.shape[!isRTL] || '', '']);
+      setHealth([user?.health[!isRTL] || '', '']);
+      setNationality([user?.nationality[!isRTL] || '', '']);
+      setCountry([user?.country[!isRTL] || '', '', '']);
+      setCity([user?.city[!isRTL] || '', '']);
+      setResidence([user?.residence[!isRTL] || '', '']);
+      setFamilyStatus([user?.familyStatus[!isRTL] || '', '']);
+      setMarriageType([user?.marriageType[!isRTL] || '', '']);
       setChildreen(user?.children || '');
-      setEducationLevel([user?.educationLevel || '', '']);
+      setEducationLevel([user?.educationLevel[!isRTL] || '', '']);
       setWork(user?.work || '');
-      setFinancialStatus([user?.financialStatus || '', '']);
-      setReligion([user?.religion || '', '']);
-      setDoctrine([user?.doctrine || '', '']);
-      setReligiousCommitment([user?.religiousCommitment || '', '']);
-      setSmoking([user?.smoking || '', '']);
+      setFinancialStatus([user?.financialStatus[!isRTL] || '', '']);
+      setReligion([user?.religion[!isRTL] || '', '']);
+      setDoctrine([user?.doctrine[!isRTL] || '', '']);
+      setReligiousCommitment([user?.religiousCommitment[!isRTL] || '', '']);
+      setSmoking([user?.smoking[!isRTL] || '', '']);
       setSelfDescription(user?.selfDescription || '');
       setPartnerDescription(user?.partnerDescription || '');
       setIsChecked(user?.isChecked || false);
+      setColorAnswers(user?.colorAnswers);
     } else {
       setIsLogedIn(false);
     }
-  }, [data, setIsLogedIn, setFirstName, setLastName, setEmail, setGender, setPhone, setAge, setWeight, setHeight, setSkinColor, setShape, setHealth, setNationality, setCountry, setCity, setResidence, setFamilyStatus, setMarriageType, setChildreen, setEducationLevel, setWork, setFinancialStatus, setReligion, setDoctrine, setReligiousCommitment, setSmoking, setSelfDescription, setPartnerDescription, setIsChecked]);
+  }, [data, setIsLogedIn, setFirstName, setLastName, setColorAnswers, setEmail, setGender, setPhone, setAge, setWeight, setHeight, setSkinColor, setShape, setHealth, setNationality, setCountry, setCity, setResidence, setFamilyStatus, setMarriageType, setChildreen, setEducationLevel, setWork, setFinancialStatus, setReligion, setDoctrine, setReligiousCommitment, setSmoking, setSelfDescription, setPartnerDescription, setIsChecked]);
 
 
   return (
@@ -106,7 +111,7 @@ export default function Root() {
         </div>
       </div>
       <div>
-        <BackdropHolder />
+        {/* <BackdropHolder /> */}
       </div>
       <div className="center w-[full] bg-Black gap-0 md4:gap-32 px-16 md4:px-32 md4:flex-row flex-col pt-16 pb-2 -mb-1">
         <RateUs />

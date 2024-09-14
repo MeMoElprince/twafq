@@ -35,7 +35,7 @@ const dummyDetails =
         "selfDescription": "أنا شخص هادئ وبسيط.",
         "partnerDescription": "أبحث عن شريك طيب القلب وصادق.",
         "phone": "+20 1234567890",
-        "isVerified": true
+        "isVerified": true,
     }
 
 export default function UserProfile() {
