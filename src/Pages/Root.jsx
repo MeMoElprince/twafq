@@ -10,6 +10,7 @@ import AppDownload from "../Components/AppDownload/AppDownload"
 import RateUs from "../Components/RateUs/RateUs"
 import { useLayoutDirection } from "../Store/Context/LayoutDirectionContext"
 import { useTranslation } from "react-i18next"
+import Requests from "../Components/Requests/Requests"
 
 export default function Root() {
   const { isRTL, setIsRTL } = useLayoutDirection();
@@ -103,15 +104,18 @@ export default function Root() {
 
 
   return (
-    <main className="bg-White">
+    <main className="bg-White overflow-hidden">
       <NavBar />
       <div>
         <div>
           <Outlet />
         </div>
       </div>
-      <div>
-        {/* <BackdropHolder /> */}
+      <div className="absolute w-full h-screen top-0 left-0">
+        <Requests 
+          title={i18n.language === 'ar' ? "الطلبات المرسلة" : "Sent requests"} 
+          subTitle={i18n.language === 'ar' ? "سيحذف خلال يوم" : "Deleting within a day"} 
+        />
       </div>
       <div className="center w-[full] bg-Black gap-0 md4:gap-32 px-16 md4:px-32 md4:flex-row flex-col pt-16 pb-2 -mb-1">
         <RateUs />
