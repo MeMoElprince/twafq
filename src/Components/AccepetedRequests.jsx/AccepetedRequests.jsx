@@ -4,21 +4,22 @@ import Woman from "../../assets/Avatars/woman.png";
 import Man from "../../assets/Avatars/man.png";
 import verifiedMan from "../../assets/Avatars/verifiedMan.png";
 import verifiedWoman from "../../assets/Avatars/verifiedWoman.png";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from 'react-i18next'
 
 const dummyDetails = {
-  firstName: "احمد",
-  lastName: "سعد",
+  firstName: "عبدالرحمن",
+  lastName: "عبدالله",
   gender: ["ذكر", "Male"],
   age: 28,
   country: ["مصر", "Egypt"],
   city: ["القاهرة", "Cairo"],
+  phone: "01284932223",
   isVerified: true,
-  compatibilityRatio: 78,
+  compatibilityRatio: 75,
 };
 
-export default function Requests({ title, subTitle }) {
-  const {t, i18n} = useTranslation("global")
+export default function AccepetedRequests({ title, subTitle }) {
+  const { t, i18n } = useTranslation("global");
   return (
     // <!-- component -->
     <div className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-Black/70 backdrop-blur-sm">
@@ -47,17 +48,14 @@ export default function Requests({ title, subTitle }) {
             </div>
           </div>
           <div class="mt-4">
-            <div class="flex max-h-[400px] w-full flex-col overflow-y-scroll px-2 gap-4">
+            <div class="flex max-h-[400px] w-full flex-col overflow-y-scroll px-2 gap-5">
 
               <Card userDetails = {dummyDetails} />
-              <Card userDetails = {{...dummyDetails, isVerified: false, gender:["انثى", "Female"]}} />
+              <Card userDetails = {{...dummyDetails, isVerified: false, gender:["انثى", "Female"], compatibilityRatio : 93}} />
               <Card userDetails = {dummyDetails} />
               <Card userDetails = {{...dummyDetails, isVerified: true, gender:["انثى", "Female"]}} />
               <Card userDetails = {{...dummyDetails, isVerified: false}} />
 
-              <h3 class={`my-2 text-[14px] text-Black/70 font-medium px-2 ${i18n.language === 'ar' ? "border-r-2 border-DarkPink" : "border-l-2 border-DarkPink"}`}>
-                {subTitle}
-              </h3>
 
               <Card userDetails = {{...dummyDetails, isVerified: true, gender:["انثى", "Female"]}} />
               <Card userDetails = {dummyDetails} />

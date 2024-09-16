@@ -11,11 +11,13 @@ import RateUs from "../Components/RateUs/RateUs"
 import { useLayoutDirection } from "../Store/Context/LayoutDirectionContext"
 import { useTranslation } from "react-i18next"
 import Requests from "../Components/Requests/Requests"
+import ReceivedRequests from "../Components/ReceivedRequests/ReceivedRequests"
+import AccepetedRequests from "../Components/AccepetedRequests.jsx/AccepetedRequests"
 
 export default function Root() {
   const { isRTL, setIsRTL } = useLayoutDirection();
 	const { t, i18n } = useTranslation("global");
-
+  const [popActive, setPopActive] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   
   const {
@@ -103,19 +105,37 @@ export default function Root() {
   }, [data, setIsLogedIn, setFirstName, setLastName, setColorAnswers, setEmail, setGender, setPhone, setAge, setWeight, setHeight, setSkinColor, setShape, setHealth, setNationality, setCountry, setCity, setResidence, setFamilyStatus, setMarriageType, setChildreen, setEducationLevel, setWork, setFinancialStatus, setReligion, setDoctrine, setReligiousCommitment, setSmoking, setSelfDescription, setPartnerDescription, setIsChecked]);
 
 
+  useEffect(() => {
+    if (popActive) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+      document.body.style.overflowX = 'hidden';
+    }
+  }, [popActive])
+
+  const mainStyle = popActive ? 'opacity-30 imgSettings' : ''
+
   return (
     <main className="bg-White overflow-hidden">
       <NavBar />
       <div>
-        <div>
+        <div className={mainStyle}>
           <Outlet />
         </div>
       </div>
       <div className="absolute w-full h-screen top-0 left-0">
-        <Requests 
+        {/* <Requests
           title={i18n.language === 'ar' ? "الطلبات المرسلة" : "Sent requests"} 
           subTitle={i18n.language === 'ar' ? "سيحذف خلال يوم" : "Deleting within a day"} 
-        />
+        /> */}
+        {/* <ReceivedRequests
+          title={i18n.language === 'ar' ? "الطلبات المرسلة إليك" : "Requests sent to you"} 
+          subTitle={i18n.language === 'ar' ? "سيحذف خلال يوم" : "Deleting within a day"} 
+        /> */}
+        {/* <AccepetedRequests
+          title={i18n.language === 'ar' ? "الطلبات المقبولة" : "Accepted Requests"} 
+        /> */}
       </div>
       <div className="center w-[full] bg-Black gap-0 md4:gap-32 px-16 md4:px-32 md4:flex-row flex-col pt-16 pb-2 -mb-1">
         <RateUs />

@@ -10,8 +10,8 @@ export default function Card({ userDetails }) {
     const { isRTL, setIsRTL } = useLayoutDirection();
 
   return (
-    <button class="group flex items-center gap-x-5 rounded-md px-2.5 py-2 transition-all duration-75 hover:bg-[#FFE5E8]">
-      <div class="flex size-14 items-center rounded-full overflow-hidden bg-gray-200 text-Black group-hover:bg-pink-300">
+    <button class="group flex items-center gap-x-5 rounded-md px-2.5 py-2 transition-all  duration-75 hover:bg-[#FFE5E8]">
+      <div class="flex size-14 items-center shrink-0 rounded-full overflow-hidden bg-gray-200 text-Black group-hover:bg-pink-300">
         <img
           src={
                 userDetails?.isVerified ? 
@@ -23,9 +23,9 @@ export default function Card({ userDetails }) {
           className="object-cover size-14 rounded-full imgSettings"
         />
       </div>
-      <div class="flex flex-col items-start justify-between gap-1 font-medium text-Black">
-        <div className={`center flex-wrap gap-1 line-clamp-1`}>
-          <p class="text-base line-clamp-1">{userDetails?.firstName + " " + userDetails?.lastName}</p>
+      <div class="flex flex-col items-start justify-between gap-1 font-medium text-Black overflow-hidden">
+        <div className={`flex items-center flex-wrap gap-1`}>
+          <p class="text-base line-clamp-1 break-all">{userDetails?.firstName + " " + userDetails?.lastName}</p>
           <p class="text-[13px]">{"(" + userDetails?.age + " " + (isRTL ? "سنة" : "Years") + ")"}</p>
         </div>
         <span class="text-sm center flex-wrap gap-1 text-Black/70 text-start">
