@@ -34,11 +34,11 @@ export default function useFetch({ url, setErrorMessage, method = 'GET', body, T
           throw new Error(data.error || 'Something went wrong');
         }
 
-        setRetData(data);
+        setRetData(data.content);
 
       } catch (error) {
         if (setErrorMessage) setErrorMessage(error.message);
-        console.error(error);
+        // console.error(error);
       } finally {
         setLoading(false);
       }
@@ -46,12 +46,6 @@ export default function useFetch({ url, setErrorMessage, method = 'GET', body, T
 
     fetchData();
   }, [url, reRender, method, body]);
-
-  useEffect(() => {
-    if (retData) {
-      console.log(retData); // Log the data when it is updated
-    }
-  }, [retData]);
 
   return { retData, loading };
 }

@@ -14,7 +14,7 @@ export default function Target() {
 
   return (
     <>
-      <div className="bg-Black w-full relative h-[70vh] md4:h-[50vh] mb-24 mt-12
+      <div className="bg-Black w-full relative h-[75vh] md4:h-[50vh] mb-24 mt-12
       before:bg-Black/80 before:w-full before:z-10 before:absolute before:h-full before:bg-clip-padding before:backdrop-filter before:backdrop-blur-[6px] before:content-[''] before:inset-0">
         <div className="w-full h-full center flex-col absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 gap-8 z-20">
             <Typography

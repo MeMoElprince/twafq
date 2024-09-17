@@ -3,6 +3,7 @@ import {useTranslation} from "react-i18next"
 import { FaPhoneAlt } from "react-icons/fa";
 import { IoMdMail } from "react-icons/io";
 import { RiInstagramFill, RiFacebookFill , RiTwitterXFill} from "react-icons/ri";
+import { Helmet } from 'react-helmet-async';
 
 
 
@@ -55,6 +56,10 @@ export default function Contact(){
     
     return(
         <div className='w-full flex justify-center items-center flex-col bg-White myFont min-h-screen'>
+            <Helmet>
+                <title>{i18n.language === 'ar' ? "تواصل معنا" : "Contact us"}</title>
+                <meta name='description' content={t("contact.title").slice(0, 100)} />
+            </Helmet>
             <div className="grid sm:grid-cols-2 items-start gap-16 p-4 myFont h-full w-[90%] my-[20vh]">
                 <div>
                     <h1 className="text-Black text-4xl font-extrabold">{t("contact.title")}</h1>

@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react'
 import { useLayoutDirection } from '../../Store/Context/LayoutDirectionContext'
 import {useTranslation} from "react-i18next"
 import { BlogCard } from './Components/BlogCard';
+import { Helmet } from 'react-helmet-async';
 
 export default function Blogs(){
     const { isRTL, setIsRTL } = useLayoutDirection();
@@ -28,6 +29,10 @@ export default function Blogs(){
     
     return(
         <div className='w-full flex justify-center items-center flex-col bg-White myFont min-h-screen'>
+            <Helmet>
+                <title>{t('blogs.title')}</title>
+                <meta name='description' content={t('blogs.description')} />
+            </Helmet>
             <div className="h-full relative py-36 w-full">
                 <div className="absolute inset-0 h-full w-full bg-White [background:radial-gradient(125%_125%_at_50%_10%,#fff_50%,#e84762_100%)]"></div>
                 <div className="w-[90%] h-full mx-auto">

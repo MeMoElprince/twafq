@@ -14,8 +14,10 @@ function Footer() {
     <footer className="bg-[#101010] p-10 myFont tracking-wide px-16">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 place-items-center">
         <div className="lg:flex lg:items-center">
-            <Link to="/">
-                <img className='myFont grayscale w-36' src={isRTL ? ArLogo : EnLogo} alt="logo" />
+            <Link to="/"
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            >
+                <img className='myFont grayscale w-36' alt src={isRTL ? ArLogo : EnLogo} alt="logo" />
             </Link>
         </div>
         <div className="flex flex-col gap-4 items-center">
@@ -42,10 +44,10 @@ function Footer() {
               <Link to="Contact" className="text-gray-300 hover:text-white text-sm">{i18n.language == 'ar' ? "إرسل رسالة" : "Send a Message"}</Link>
             </li>
             <li>
-              <a className="text-gray-300 hover:text-white text-sm">{i18n.language == 'ar' ? "البريد الإلكتروني" : "Email"}</a>
+              <a href='https://gmail.com' className="text-gray-300 hover:text-white text-sm">{i18n.language == 'ar' ? "البريد الإلكتروني" : "Email"}</a>
             </li>
             <li>
-              <a className="text-gray-300 hover:text-white text-sm">{i18n.language == 'ar' ? "الهاتف" : "Phone"}</a>
+              <a href='tel:01284223335' className="text-gray-300 hover:text-white text-sm">{i18n.language == 'ar' ? "الهاتف" : "Phone"}</a>
             </li>
           </ul>
         </div>
@@ -57,10 +59,10 @@ function Footer() {
               <Link to="About" className="text-gray-300 hover:text-white text-sm">{i18n.language == 'ar' ? "من نحن" : "About Us"}</Link>
             </li>
             <li>
-              <a className="text-gray-300 hover:text-white text-sm">{i18n.language == 'ar' ? "الشروط والأحكام" : "Terms & Conditions"}</a>
+              <a href='' className="text-gray-300 hover:text-white text-sm">{i18n.language == 'ar' ? "الشروط والأحكام" : "Terms & Conditions"}</a>
             </li>
             <li>
-              <a className="text-gray-300 hover:text-white text-sm">{i18n.language == 'ar' ? "سياسة الخصوصية" : "Privacy Policy"}</a>
+              <a href='' className="text-gray-300 hover:text-white text-sm">{i18n.language == 'ar' ? "سياسة الخصوصية" : "Privacy Policy"}</a>
             </li>
           </ul>
         </div>

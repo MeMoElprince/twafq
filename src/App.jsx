@@ -1,7 +1,4 @@
-import { useContext } from "react"
 import { Routes, Route } from "react-router-dom"
-import { BackDropContext } from "./Store/Context/BackDrop"
-
 import Root from './Pages/Root'
 import Login from './Pages/Login/index'
 import SignUp from './Pages/SignUp/index'
@@ -13,11 +10,12 @@ import Home from "./Pages/Home/index"
 import UserProfile from "./Pages/UserProfile/index"
 import SingleBlog from "./Pages/SingleBlog/SingleBlog"
 import MyProfile from "./Pages/MyProfile/index"
+import ScrollToTop from "./Components/ScrollToTop/ScrollToTop"
 
 function App() {
-  const { BackDropActive } = useContext(BackDropContext)
   return (
     <>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Root />} >
           <Route index element={<Home />} />

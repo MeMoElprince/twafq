@@ -46,7 +46,7 @@ export default function Card({ userDetails }) {
         userDetails && userDetails?.isVerified && (
         <div className="relative group">
           <MdVerified className="absolute text-blue-600" size={32} />
-          <span className={`absolute bg-gray-300 text-Black text-sm font-medium p-1 px-2 mt-[34px] ${isRTL ? "-right-2" : "-left-4"} rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300`}>
+          <span className={`absolute bg-gray-300 text-Black pointer-events-none text-sm font-medium p-1 px-2 mt-[34px] ${isRTL ? "-right-2" : "-left-4"} rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300`}>
             {i18n.language === 'ar' ? "موثق" : "Verified"}
           </span>
         </div>
@@ -54,18 +54,18 @@ export default function Card({ userDetails }) {
       }
 
         <div className="absolute group w-full">
-          <div className="center gap-2 absolute top-[110px] shadow-dm border border-Black/10 py-1 px-3 bg-green-200 rounded-full">
+          <div className="center gap-2 absolute top-[120px] shadow-dm border border-Black/10 py-1 px-3 bg-green-200 rounded-full">
             <FaCircle  className={`text-green-600`} size={12} />
             <p className={`text-sm`}>3 اشهر</p>
           </div>
-          <span className={`absolute bg-gray-300 text-Black text-sm font-medium p-1 px-2 top-[142px] ${isRTL ? "-right-6" : "-left-6"} rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300`}>
+          <span className={`absolute bg-gray-300 text-Black pointer-events-none text-sm font-medium p-1 px-2 top-[142px] ${isRTL ? "-right-6" : "-left-6"} rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300`}>
             {i18n.language === 'ar' ? "آخر ظهور" : "Last seen"}
           </span>
         </div>
 
 
       <div className="flex flex-col items-center gap-4">
-        <div className="min-h-[110px]">
+        <div className="min-h-[130px]">
           <img
             src={
                 userDetails?.isVerified ? 
@@ -73,6 +73,7 @@ export default function Card({ userDetails }) {
                 :
                 userDetails?.gender.en === 'Male' ? Man : Woman 
             }
+            alt="Avatar"
             className="w-28 h-28 rounded-full pointer-events-none"
           />
         </div>
