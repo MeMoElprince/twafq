@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom';
 import Card from './Components/Card';
 import ReactSlider from 'react-slider'
 import Spinner from '../../Components/Ui-Components/Spinner'
@@ -9,19 +8,20 @@ import {useTranslation} from "react-i18next"
 import Countires from "../SignUp/Components/Countires.json"
 import Styles from './Styling.module.css'
 import { Link } from 'react-router-dom';
+import { TbHeartSearch } from "react-icons/tb";
 
 
-export default function SearchPage({ usersUrl, setUsersUrl, loadingUsers, setLoadingUsers, usersS, setUsersS }) {
+export default function SearchPage({ usersUrl, setUsersUrl, loadingUsers, formData, setFormData, setLoadingUsers, usersS, setUsersS, page }) {
   const { isRTL, setIsRTL } = useLayoutDirection();
 	const { t, i18n } = useTranslation("global");
-  const { page } = useParams("page");
+  
 
-  console.log(loadingUsers);
+  // console.log(loadingUsers);
   
   return (
     <div className={`z[5] min-h-screen flex flex-col justify-center items-center md:justify-between gap-y-20 mainPadding mt-[20vh] mb-[20vh]`}>
       <div className={`${Styles.exactForm} bg-LighterPink/50 border-2 border-Black/20 shadow-xl rounded-2xl w-full px-8 sm:px-12 py-8 sm:py-12 z-10`}>
-        <Fillters usersUrl={usersUrl} setUsersUrl={setUsersUrl} loadingUsers={loadingUsers} setLoadingUsers={setLoadingUsers} usersS={usersS} setUsersS={setUsersS} isRTL={isRTL} i18n={i18n} t={t} />
+        <Fillters usersUrl={usersUrl} formData={formData} setFormData={setFormData} setUsersUrl={setUsersUrl} loadingUsers={loadingUsers} setLoadingUsers={setLoadingUsers} usersS={usersS} setUsersS={setUsersS} isRTL={isRTL} i18n={i18n} t={t} />
       </div>
       <div className='gap-12 flex flex-grow w-full flex-wrap px-12'>
         {
@@ -30,8 +30,9 @@ export default function SearchPage({ usersUrl, setUsersUrl, loadingUsers, setLoa
           ))
         }
         {
-          !loadingUsers && usersS && !usersS?.data?.userCards?.length && <div className='w-full center'>
-            <p className='text-2xl'>No Users Found</p>
+          !loadingUsers && usersS && !usersS?.data?.userCards?.length && <div className='w-full center flex-col h-screen gap-4'>
+            <TbHeartSearch className='text-DarkPink size-[160px] sm:size-[240px]' />
+            <p className='text-xl sm:text-3xl text-center font-medium'>{i18n.language === 'ar' ? "لم يتم العثور على مستخدمين..." : "No Users Found..."}</p>
           </div>
         }
         {
@@ -42,10 +43,10 @@ export default function SearchPage({ usersUrl, setUsersUrl, loadingUsers, setLoa
           </>
         }
       </div>
-      <ul className="myFont flex mx-auto border-2 border-Black rounded w-max mt-4 bg-LighterPink">
+      <ul className="myFont flex mx-auto border-2 border-Black rounded w-max mt-4 bg-LighterPink/60">
         <Link to={`/Explore/${Math.max(1, parseInt(page) - 1)}`}>
           <li
-            className={`px-5 py-2.5 flex items-center justify-center shrink-0 cursor-pointer text-base ${i18n.language === 'ar' && "border-l-2 border-Black"} font-semibold text-Black min-w-[110px] hover:bg-DarkPink/50 transition-all duration-200 hover:px-7`}>
+            className={`px-5 py-2.5 flex items-center justify-center shrink-0 cursor-pointer text-base ${i18n.language === 'ar' && "border-l-2 border-Black"} font-semibold text-Black min-w-[110px] hover:bg-DarkPink/40 transition-all duration-200 hover:px-7`}>
             <svg xmlns="http://www.w3.org/2000/svg" className={`w-3 fill-current ${i18n.language === 'ar' ? "ml-3 scale-x-[-1]" : "mr-3"}`} viewBox="0 0 55.753 55.753">
               <path
                 d="M12.745 23.915c.283-.282.59-.52.913-.727L35.266 1.581a5.4 5.4 0 0 1 7.637 7.638L24.294 27.828l18.705 18.706a5.4 5.4 0 0 1-7.636 7.637L13.658 32.464a5.367 5.367 0 0 1-.913-.727 5.367 5.367 0 0 1-1.572-3.911 5.369 5.369 0 0 1 1.572-3.911z"
@@ -56,7 +57,7 @@ export default function SearchPage({ usersUrl, setUsersUrl, loadingUsers, setLoa
         </Link>
         <Link to={`/Explore/${parseInt(page)+1}`}>
           <li
-            className={`${i18n.language === 'en' && "border-l-2 border-Black"} px-5 py-2.5 flex items-center justify-center shrink-0 cursor-pointer text-base font-semibold text-Black min-w-[110px] hover:bg-DarkPink/50 transition-all duration-200 hover:px-7`}>
+            className={`${i18n.language === 'en' && "border-l-2 border-Black"} px-5 py-2.5 flex items-center justify-center shrink-0 cursor-pointer text-base font-semibold text-Black min-w-[110px] hover:bg-DarkPink/40 transition-all duration-200 hover:px-7`}>
             {i18n.language === 'ar' ? "التالي" : "next"}
             <svg xmlns="http://www.w3.org/2000/svg" className={`w-3 fill-current ${i18n.language === 'ar' ? "mr-3 scale-x-[-1]" : "ml-3"} rotate-180`} viewBox="0 0 55.753 55.753">
               <path
@@ -71,7 +72,7 @@ export default function SearchPage({ usersUrl, setUsersUrl, loadingUsers, setLoa
 }
 
 
-const Fillters = ({ usersUrl, setUsersUrl, loadingUsers, setLoadingUsers, usersS, setUsersS, isRTL, i18n, t }) => {
+const Fillters = ({ usersUrl, setUsersUrl, formData, setFormData, loadingUsers, setLoadingUsers, usersS, setUsersS, isRTL, i18n, t }) => {
   const [selectedIdx, setSelectedIdx] = useState(0);
 
   const sortTypeLabels = [
@@ -83,21 +84,7 @@ const Fillters = ({ usersUrl, setUsersUrl, loadingUsers, setLoadingUsers, usersS
     ['اعلى مستوى تعليمي', 'Highest Education Level'],
   ];
   
-  // State for the form fields
-  const [formData, setFormData] = useState({
-    gender: ["", ""],
-    minAge: 18,
-    maxAge: 100,
-    nationality: ["", ""],
-    country: ["", "", ""],
-    city: ["", ""],
-    countryOfResidence: ["", ""],
-    familyStatus: ["", ""],
-    marriageType: ["", ""],
-    religion: ["", ""],
-    doctrine: ["", ""],
-    sortType: sortTypeLabels[0],
-  });
+
   
   const [searchParams, setSearchParams] = useState(null);
   

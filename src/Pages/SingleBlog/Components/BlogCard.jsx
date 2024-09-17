@@ -8,7 +8,7 @@ const containsLongWord = (sentence) => {
 export function BlogCard(props){
     return(
         <div className="cursor-pointer overflow-hidden w-full relative flex gap-4 transition-all duration-200 myFont text-Black hover:text-DarkPink">
-            <img src={props.img} alt="Blog Post 1" className="size-[100px] object-cover rounded-sm" />
+            <img src={props.img} alt="Blog Post" className="size-[100px] object-cover rounded-sm" />
             <div className="flex flex-col gap-2">
                 <h4 className={`text-base font-medium line-clamp-2 breaka-all ${
                     containsLongWord(props.title)

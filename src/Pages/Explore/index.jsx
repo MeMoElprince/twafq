@@ -1,225 +1,97 @@
 import { useEffect, useState } from "react"
-import Shop from "./SearchPage"
+import SearchPage from "./SearchPage"
 import useFetch from "../../Components/CustomHooks/useFetch"
 import { getUsers } from "../../Store/urls"
+import { useParams } from "react-router-dom"
+import { Helmet } from "react-helmet-async"
+import { useTranslation } from "react-i18next"
 
-const dummyDetails = {
-  data:{
-    userCards:[
-      {
-        "firstName": "سارة",
-        "lastName": "سعد",
-        "gender": { "ar": "انثى", "en": "Female" },
-        "age": 28,
-        "weight": 75,
-        "height": 175,
-        "skinColor": { "ar": "قمحاوي", "en": "Moderate Brown" },
-        "shape": { "ar": "متوسط", "en": "Average" },
-        "healthCondition": { "ar": "ألم الظهر", "en": "Back pain" },
-        "religion": { "ar": "الإسلام", "en": "Islam" },
-        "doctrine": { "ar": "سني", "en": "Sunni" },
-        "religiousCommitment": { "ar": "ملتزم", "en": "Committed" },
-        "smoking": { "ar": "غير مدخن", "en": "Non-Smoker" },
-        "familyStatus": { "ar": "أعزب", "en": "Single" },
-        "marriageType": { "ar": "الزوجة الأولى", "en": "First Wife" },
-        "children": 0,
-        "educationLevel": { "ar": "درجة البكالوريوس", "en": "Bachelor's Degree" },
-        "financialStatus": { "ar": "متوسط", "en": "Average" },
-        "nationality": { "ar": "مصري", "en": "Egyptian" },
-        "country": { "ar": "مصر", "en": "Egypt" },
-        "city": { "ar": "القاهرة", "en": "Cairo" },
-        "residence": { "ar": "مدينة نصر", "en": "Nasr City" },
-        "work": { "ar": "مهندس معماري", "en": "Architect" },
-        "selfDescription": "أنا شخص هادئ وبسيط.",
-        "partnerDescription": "أبحث عن شريك طيب القلب وصادق.",
-        "phone": "+20 1234567890",
-        "isVerified": false,
-        "compatibilityRatio" : 43
-    },
-    {
-      "firstName": "احمد",
-      "lastName": "سعد",
-      "gender": { "ar": "ذكر", "en": "Male" },
-      "age": 28,
-      "weight": 75,
-      "height": 175,
-      "skinColor": { "ar": "قمحاوي", "en": "Moderate Brown" },
-      "shape": { "ar": "متوسط", "en": "Average" },
-      "healthCondition": { "ar": "ألم الظهر", "en": "Back pain" },
-      "religion": { "ar": "الإسلام", "en": "Islam" },
-      "doctrine": { "ar": "سني", "en": "Sunni" },
-      "religiousCommitment": { "ar": "ملتزم", "en": "Committed" },
-      "smoking": { "ar": "غير مدخن", "en": "Non-Smoker" },
-      "familyStatus": { "ar": "أعزب", "en": "Single" },
-      "marriageType": { "ar": "الزوجة الأولى", "en": "First Wife" },
-      "children": 0,
-      "educationLevel": { "ar": "درجة البكالوريوس", "en": "Bachelor's Degree" },
-      "financialStatus": { "ar": "متوسط", "en": "Average" },
-      "nationality": { "ar": "مصري", "en": "Egyptian" },
-      "country": { "ar": "مصر", "en": "Egypt" },
-      "city": { "ar": "القاهرة", "en": "Cairo" },
-      "residence": { "ar": "مدينة نصر", "en": "Nasr City" },
-      "work": { "ar": "مهندس معماري", "en": "Architect" },
-      "selfDescription": "أنا شخص هادئ وبسيط.",
-      "partnerDescription": "أبحث عن شريك طيب القلب وصادق.",
-      "phone": "+20 1234567890",
-      "isVerified": true,
-      "compatibilityRatio" : 78
-  },
-  {
-    "firstName": "احمد",
-    "lastName": "سعد",
-    "gender": { "ar": "ذكر", "en": "Male" },
-    "age": 28,
-    "weight": 75,
-    "height": 175,
-    "skinColor": { "ar": "قمحاوي", "en": "Moderate Brown" },
-    "shape": { "ar": "متوسط", "en": "Average" },
-    "healthCondition": { "ar": "ألم الظهر", "en": "Back pain" },
-    "religion": { "ar": "الإسلام", "en": "Islam" },
-    "doctrine": { "ar": "سني", "en": "Sunni" },
-    "religiousCommitment": { "ar": "ملتزم", "en": "Committed" },
-    "smoking": { "ar": "غير مدخن", "en": "Non-Smoker" },
-    "familyStatus": { "ar": "أعزب", "en": "Single" },
-    "marriageType": { "ar": "الزوجة الأولى", "en": "First Wife" },
-    "children": 0,
-    "educationLevel": { "ar": "درجة البكالوريوس", "en": "Bachelor's Degree" },
-    "financialStatus": { "ar": "متوسط", "en": "Average" },
-    "nationality": { "ar": "مصري", "en": "Egyptian" },
-    "country": { "ar": "مصر", "en": "Egypt" },
-    "city": { "ar": "القاهرة", "en": "Cairo" },
-    "residence": { "ar": "مدينة نصر", "en": "Nasr City" },
-    "work": { "ar": "مهندس معماري", "en": "Architect" },
-    "selfDescription": "أنا شخص هادئ وبسيط.",
-    "partnerDescription": "أبحث عن شريك طيب القلب وصادق.",
-    "phone": "+20 1234567890",
-    "isVerified": true,
-    "compatibilityRatio" : 78
-},
-{
-  "firstName": "احمد",
-  "lastName": "سعد",
-  "gender": { "ar": "ذكر", "en": "Male" },
-  "age": 28,
-  "weight": 75,
-  "height": 175,
-  "skinColor": { "ar": "قمحاوي", "en": "Moderate Brown" },
-  "shape": { "ar": "متوسط", "en": "Average" },
-  "healthCondition": { "ar": "ألم الظهر", "en": "Back pain" },
-  "religion": { "ar": "الإسلام", "en": "Islam" },
-  "doctrine": { "ar": "سني", "en": "Sunni" },
-  "religiousCommitment": { "ar": "ملتزم", "en": "Committed" },
-  "smoking": { "ar": "غير مدخن", "en": "Non-Smoker" },
-  "familyStatus": { "ar": "أعزب", "en": "Single" },
-  "marriageType": { "ar": "الزوجة الأولى", "en": "First Wife" },
-  "children": 0,
-  "educationLevel": { "ar": "درجة البكالوريوس", "en": "Bachelor's Degree" },
-  "financialStatus": { "ar": "متوسط", "en": "Average" },
-  "nationality": { "ar": "مصري", "en": "Egyptian" },
-  "country": { "ar": "مصر", "en": "Egypt" },
-  "city": { "ar": "القاهرة", "en": "Cairo" },
-  "residence": { "ar": "مدينة نصر", "en": "Nasr City" },
-  "work": { "ar": "مهندس معماري", "en": "Architect" },
-  "selfDescription": "أنا شخص هادئ وبسيط.",
-  "partnerDescription": "أبحث عن شريك طيب القلب وصادق.",
-  "phone": "+20 1234567890",
-  "isVerified": true,
-  "compatibilityRatio" : 78
-},
-{
-  "firstName": "احمد",
-  "lastName": "سعد",
-  "gender": { "ar": "ذكر", "en": "Male" },
-  "age": 28,
-  "weight": 75,
-  "height": 175,
-  "skinColor": { "ar": "قمحاوي", "en": "Moderate Brown" },
-  "shape": { "ar": "متوسط", "en": "Average" },
-  "healthCondition": { "ar": "ألم الظهر", "en": "Back pain" },
-  "religion": { "ar": "الإسلام", "en": "Islam" },
-  "doctrine": { "ar": "سني", "en": "Sunni" },
-  "religiousCommitment": { "ar": "ملتزم", "en": "Committed" },
-  "smoking": { "ar": "غير مدخن", "en": "Non-Smoker" },
-  "familyStatus": { "ar": "أعزب", "en": "Single" },
-  "marriageType": { "ar": "الزوجة الأولى", "en": "First Wife" },
-  "children": 0,
-  "educationLevel": { "ar": "درجة البكالوريوس", "en": "Bachelor's Degree" },
-  "financialStatus": { "ar": "متوسط", "en": "Average" },
-  "nationality": { "ar": "مصري", "en": "Egyptian" },
-  "country": { "ar": "مصر", "en": "Egypt" },
-  "city": { "ar": "القاهرة", "en": "Cairo" },
-  "residence": { "ar": "مدينة نصر", "en": "Nasr City" },
-  "work": { "ar": "مهندس معماري", "en": "Architect" },
-  "selfDescription": "أنا شخص هادئ وبسيط.",
-  "partnerDescription": "أبحث عن شريك طيب القلب وصادق.",
-  "phone": "+20 1234567890",
-  "isVerified": true,
-  "compatibilityRatio" : 78
-},
-{
-  "firstName": "احمد",
-  "lastName": "سعد",
-  "gender": { "ar": "ذكر", "en": "Male" },
-  "age": 28,
-  "weight": 75,
-  "height": 175,
-  "skinColor": { "ar": "قمحاوي", "en": "Moderate Brown" },
-  "shape": { "ar": "متوسط", "en": "Average" },
-  "healthCondition": { "ar": "ألم الظهر", "en": "Back pain" },
-  "religion": { "ar": "الإسلام", "en": "Islam" },
-  "doctrine": { "ar": "سني", "en": "Sunni" },
-  "religiousCommitment": { "ar": "ملتزم", "en": "Committed" },
-  "smoking": { "ar": "غير مدخن", "en": "Non-Smoker" },
-  "familyStatus": { "ar": "أعزب", "en": "Single" },
-  "marriageType": { "ar": "الزوجة الأولى", "en": "First Wife" },
-  "children": 0,
-  "educationLevel": { "ar": "درجة البكالوريوس", "en": "Bachelor's Degree" },
-  "financialStatus": { "ar": "متوسط", "en": "Average" },
-  "nationality": { "ar": "مصري", "en": "Egyptian" },
-  "country": { "ar": "مصر", "en": "Egypt" },
-  "city": { "ar": "القاهرة", "en": "Cairo" },
-  "residence": { "ar": "مدينة نصر", "en": "Nasr City" },
-  "work": { "ar": "مهندس معماري", "en": "Architect" },
-  "selfDescription": "أنا شخص هادئ وبسيط.",
-  "partnerDescription": "أبحث عن شريك طيب القلب وصادق.",
-  "phone": "+20 1234567890",
-  "isVerified": true,
-  "compatibilityRatio" : 78
-}
-    ]
-  }
-}
 
 export default function Explore() {
   const queryParams = new URLSearchParams(location.search);
+  const {t, i18n} = useTranslation("global")
+  const { page } = useParams("page");
   const [usersUrl, setUsersUrl] = useState(getUsers())
   const [errorMessage, setErrorMessage] = useState('')
-  const { retData: users, loading: usersLoading } = useFetch({ url: usersUrl, method: 'GET', setErrorMessage })
+  const sortTypeLabels = [
+    ['اعلى نسبة توافق', 'Highest Compatibility'],
+    ['اقل نسبة توافق', 'Lowest Compatibility'],
+    ['النشاط الاحدث', 'Most Recent Activity'],
+    ['الاصغر في السن', 'Youngest'],
+    ['الاكبر في السن', 'Oldest'],
+    ['اعلى مستوى تعليمي', 'Highest Education Level'],
+  ];
+  const [formData, setFormData] = useState({
+    gender: ["", ""],
+    minAge: 18,
+    maxAge: 100,
+    nationality: ["", ""],
+    country: ["", "", ""],
+    city: ["", ""],
+    countryOfResidence: ["", ""],
+    familyStatus: ["", ""],
+    marriageType: ["", ""],
+    religion: ["", ""],
+    doctrine: ["", ""],
+    sortType: sortTypeLabels[1],
+    page: page,
+    size: 10,
+  });
+  const [retFormData, setRetFormData] = useState({
+    gender: formData.gender[1],
+    minAge: 18,
+    maxAge: 100,
+    nationality: formData.nationality[1],
+    country: formData.country[1],
+    city: formData.city[1],
+    countryOfResidence: formData.countryOfResidence[1],
+    maritalStatus: formData.familyStatus[1],
+    marriageType: formData.marriageType[1],
+    religion: formData.religion[1],
+    doctrine: formData.doctrine[1],
+    sortType: sortTypeLabels[1],
+    page: page,
+    size: 10,
+  });
+
+  // console.log(retFormData)
+  const { retData: users, loading: usersLoading } = useFetch({ url: usersUrl, method: 'POST', setErrorMessage, body: retFormData })
   const [usersS, setUsersS] = useState([])
   // const [loadingCategories, setLoadingCategories] = useState(CatLoading)
   const [loadingUsers, setLoadingUsers] = useState(false)
   useEffect(() => {
     if (users) {
       setUsersS(users)
-      usersLoading(false)
+      setLoadingUsers(false)
     }
   }, [users])
 
   useEffect(() => {
-    console.log({ users });
+    console.log(users);
   }, [users])
 
 
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
+  
 
 
   return (
     <div style={{
       background: '#F4F4F8'
     }} className="relative w-full min-h-screen text-Black flex flex-col items-center gap-40">
-      <Shop
+      <Helmet>
+          <title>{i18n.language === 'ar' ? "البحث عن شريك" : "Find a partner"}</title>
+          <meta name='description' content={
+            i18n.language === 'ar'
+            ? 'استكشف أفضل الخيارات للعثور على شريك الحياة المثالي من خلال أداة البحث المتقدمة لدينا. ابحث عن توافقات مثالية واستمتع بتجربة بحث مريحة وفعالة.'
+            : 'Explore top options to find your perfect life partner with our advanced search tool. Discover ideal matches and enjoy a seamless and effective search experience.'
+          } />
+      </Helmet>
+      <SearchPage
+        page = {page}
+        formData = {formData} setFormData = {setFormData}
         setUsersUrl = {setUsersUrl} usersUrl={usersUrl}
         loadingUsers = {loadingUsers} setLoadingUsers = {setLoadingUsers}
         usersS = {usersS} setUsersS = {setUsersS}

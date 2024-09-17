@@ -13,7 +13,7 @@ export default function Describe() {
   const { t, i18n } = useTranslation("global");
 
   return (
-    <header className="min-h-screen w-screen bg-White relative px-8 py-8 lg2:mb-36 myFont flex items-center justify-center pt-28">
+    <header className="min-h-screen w-screen bg-White relative px-8 py-8 lg2:mb-36 myFont flex items-center justify-center pt-36">
       <div className="mx-auto flex justify-center items-center ">
         <div className={`text-center ${isRTL ? "lg2:text-right" : "lg2:text-left"} w-[95%] lg2:w-[75%]`}>
           {/* <div className="mb-8 inline-flex items-center">
@@ -33,7 +33,8 @@ export default function Describe() {
           </div> */}
           <Typography
             variant="h1"
-            className={`mb-8 leading-normal font-Black text-4xl`}
+            className={`mb-8 leading-10 font-Black text-4xl`}
+            style={{ lineHeight: '3rem' }}
           >
             {t("aboutSec1.title")} <span className="text-DarkPink">{`${i18n.language == 'ar' ? "عرايس" : "Arayes"}`}</span>
           </Typography>

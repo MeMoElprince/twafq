@@ -1,7 +1,7 @@
 {
     "navbar" : {
         "home" : "Home",
-        "partner" : "Find Partner",
+        "partner" : "Find a partner",
         "service" : "Services",
         "about" : "About us",
         "blog" : "Blogs",
@@ -109,6 +109,10 @@
     },
     "home" :{
         "title" : "Home",
-        "description" : "Find your perfect match with our unique color test at Arayes"
+        "description" : "Find your perfect match with our unique color test at Arayes."
+    },
+    "blogs" :{
+        "title" : "Blogs",
+        "description" : "Explore relationship advice and success stories at Arayes Blog."
     }
 }
