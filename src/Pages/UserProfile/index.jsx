@@ -36,6 +36,7 @@ const dummyDetails =
         "partnerDescription": "أبحث عن شريك طيب القلب وصادق.",
         "phone": "+20 1234567890",
         "isVerified": true,
+        "compatibilityRatio": 37,
     }
 
 export default function UserProfile() {

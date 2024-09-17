@@ -51,7 +51,7 @@ export default function Card({ userDetails }) {
         </div>
       </button>
       <div className="center gap-3 max-w-sm w-full overflow-visible">
-          <button className="py-2.5 w-[100px] rounded-full text-sm font-medium text-white bg-[#28a745] hover:bg-[#2bb34a] shadow-lg hover:w-[120px] transition-all duration-300">{i18next.language === 'ar' ? "موافقة" : "Accept"}</button>
+          <button className="py-2.5 w-[100px] rounded-full text-sm font-medium text-white bg-[#28a745] hover:bg-[#2bb34a] shadow-lg hover:w-[120px] transition-all duration-300">{i18next.language === 'ar' ? "قبول" : "Accept"}</button>
           <button className="py-2.5 w-[100px] rounded-full text-sm font-medium border-2 border-red-600/50 backdrop-blur-lg text-red-600 shadow-lg hover:w-[120px] transition-all duration-300">{i18next.language === 'ar' ? "رفض" : "Decline"}</button>
       </div>
     </div>

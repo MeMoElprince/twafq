@@ -23,7 +23,7 @@ export default function Target() {
               >
                 {t("ourGoal.title")}
               </Typography>
-              <Typography variant="lead" className="text-[#cbcbcb] w-[85%] lg:w-[59%] text-center text-xl md:text-2xl leading-[32px] md:leading-[40px] font-medium">
+              <Typography variant="lead" className="text-[#cbcbcb] w-[85%] lg:w-[59%] text-center text-lg md:text-2xl leading-[32px] md:leading-[40px] font-medium">
                {t("ourGoal.description")} 
               </Typography>
         </div>

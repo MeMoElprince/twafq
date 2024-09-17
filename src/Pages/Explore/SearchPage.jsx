@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react'
-import { useSearchParams } from 'react-router-dom';
-import DetailsCard from './Components/DetailsCard'
+import { useParams } from 'react-router-dom';
 import Card from './Components/Card';
-import Selected from './assets/Selected.png'
 import ReactSlider from 'react-slider'
 import Spinner from '../../Components/Ui-Components/Spinner'
 import { useNavigate } from 'react-router-dom'
@@ -10,11 +8,13 @@ import { useLayoutDirection } from '../../Store/Context/LayoutDirectionContext'
 import {useTranslation} from "react-i18next"
 import Countires from "../SignUp/Components/Countires.json"
 import Styles from './Styling.module.css'
-import { getAllUsers } from '../../Store/urls';
+import { Link } from 'react-router-dom';
+
 
 export default function SearchPage({ usersUrl, setUsersUrl, loadingUsers, setLoadingUsers, usersS, setUsersS }) {
   const { isRTL, setIsRTL } = useLayoutDirection();
 	const { t, i18n } = useTranslation("global");
+  const { page } = useParams("page");
 
   console.log(loadingUsers);
   
@@ -42,6 +42,30 @@ export default function SearchPage({ usersUrl, setUsersUrl, loadingUsers, setLoa
           </>
         }
       </div>
+      <ul className="myFont flex mx-auto border-2 border-Black rounded w-max mt-4 bg-LighterPink">
+        <Link to={`/Explore/${Math.max(1, parseInt(page) - 1)}`}>
+          <li
+            className={`px-5 py-2.5 flex items-center justify-center shrink-0 cursor-pointer text-base ${i18n.language === 'ar' && "border-l-2 border-Black"} font-semibold text-Black min-w-[110px] hover:bg-DarkPink/50 transition-all duration-200 hover:px-7`}>
+            <svg xmlns="http://www.w3.org/2000/svg" className={`w-3 fill-current ${i18n.language === 'ar' ? "ml-3 scale-x-[-1]" : "mr-3"}`} viewBox="0 0 55.753 55.753">
+              <path
+                d="M12.745 23.915c.283-.282.59-.52.913-.727L35.266 1.581a5.4 5.4 0 0 1 7.637 7.638L24.294 27.828l18.705 18.706a5.4 5.4 0 0 1-7.636 7.637L13.658 32.464a5.367 5.367 0 0 1-.913-.727 5.367 5.367 0 0 1-1.572-3.911 5.369 5.369 0 0 1 1.572-3.911z"
+                data-original="#000000" />
+            </svg>
+            {i18n.language === 'ar' ? "السابق" : "Previous"}
+          </li>
+        </Link>
+        <Link to={`/Explore/${parseInt(page)+1}`}>
+          <li
+            className={`${i18n.language === 'en' && "border-l-2 border-Black"} px-5 py-2.5 flex items-center justify-center shrink-0 cursor-pointer text-base font-semibold text-Black min-w-[110px] hover:bg-DarkPink/50 transition-all duration-200 hover:px-7`}>
+            {i18n.language === 'ar' ? "التالي" : "next"}
+            <svg xmlns="http://www.w3.org/2000/svg" className={`w-3 fill-current ${i18n.language === 'ar' ? "mr-3 scale-x-[-1]" : "ml-3"} rotate-180`} viewBox="0 0 55.753 55.753">
+              <path
+                d="M12.745 23.915c.283-.282.59-.52.913-.727L35.266 1.581a5.4 5.4 0 0 1 7.637 7.638L24.294 27.828l18.705 18.706a5.4 5.4 0 0 1-7.636 7.637L13.658 32.464a5.367 5.367 0 0 1-.913-.727 5.367 5.367 0 0 1-1.572-3.911 5.369 5.369 0 0 1 1.572-3.911z"
+                data-original="#000000" />
+            </svg>
+          </li>
+        </Link>
+      </ul>
     </div>
   )
 }
@@ -62,12 +86,12 @@ const Fillters = ({ usersUrl, setUsersUrl, loadingUsers, setLoadingUsers, usersS
   // State for the form fields
   const [formData, setFormData] = useState({
     gender: ["", ""],
-    ageFrom: 18,
-    ageTo: 100,
+    minAge: 18,
+    maxAge: 100,
     nationality: ["", ""],
     country: ["", "", ""],
     city: ["", ""],
-    residence: ["", ""],
+    countryOfResidence: ["", ""],
     familyStatus: ["", ""],
     marriageType: ["", ""],
     religion: ["", ""],
@@ -80,7 +104,7 @@ const Fillters = ({ usersUrl, setUsersUrl, loadingUsers, setLoadingUsers, usersS
   function handleInputChange(event) {
     const { name, value, type, checked, dataset } = event.target;
   
-    const isMultiValue = ['skinColor', 'shape', 'health', 'nationality', 'country', 'city', 'residence',
+    const isMultiValue = ['skinColor', 'shape', 'health', 'nationality', 'country', 'city', 'countryOfResidence',
       'familyStatus', 'marriageType', 'gender', 'smoking', 'religiousCommitment', 'doctrine', 'religion',
       'alcoholDrgus', 'educationLevel', 'financialStatus'
     ].includes(name);
@@ -105,12 +129,12 @@ const Fillters = ({ usersUrl, setUsersUrl, loadingUsers, setLoadingUsers, usersS
   useEffect(() => {
     const params = {
       gender: formData.gender[1],
-      age_from: formData.ageFrom,
-      age_to: formData.ageTo,
+      age_from: formData.minAge,
+      age_to: formData.maxAge,
       nationality: formData.nationality[1],
       country: formData.country[1],
       city: formData.city[1], 
-      residence: formData.residence[1],
+      countryOfResidence: formData.countryOfResidence[1],
       family_status: formData.familyStatus[1],
       marriage_type: formData.marriageType[1],
       religion: formData.religion[1],
@@ -151,9 +175,9 @@ const Fillters = ({ usersUrl, setUsersUrl, loadingUsers, setLoadingUsers, usersS
                   aria-label={i18n.language === 'ar' ? 'الحالة العائلية' : 'Family Status'}
                   className={`myFont w-full py-2 px-3 border-b-[3px] ${
                     formData.gender ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
-                  } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-pointer`}
+                  } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-Black cursor-pointer`}
               >
-                  <option value={JSON.stringify(["", ""])}>{i18n.language === 'ar' ? '-- اختر --' : '-- Choose --'}</option>
+                  <option value={JSON.stringify(["", ""])}>{i18n.language === 'ar' ? '-- لا يهم --' : '-- Any --'}</option>
                   <option value={JSON.stringify(['ذكر', 'Male'])}>{i18n.language === 'ar' ? 'ذكر' : 'Male'}</option>
                   <option value={JSON.stringify(['أنثى', 'Female'])}>{i18n.language === 'ar' ? 'أنثى' : 'Female'}</option>
           </select>
@@ -178,9 +202,9 @@ const Fillters = ({ usersUrl, setUsersUrl, loadingUsers, setLoadingUsers, usersS
                   aria-label={i18n.language === 'ar' ? 'البلد' : 'country'}
                   className={`myFont w-full py-2 px-3 border-b-[3px] ${
                     formData.country ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
-                  } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-pointer`}
+                  } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-Black cursor-pointer`}
               >
-                    <option value={JSON.stringify(["", "", ""])}>{i18n.language === 'ar' ? '-- اختر --' : '-- Choose --'}</option>
+                    <option value={JSON.stringify(["", "", ""])}>{i18n.language === 'ar' ? '-- لا يهم --' : 'Any'}</option>
                     {Countires.map((country) => (
                         <option 
                             key={country.code} 
@@ -208,9 +232,9 @@ const Fillters = ({ usersUrl, setUsersUrl, loadingUsers, setLoadingUsers, usersS
                   aria-label={i18n.language === 'ar' ? 'المدينة' : 'City'}
                   className={`myFont w-full py-2 px-3 border-b-[3px] ${
                     formData.city ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
-                  } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-pointer`}
+                  } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-Black cursor-pointer`}
               >
-                  <option value={JSON.stringify(["", ""])}>{i18n.language === 'ar' ? '-- اختر --' : '-- Choose --'}</option>
+                  <option value={JSON.stringify(["", ""])}>{i18n.language === 'ar' ? '-- لا يهم --' : 'Any'}</option>
                   
           </select>
           <label
@@ -231,9 +255,9 @@ const Fillters = ({ usersUrl, setUsersUrl, loadingUsers, setLoadingUsers, usersS
                   aria-label={i18n.language === 'ar' ? 'الجنسية' : 'Nationality'}
                   className={`myFont w-full py-2 px-3 border-b-[3px] ${
                     formData.nationality ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
-                  } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-pointer`}
+                  } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-Black cursor-pointer`}
               >
-                  <option value={JSON.stringify(["", ""])}>{i18n.language === 'ar' ? '-- اختر --' : '-- Choose --'}</option>
+                  <option value={JSON.stringify(["", ""])}>{i18n.language === 'ar' ? '-- لا يهم --' : 'Any'}</option>
                     {Countires.map((country) => (
                         <option 
                             key={country.code} 
@@ -254,16 +278,16 @@ const Fillters = ({ usersUrl, setUsersUrl, loadingUsers, setLoadingUsers, usersS
         </div>
         <div className={`${Styles.inputHolder} relative w-[100%] md:w-[35%] md1:w-[25%] lg2:w-[20%]`}>
           <select 
-                  id="Residence"
-                  value={formData.residence ? JSON.stringify(formData.residence) : ''}
+                  id="CountryOfResidence"
+                  value={formData.countryOfResidence ? JSON.stringify(formData.countryOfResidence) : ''}
                   onChange={handleInputChange}
-                  name="residence"
-                  aria-label={i18n.language === 'ar' ? 'الإقامة' : 'Residence'}
+                  name="countryOfResidence"
+                  aria-label={i18n.language === 'ar' ? 'الإقامة' : 'countryOfResidence'}
                   className={`myFont w-full py-2 px-3 border-b-[3px] ${
-                    formData.residence ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
-                  } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-pointer`}
+                    formData.countryOfResidence ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
+                  } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-Black cursor-pointer`}
               >
-                  <option value={JSON.stringify(["", ""])}>{i18n.language === 'ar' ? '-- اختر --' : '-- Choose --'}</option>
+                  <option value={JSON.stringify(["", ""])}>{i18n.language === 'ar' ? '-- لا يهم --' : 'Any'}</option>
                   {Countires.map((country) => (
                       <option 
                           key={country.code} 
@@ -274,7 +298,7 @@ const Fillters = ({ usersUrl, setUsersUrl, loadingUsers, setLoadingUsers, usersS
                   ))}
           </select>
           <label
-              htmlFor="Residence"
+              htmlFor="CountryOfResidence"
               className={`inputLabel absolute top-[15px] ${
                 isRTL ? "-right-2" : "-left-2"
               } text-Black transform -translate-y-2.5 px-1 myFont w-[100%] text-[19px] font-semibold`} style={{ top: '-12px' }}
@@ -291,9 +315,9 @@ const Fillters = ({ usersUrl, setUsersUrl, loadingUsers, setLoadingUsers, usersS
                   aria-label={i18n.language === 'ar' ? 'الحالة العائلية' : 'Family Status'}
                   className={`myFont w-full py-2 px-3 border-b-[3px] ${
                     formData.familyStatus ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
-                  } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-pointer`}
+                  } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-Black cursor-pointer`}
               >
-                  <option value={JSON.stringify(["", ""])}>{i18n.language === 'ar' ? '-- اختر --' : '-- Choose --'}</option>
+                  <option value={JSON.stringify(["", ""])}>{i18n.language === 'ar' ? '-- لا يهم --' : 'Any'}</option>
                   {
                     formData.gender[1] &&
                     (
@@ -324,9 +348,9 @@ const Fillters = ({ usersUrl, setUsersUrl, loadingUsers, setLoadingUsers, usersS
                   aria-label={i18n.language === 'ar' ? 'نوع الزواج' : 'Marriage Type'}
                   className={`myFont w-full py-2 px-3 border-b-[3px] ${
                     formData.marriageType ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
-                  } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-pointer`}
+                  } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-Black cursor-pointer`}
               >
-                  <option value={JSON.stringify(["", ""])}>{i18n.language === 'ar' ? '-- اختر --' : '-- Choose --'}</option>
+                  <option value={JSON.stringify(["", ""])}>{i18n.language === 'ar' ? '-- لا يهم --' : 'Any'}</option>
                   {formData.gender[1] === 'Male' ? (
                     <>
                       <option value={JSON.stringify(['الزوجة الأولى', 'First Wife'])}>
@@ -371,9 +395,9 @@ const Fillters = ({ usersUrl, setUsersUrl, loadingUsers, setLoadingUsers, usersS
                   aria-label={i18n.language === 'ar' ? 'الديانة' : 'Religion'}
                   className={`myFont w-full py-2 px-3 border-b-[3px] ${
                     formData.religion ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
-                  } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-pointer`}
+                  } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-Black cursor-pointer`}
               >
-              <option value={JSON.stringify(["", ""])}>{i18n.language === 'ar' ? '-- اختر --' : '-- Choose --'}</option>
+              <option value={JSON.stringify(["", ""])}>{i18n.language === 'ar' ? '-- لا يهم --' : 'Any'}</option>
               <option value={JSON.stringify(['الإسلام', 'Islam'])}>{i18n.language === 'ar' ? 'الإسلام' : 'Islam'}</option>
               <option value={JSON.stringify(['المسيحية', 'Christianity'])}>{i18n.language === 'ar' ? 'المسيحية' : 'Christianity'}</option>
           </select>
@@ -395,9 +419,9 @@ const Fillters = ({ usersUrl, setUsersUrl, loadingUsers, setLoadingUsers, usersS
                   aria-label={i18n.language === 'ar' ? 'المذهب' : 'Doctrine'}
                   className={`myFont w-full py-2 px-3 border-b-[3px] ${
                     formData.doctrine ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
-                  } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-pointer`}
+                  } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-Black cursor-pointer`}
               >
-                  <option value={JSON.stringify(["", ""])}>{i18n.language === 'ar' ? '-- اختر --' : '-- Choose --'}</option>
+                  <option value={JSON.stringify(["", ""])}>{i18n.language === 'ar' ? '-- لا يهم --' : 'Any'}</option>
                     {formData.religion[0] === 'الإسلام' && (
                       <>
                         <option value={JSON.stringify(['سني', 'Sunni'])}>{i18n.language === 'ar' ? 'سني' : 'Sunni'}</option>
@@ -424,20 +448,20 @@ const Fillters = ({ usersUrl, setUsersUrl, loadingUsers, setLoadingUsers, usersS
 
             <div className={`${Styles.inputHolder} relative w-[100%] md:w-[35%] md1:w-[25%] lg2:w-[20%]`}>
               <input
-                id="AgeFrom"
+                id="MinAge"
                 type="text"
                 onChange={handleInputChange}
-                name="ageFrom"
+                name="minAge"
                 placeholder= {i18n.language === 'ar' ? 'العمر من' : 'Age From'}
-                value={formData.ageFrom}
+                value={formData.minAge}
                 min={18}
-                max={formData.ageTo}
+                max={formData.maxAge}
                 className={`myFont w-full py-2 px-3 border-b-[3px] ${
-                  formData.ageFrom ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
-                } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-text`}
+                  formData.minAge ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
+                } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-Black cursor-text`}
               />
               <label
-                htmlFor="AgeFrom"
+                htmlFor="MinAge"
                 className={`inputLabel absolute top-[15px] ${
                   isRTL ? "-right-2" : "-left-2"
                 } text-Black transform -translate-y-2.5 myFont text-lg w-[100%] -z-20`}
@@ -447,20 +471,20 @@ const Fillters = ({ usersUrl, setUsersUrl, loadingUsers, setLoadingUsers, usersS
           </div>
           <div className={`${Styles.inputHolder} relative w-[100%] md:w-[35%] md1:w-[25%] lg2:w-[20%]`}>
               <input
-                id="AgeTo"
+                id="MaxAge"
                 type="text"
                 onChange={handleInputChange}
-                name="ageTo"
+                name="maxAge"
                 placeholder= {i18n.language === 'ar' ? 'العمر من' : 'Age From'}
-                value={formData.ageTo}
-                min={formData.ageFrom}
+                value={formData.maxAge}
+                min={formData.minAge}
                 max={100}
                 className={`myFont w-full py-2 px-3 border-b-[3px] ${
-                  formData.ageTo ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
-                } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-text`}
+                  formData.maxAge ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
+                } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-Black cursor-text`}
               />
               <label
-                htmlFor="AgeTo"
+                htmlFor="MaxAge"
                 className={`inputLabel absolute top-[15px] ${
                   isRTL ? "-right-2" : "-left-2"
                 } text-Black transform -translate-y-2.5 myFont text-lg w-[100%] -z-20`}

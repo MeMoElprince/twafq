@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react"
-import Welcome from "./Welcome"
 import Shop from "./SearchPage"
 import useFetch from "../../Components/CustomHooks/useFetch"
-import { getAllUsers } from "../../Store/urls"
+import { getUsers } from "../../Store/urls"
 
 const dummyDetails = {
   data:{
@@ -193,36 +192,29 @@ const dummyDetails = {
 
 export default function Explore() {
   const queryParams = new URLSearchParams(location.search);
-  const [usersUrl, setUsersUrl] = useState(`${getAllUsers()}${queryParams.toString()}`)
+  const [usersUrl, setUsersUrl] = useState(getUsers())
   const [errorMessage, setErrorMessage] = useState('')
-  const { data: users, loading: usersLoading } = useFetch({ url: usersUrl, method: 'GET', setErrorMessage })
-  const [categories, setCategories] = useState([])
-  const [usersS, setUsersS] = useState(dummyDetails)
+  const { retData: users, loading: usersLoading } = useFetch({ url: usersUrl, method: 'GET', setErrorMessage })
+  const [usersS, setUsersS] = useState([])
   // const [loadingCategories, setLoadingCategories] = useState(CatLoading)
   const [loadingUsers, setLoadingUsers] = useState(false)
-  // useEffect(() => {
-  //   if (Cat) {
-  //     setCategories(Cat)
-  //     setLoadingCategories(false)
-  //   }
-  //   if (Prod) {
-  //     setProducts(Prod)
-  //     setLoadingProducts(false)
-  //   }
-  // }, [Cat, Prod])
-
-  // useEffect(() => {
-  //   // console.log({ categories });
-  //   // console.log({ products });
-  // }, [categories, products])
+  useEffect(() => {
+    if (users) {
+      setUsersS(users)
+      usersLoading(false)
+    }
+  }, [users])
 
   useEffect(() => {
-    console.log(usersUrl)
-  }, [usersUrl])
+    console.log({ users });
+  }, [users])
+
 
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
+
+
   return (
     <div style={{
       background: '#F4F4F8'

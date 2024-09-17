@@ -46,7 +46,8 @@ const dummyDetails =
         "partnerDescription": "أبحث عن شريك طيب القلب وصادق.",
         "phone": "+20 1234567890",
         "isVerified": true,
-        "compatibilityRatio" : 78
+        "compatibilityRatio" : 78,
+        "lastSeen": "25/4/2002"
     }
 
 export default function UsersCardRatio() {
@@ -61,7 +62,7 @@ export default function UsersCardRatio() {
                 variant="h3"
                 className="MyFont text-2xl sm:text-3xl"
             >
-                {i18n.language === 'ar' ? "الاعضاء الاكثر توافقاً معك" : "Highest compatibility ratio"}
+                {i18n.language === 'ar' ? "الاعضاء الاكثر توافقاً معك" : "Highest Compatibility"}
             </Typography>
             <Button 
                 className={`shadow-none text-Black bg-none border-x-2 rounded-full border-Black  py- px-4 text-base hover:text-DarkPink hover:border-DarkPink`}
@@ -80,7 +81,6 @@ export default function UsersCardRatio() {
                 spaceBetween={100}
                 centeredSlides={true}
                 navigation
-                grabCursor
                 dir="rtl"
                 breakpoints={{
                   620: {
@@ -127,7 +127,6 @@ export default function UsersCardRatio() {
                 spaceBetween={100}
                 centeredSlides={true}
                 navigation
-                grabCursor
                 dir="ltr"
                 breakpoints={{
                   620: {

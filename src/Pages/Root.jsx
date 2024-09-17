@@ -60,7 +60,7 @@ export default function Root() {
     Token: Cookies.get('token'),
   });
 
-  console.log(data);
+  // console.log(data);
   
   useEffect(() => {
     if (!data) return;
@@ -124,19 +124,24 @@ export default function Root() {
           <Outlet />
         </div>
       </div>
-      <div className="absolute w-full h-screen top-0 left-0">
-        {/* <Requests
-          title={i18n.language === 'ar' ? "الطلبات المرسلة" : "Sent requests"} 
-          subTitle={i18n.language === 'ar' ? "سيحذف خلال يوم" : "Deleting within a day"} 
-        /> */}
-        {/* <ReceivedRequests
-          title={i18n.language === 'ar' ? "الطلبات المرسلة إليك" : "Requests sent to you"} 
-          subTitle={i18n.language === 'ar' ? "سيحذف خلال يوم" : "Deleting within a day"} 
-        /> */}
-        {/* <AccepetedRequests
-          title={i18n.language === 'ar' ? "الطلبات المقبولة" : "Accepted Requests"} 
-        /> */}
-      </div>
+      {
+        popActive && 
+        (
+          <div className="absolute w-full h-screen top-0 left-0">
+            {/* <Requests
+              title={i18n.language === 'ar' ? "الطلبات المرسلة" : "Sent requests"} 
+              subTitle={i18n.language === 'ar' ? "سيحذف خلال يوم" : "Deleting within a day"} 
+            /> */}
+            {/* <ReceivedRequests
+              title={i18n.language === 'ar' ? "الطلبات المرسلة إليك" : "Requests sent to you"} 
+              subTitle={i18n.language === 'ar' ? "سيحذف خلال يوم" : "Deleting within a day"} 
+            /> */}
+            {/* <AccepetedRequests
+              title={i18n.language === 'ar' ? "الطلبات المقبولة" : "Accepted Requests"} 
+            /> */}
+          </div>
+        )
+      }
       <div className="center w-[full] bg-Black gap-0 md4:gap-32 px-16 md4:px-32 md4:flex-row flex-col pt-16 pb-2 -mb-1">
         <RateUs />
         <AppDownload />

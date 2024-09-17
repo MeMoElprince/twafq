@@ -23,8 +23,10 @@ export default function useFetch({ url, setErrorMessage, method = 'GET', body, T
           options.body = JSON.stringify(body);
         }
 
+        
         const response = await fetch(url, options);
         
+        console.log(response)
         const string = await response.text();
         const data = string ? JSON.parse(string) : {};
         
@@ -33,6 +35,7 @@ export default function useFetch({ url, setErrorMessage, method = 'GET', body, T
         }
 
         setRetData(data);
+
       } catch (error) {
         if (setErrorMessage) setErrorMessage(error.message);
         console.error(error);
@@ -42,7 +45,13 @@ export default function useFetch({ url, setErrorMessage, method = 'GET', body, T
     };
 
     fetchData();
-  }, [url, reRender, method, body]); // Include method and body in dependency array for consistency
+  }, [url, reRender, method, body]);
+
+  useEffect(() => {
+    if (retData) {
+      console.log(retData); // Log the data when it is updated
+    }
+  }, [retData]);
 
   return { retData, loading };
 }

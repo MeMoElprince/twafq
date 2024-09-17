@@ -26,7 +26,7 @@ function App() {
           <Route path="Contact" element={<Contact />} />
           <Route path="Blogs" element={<Blogs />} />
           <Route path="Blogs/:id" element={<SingleBlog />} />
-          <Route path="Explore" element={<Explore />} />
+          <Route path="Explore/:page" element={<Explore />} />
           <Route path="UserProfile/:id" element={<UserProfile />} />
           <Route path="MyProfile" element={<MyProfile />} />
           <Route path="*" element={<Page404 />} />

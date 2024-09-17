@@ -2,7 +2,7 @@ import { useState, useContext, useEffect } from "react";
 import { FaHeart } from "react-icons/fa";
 import placeholder from "./placeholder.jpg";
 import Fetch from "../../../Components/CustomHooks/Fetch";
-import { addFav, delFav, delFavByProId } from "../../../Store/urls";
+import { Link } from "react-router-dom";
 import { AuthenticationContext } from "../../../Store/Context/Authentication";
 import Woman from "../../../assets/Avatars/woman.png";
 import Man from "../../../assets/Avatars/man.png";
@@ -14,9 +14,11 @@ import { FaLocationDot } from "react-icons/fa6";
 import { useLayoutDirection } from "../../../Store/Context/LayoutDirectionContext";
 import { useTranslation } from "react-i18next";
 import { MdContactPhone } from "react-icons/md";
+import { FaCircle } from "react-icons/fa6";
 
 export default function Profile({ profileDetails }) {
   // const { Token } = useContext(AuthenticationContext);
+  const [isLogged, setIsLogged] = useState(true);
   const [isFavorite, setIsFavorite] = useState(0);
   const { isRTL, setIsRTL } = useLayoutDirection();
   const { t, i18n } = useTranslation("global");
@@ -126,6 +128,15 @@ export default function Profile({ profileDetails }) {
               </div>
             )
           }
+        <div className="absolute group w-full">
+          <div className={`center gap-2 absolute top-[10.5px] shadow-dm border border-Black/10 ${i18n.language === 'ar' ? "-left-[102px]" : "-right-[96px]"} py-1 px-3 bg-green-200 rounded-full`}>
+            <FaCircle  className={`text-green-600`} size={12} />
+            <p className={`text-sm`}>3 اشهر</p>
+          </div>
+          <span className={`absolute bg-gray-300 text-Black text-sm font-medium p-1 px-2 top-[45px] ${isRTL ? "-left-16" : "-right-20"} rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300`}>
+            {i18n.language === 'ar' ? "آخر ظهور" : "Last seen"}
+          </span>
+        </div>
         </div>
         <div className="text-center center flex-col gap-4">
           <div
@@ -157,9 +168,33 @@ export default function Profile({ profileDetails }) {
                 (isRTL ? profileDetails?.city.ar : profileDetails?.city.en)}
             </p>
           </div>
+          <div className={`relative mt-4 flex flex-col items-center justify-center gap-3`}>
+            <svg className="size-40 -rotate-90" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+              {/* <!-- Background Circle --> */}
+              <circle cx="18" cy="18" r="16" fill="none" className="stroke-current text-DarkPink/30" strokeWidth="3"></circle>
+              {/* <!-- Progress Circle --> */}
+              <circle cx="18" cy="18" r="16" fill="none" className="stroke-current text-DarkPink" strokeWidth="3" stroke-dasharray="100" stroke-dashoffset={100 - (isLogged ? profileDetails?.compatibilityRatio : 75)} stroke-linecap="round"></circle>
+            </svg>
+
+            {/* <!-- Percentage Text --> */}
+            <div className={`absolute ${!isLogged ? "top-[43%]" : "top-1/2"} ${isRTL ? "end-1/2" : "start-1/2"} transform -translate-y-1/2 -translate-x-1/2 flex flex-col items-center`}>
+              <span className="text-center text-xl font-semibold text-DarkPink">{isLogged ? profileDetails?.compatibilityRatio : "?"}&#x25;</span>
+              <span className="text-center text-base font-semibold text-DarkPink">{isRTL ? "التوافق" : "Compatibility"}</span>
+            </div>
+
+            {
+              !isLogged && 
+              (
+                <div className="w-full center z-20 gap-2">
+                    <Link to = "/login" className="text-md sm:text-lg font-medium text-Black underline cursor-pointer hover:text-DarkPink">{i18n.language === 'ar' ? "تسجيل الدخول" : "Login"}</Link>
+                    <p className="text-md sm:text-lg font-medium text-Black">{i18n.language === 'ar' ? "لحساب التوافق" : "To Calculate Compatibility"}</p>
+                </div>
+              )
+            }
+          </div>
           <div className="center w-full flex-col sm:flex-row gap-2">
             <button
-              className={`text-white bg-DarkPink hover:bg-[#f74c68] hover:px-8  font-medium transition-all duration-300 shadow-md tracking-wide rounded-full text-lg px-5 py-3 w-max !mt-6 center gap-4`}
+              className={`text-white bg-DarkPink hover:bg-[#f74c68] cursor-pointer hover:px-8  font-medium transition-all duration-300 shadow-md tracking-wide rounded-full text-lg px-5 py-3 w-max !mt-6 center gap-4`}
             >
               <p>
                 {i18n.language === "ar"
@@ -173,7 +208,7 @@ export default function Profile({ profileDetails }) {
             </button>
             <button
               onClick={handleFavorite}
-              className={`text-DarkPink bg-none border-DarkPink border hover:px-8 font-medium  transition-all duration-300 shadow-md tracking-wide rounded-full text-lg px-5 py-3 w-max !mt-6 center gap-4`}
+              className={`text-DarkPink bg-none border-DarkPink cursor-pointer border hover:px-8 font-medium  transition-all duration-300 shadow-md tracking-wide rounded-full text-lg px-5 py-3 w-max !mt-6 center gap-4`}
             >
               {isFavorite ? (
                 <>
