@@ -8,8 +8,8 @@ export default function SingleBlog() {
     function NewSentence({title, sentence, link}){
         return (
             <div className="flex flex-col gap-1 py-4">
-                {title && <h3 className='text-2xl font-bold text-Black'>{title}</h3>}
-                <p className='text-base'>{sentence}</p>
+                {title && <h3 className='text-xl sm2:text-2xl font-bold text-Black'>{title}</h3>}
+                <p className='text-sm sm2:text-base'>{sentence}</p>
                 {link && <a href={link.href} target='_blank' className='text-blue-500 font-medium underline max-w-max'>{link.text}</a>}
             </div>
         )
@@ -17,9 +17,9 @@ export default function SingleBlog() {
 
   return (
     <div className="w-[90%] mx-auto py-[20vh] myFont flex justify-between gap-8 items-center flex-col lg2:flex-row lg2:items-start">
-        <div className="w-[90%] lg2:w-[80%] max-w-4xl bg-white shadow-sm border border-Black/20 rounded-[4px] p-10 h-max flex flex-col">
+        <div className="w-[95%] lg2:w-[80%] max-w-4xl bg-white shadow-sm border border-Black/20 rounded-[4px] p-5 sm2:p-10 h-max flex flex-col">
             <div className="py-8">
-                <h1 className="text-4xl font-bold mb-3 text-Black">Blog post title</h1>
+                <h1 className="text-2xl sm2:text-4xl font-bold text-center mb-3 text-Black">Blog post title</h1>
                 <p className="text-gray-500 text-sm"><time datetime="2022-04-05">April 5, 2022</time></p>
             </div>
 
@@ -43,7 +43,7 @@ export default function SingleBlog() {
 
             <button className="text-White bg-Black hover:bg-[#302c2c] tracking-wide rounded-full text-base sm:text-lg px-4 py-5 w-[100%] md:w-[60%] mt-24 self-center font-semibold">{"Explore more blogs"}</button>
         </div>
-        <div className="bg-white w-[90%] lg2:w-[30%] h-max flex flex-col p-10 gap-8 shadow-sm border rounded-[4px] border-Black/20">
+        <div className="bg-white w-[95%] lg2:w-[30%] h-max flex flex-col p-5 sm2:p-10 gap-8 shadow-sm border rounded-[4px] border-Black/20">
             <h4 className='text-3xl font-semibold text-Black'>{i18n.language === 'ar' ? "الأكثر قراءة" : "Popular"}</h4>
             <div className="flex flex-col md1:flex-row justify-center lg2:flex-col items-start gap-6 w-full">
                 <BlogCard 
