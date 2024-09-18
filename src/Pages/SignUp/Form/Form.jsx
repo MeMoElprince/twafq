@@ -16,7 +16,7 @@ import ColorTest from './Steps/ColorTest'
 
 export default function Form() {
 	const { isLogedIn} = useContext(AuthenticationContext)
-	const [step, setStep] = useState(0)
+	const [step, setStep] = useState(6)
 	const [loading, setLoading] = useState(false)
 	const [data, setData] = useState(null)
 	const [errorMessage, setErrorMessage] = useState('')

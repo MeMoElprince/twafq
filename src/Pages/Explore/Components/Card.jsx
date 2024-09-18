@@ -88,6 +88,7 @@ export default function Card({ userDetailsReceived }) {
         <div className="relative group">
           <MdVerified className="absolute text-blue-600" size={32} />
           <span className={`absolute bg-gray-300 text-Black pointer-events-none text-sm font-medium p-1 px-2 mt-[34px] ${isRTL ? "-right-2" : "-left-4"} rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300`}>
+          <span className={`absolute bg-gray-300 text-Black pointer-events-none text-sm font-medium p-1 px-2 mt-[34px] ${isRTL ? "-right-2" : "-left-4"} rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300`}>
             {i18n.language === 'ar' ? "موثق" : "Verified"}
           </span>
         </div>
@@ -95,6 +96,7 @@ export default function Card({ userDetailsReceived }) {
       }
 
         <div className="absolute group w-full">
+          <div className="center gap-2 absolute top-[120px] shadow-dm border border-Black/10 py-1 px-3 bg-green-200 rounded-full">
           <div className="center gap-2 absolute top-[120px] shadow-dm border border-Black/10 py-1 px-3 bg-green-200 rounded-full">
             <FaCircle  className={`text-green-600`} size={12} />
             <p className={`text-sm`}>{lastActive}</p>
@@ -107,6 +109,7 @@ export default function Card({ userDetailsReceived }) {
 
       <div className="flex flex-col items-center gap-4">
         <div className="min-h-[130px]">
+        <div className="min-h-[130px]">
           <img
             src={
                 userDetails?.isVerifiedUser ? 
@@ -114,6 +117,7 @@ export default function Card({ userDetailsReceived }) {
                 :
                 userDetails && userDetails.gender[1] === 'Male' ? Man : Woman 
             }
+            alt="Avatar"
             alt="Avatar"
             className="w-28 h-28 rounded-full pointer-events-none"
           />
