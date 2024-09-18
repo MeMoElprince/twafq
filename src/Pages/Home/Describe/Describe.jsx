@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  Button,
   Typography,
 } from "@material-tailwind/react";
 import { useLayoutDirection } from '../../../Store/Context/LayoutDirectionContext'
@@ -42,8 +43,10 @@ export default function Describe() {
           {t("aboutSec1.description")}
           </Typography>
           <div className="mt-12 flex flex-wrap justify-center gap-3 lg2:justify-start">
-              <Link to={'/explore/0'} aria-label={i18n.language === 'ar' ? "البحث عن زوجة" : "Find a partner"} className="flex items-center bg-DarkPink hover:bg-[#e84762] text-White rounded-full px-9 text-md sm:text-lg font-semibold">
+             <Link to={'/explore/0'} aria-label={i18n.language === 'ar' ? "البحث عن زوجة" : "Find a partner"} >
+                <Button aria-label={i18n.language === 'ar' ? "البحث عن زوجة" : "Find a partner"} className="flex items-center bg-DarkPink hover:bg-[#e84762] text-White rounded-full px-9 text-md sm:text-lg font-semibold">
                 {t("aboutSec1.buttonText")}
+                </Button>
               </Link>
           </div>
         </div>
