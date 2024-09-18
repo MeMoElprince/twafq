@@ -27,6 +27,7 @@ export default function Card({ userDetails }) {
                 :
                 userDetails?.gender.en === 'Male' ? Man : Woman 
             }
+            alt="Avatar"
             className="w-32 h-32 rounded-full pointer-events-none"
           />
         </div>

@@ -59,7 +59,7 @@ export default function UsersCardRatio() {
     <div className="w-[85%] h-full flex flex-col gap-8 py-16 pb-32">
         <div className="flex w-full gap-5 flex-wrap">
             <Typography
-                variant="h3"
+                variant="h1"
                 className="MyFont text-2xl sm:text-3xl"
             >
                 {i18n.language === 'ar' ? "الاعضاء الاكثر توافقاً معك" : "Highest Compatibility"}

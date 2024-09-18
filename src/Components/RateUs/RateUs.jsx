@@ -35,7 +35,7 @@ export default function RateUs() {
         <textarea id='myMessage' rows="6" name='message' value={formData.message} onChange={handleChange} placeholder= {isRTL ? "اكتب قصتك..." : "Type your story..."}
             className="w-full rounded-md px-4 bg-[#E1E1E1] text-Black text-sm py-3 outline-Black resize-none"></textarea>
         <button
-        className="text-white bg-DarkPink hover:bg-[#e84762] tracking-wide rounded-md text-lg px-4 py-3 w-full !mt-6">
+        className="text-white bg-[#e42041] hover:bg-[#c12640] tracking-wide rounded-md text-lg px-4 py-3 w-full !mt-6">
             {isRTL ? "مشاركة" : "Share"}
         </button>
     </form>

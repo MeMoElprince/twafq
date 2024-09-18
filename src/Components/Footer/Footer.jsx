@@ -17,7 +17,7 @@ function Footer() {
             <Link to="/"
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             >
-                <img className='myFont grayscale w-36' alt src={isRTL ? ArLogo : EnLogo} alt="logo" />
+                <img className='myFont grayscale w-36' src={isRTL ? ArLogo : EnLogo} alt="logo" />
             </Link>
         </div>
         <div className="flex flex-col gap-4 items-center">

@@ -9,14 +9,15 @@ export default async function Fetch({ url, setData, setLoading, setErrorMessage,
       headers,
       body: modifiedBody
     })
+
     const string = await response.text();
+    console.log(string);
     const data = string === "" ? {} : JSON.parse(string);
+
     if (!response.ok) {
       throw new Error(data.message)
     }
     if (setData) setData(data)
-
-    console.log(data);
     
   } catch (error) {
     if (setErrorMessage) setErrorMessage(error.message)

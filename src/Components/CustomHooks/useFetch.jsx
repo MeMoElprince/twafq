@@ -26,7 +26,7 @@ export default function useFetch({ url, setErrorMessage, method = 'GET', body, T
         
         const response = await fetch(url, options);
         
-        console.log(response)
+        // console.log(response)
         const string = await response.text();
         const data = string ? JSON.parse(string) : {};
         

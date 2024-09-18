@@ -30,7 +30,7 @@ export default function ColorTest({handleChange, isSelected, colors, setColors, 
       <h2 className="Title text-Black myFont text-[25px] font-semibold">
         {t("colorTest.title")}
       </h2>
-      <div className="Form center flex-col gap-10 w-[70%]">
+      <div className="Form center flex-col gap-10 w-[85%]">
         <h3 className="bg-LightPink px-4 py-4 rounded-lg text-[16px] font-semibold text-center">{t("colorTest.description")}</h3>
         <div className="w-full center gap-4 flex-wrap">
           {colors.map((color, index) => (

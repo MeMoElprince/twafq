@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import Card from './Components/Card';
 import ReactSlider from 'react-slider'
 import Spinner from '../../Components/Ui-Components/Spinner'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useLayoutDirection } from '../../Store/Context/LayoutDirectionContext'
 import {useTranslation} from "react-i18next"
 import Countires from "../SignUp/Components/Countires.json"
@@ -11,9 +11,12 @@ import { Link } from 'react-router-dom';
 import { TbHeartSearch } from "react-icons/tb";
 
 
-export default function SearchPage({ usersUrl, setUsersUrl, loadingUsers, formData, setFormData, setLoadingUsers, usersS, setUsersS, page }) {
+export default function SearchPage({ usersUrl, setUsersUrl, loadingUsers, setLoadingUsers, usersS, setUsersS, page }) {
   const { isRTL, setIsRTL } = useLayoutDirection();
 	const { t, i18n } = useTranslation("global");
+  const queryParams = new URLSearchParams(location.search);
+
+  // console.log(usersS);
   
 
   // console.log(loadingUsers);
@@ -21,16 +24,16 @@ export default function SearchPage({ usersUrl, setUsersUrl, loadingUsers, formDa
   return (
     <div className={`z[5] min-h-screen flex flex-col justify-center items-center md:justify-between gap-y-20 mainPadding mt-[20vh] mb-[20vh]`}>
       <div className={`${Styles.exactForm} bg-LighterPink/50 border-2 border-Black/20 shadow-xl rounded-2xl w-full px-8 sm:px-12 py-8 sm:py-12 z-10`}>
-        <Fillters usersUrl={usersUrl} formData={formData} setFormData={setFormData} setUsersUrl={setUsersUrl} loadingUsers={loadingUsers} setLoadingUsers={setLoadingUsers} usersS={usersS} setUsersS={setUsersS} isRTL={isRTL} i18n={i18n} t={t} />
+        <Fillters usersUrl={usersUrl} setUsersUrl={setUsersUrl} loadingUsers={loadingUsers} setLoadingUsers={setLoadingUsers} usersS={usersS} setUsersS={setUsersS} isRTL={isRTL} i18n={i18n} t={t} />
       </div>
-      <div className='gap-12 flex flex-grow w-full flex-wrap px-12'>
+      <div className='gap-12 flex flex-grow w-full flex-wrap justify-center items-center px-[5%]'>
         {
-          !loadingUsers && usersS && usersS?.data?.userCards?.length > 0 && usersS?.data?.userCards.map((el, index) => (
-             <Card userDetails={el} key={index}/> 
+          !loadingUsers && usersS && usersS?.length > 0 && usersS?.map((el, index) => (
+             <Card userDetailsReceived={el} key={index}/> 
           ))
         }
         {
-          !loadingUsers && usersS && !usersS?.data?.userCards?.length && <div className='w-full center flex-col h-screen gap-4'>
+          !loadingUsers && usersS && !usersS?.length && <div className='w-full center flex-col h-screen gap-4'>
             <TbHeartSearch className='text-DarkPink size-[160px] sm:size-[240px]' />
             <p className='text-xl sm:text-3xl text-center font-medium'>{i18n.language === 'ar' ? "لم يتم العثور على مستخدمين..." : "No Users Found..."}</p>
           </div>
@@ -44,7 +47,7 @@ export default function SearchPage({ usersUrl, setUsersUrl, loadingUsers, formDa
         }
       </div>
       <ul className="myFont flex mx-auto border-2 border-Black rounded w-max mt-4 bg-LighterPink/60">
-        <Link to={`/Explore/${Math.max(1, parseInt(page) - 1)}`}>
+        <Link to={`/Explore/${Math.max(0, (+page - 1))}?${queryParams.toString()}`}>
           <li
             className={`px-5 py-2.5 flex items-center justify-center shrink-0 cursor-pointer text-base ${i18n.language === 'ar' && "border-l-2 border-Black"} font-semibold text-Black min-w-[110px] hover:bg-DarkPink/40 transition-all duration-200 hover:px-7`}>
             <svg xmlns="http://www.w3.org/2000/svg" className={`w-3 fill-current ${i18n.language === 'ar' ? "ml-3 scale-x-[-1]" : "mr-3"}`} viewBox="0 0 55.753 55.753">
@@ -55,7 +58,7 @@ export default function SearchPage({ usersUrl, setUsersUrl, loadingUsers, formDa
             {i18n.language === 'ar' ? "السابق" : "Previous"}
           </li>
         </Link>
-        <Link to={`/Explore/${parseInt(page)+1}`}>
+        <Link to={`/Explore/${+page+1}?${queryParams.toString()}`}>
           <li
             className={`${i18n.language === 'en' && "border-l-2 border-Black"} px-5 py-2.5 flex items-center justify-center shrink-0 cursor-pointer text-base font-semibold text-Black min-w-[110px] hover:bg-DarkPink/40 transition-all duration-200 hover:px-7`}>
             {i18n.language === 'ar' ? "التالي" : "next"}
@@ -72,8 +75,11 @@ export default function SearchPage({ usersUrl, setUsersUrl, loadingUsers, formDa
 }
 
 
-const Fillters = ({ usersUrl, setUsersUrl, formData, setFormData, loadingUsers, setLoadingUsers, usersS, setUsersS, isRTL, i18n, t }) => {
+const Fillters = ({ usersUrl, setUsersUrl, loadingUsers, setLoadingUsers, usersS, setUsersS, isRTL, i18n, t }) => {
   const [selectedIdx, setSelectedIdx] = useState(0);
+  const navigate = useNavigate();
+  const {page} = useParams();
+  const queryParams = new URLSearchParams(location.search);
 
   const sortTypeLabels = [
     ['اعلى نسبة توافق', 'Highest Compatibility'],
@@ -81,70 +87,39 @@ const Fillters = ({ usersUrl, setUsersUrl, formData, setFormData, loadingUsers, 
     ['النشاط الاحدث', 'Most Recent Activity'],
     ['الاصغر في السن', 'Youngest'],
     ['الاكبر في السن', 'Oldest'],
-    ['اعلى مستوى تعليمي', 'Highest Education Level'],
   ];
   
 
   
-  const [searchParams, setSearchParams] = useState(null);
+  const [searchParams, setSearchParams] = useState({...Object.fromEntries(queryParams)});
+  
   
   function handleInputChange(event) {
-    const { name, value, type, checked, dataset } = event.target;
+    const { name, value } = event.target;
   
-    const isMultiValue = ['skinColor', 'shape', 'health', 'nationality', 'country', 'city', 'countryOfResidence',
-      'familyStatus', 'marriageType', 'gender', 'smoking', 'religiousCommitment', 'doctrine', 'religion',
-      'alcoholDrgus', 'educationLevel', 'financialStatus'
-    ].includes(name);
+    setSearchParams(prevSearchParams => {
+      const updatedSearchParams = { ...prevSearchParams };
   
-    setFormData(prevFormData => {
-      let newValue;
-      if (type === "checkbox") {
-        newValue = checked;
-      } else if (isMultiValue) {
-        const valueHolder = JSON.parse(value);
-        newValue = valueHolder;
+      if (value) {
+        // If value is not empty, set the value in searchParams
+        updatedSearchParams[name] = (name === 'minAge' || name === 'maxAge') ? +value : value;
       } else {
-        newValue = value;
+        // If value is empty, remove it from searchParams
+        delete updatedSearchParams[name];
       }
-      return {
-        ...prevFormData,
-        [name]: newValue
-      };
+  
+      return updatedSearchParams;
     });
   }
 
-  useEffect(() => {
-    const params = {
-      gender: formData.gender[1],
-      age_from: formData.minAge,
-      age_to: formData.maxAge,
-      nationality: formData.nationality[1],
-      country: formData.country[1],
-      city: formData.city[1], 
-      countryOfResidence: formData.countryOfResidence[1],
-      family_status: formData.familyStatus[1],
-      marriage_type: formData.marriageType[1],
-      religion: formData.religion[1],
-      doctrine: formData.doctrine[1],
-      sort: sortTypeLabels[selectedIdx][1],
-    };
-  
-    const validParams = Object.entries(params)
-      .filter(([_, value]) => value)
-      .reduce((acc, [key, value]) => {
-        acc[key] = value;
-        return acc;
-      }, {});
-  
-    setSearchParams(validParams);
-  }, [formData]);
+  // useEffect(() => {
+  //   console.log(searchParams)
+  // }, [searchParams])
   
   
   function handleSearch() {
-    // console.log(searchParams);
     const queryString = new URLSearchParams(searchParams).toString();
-    setUsersUrl(`${getAllUsers()}${queryString}`);
-    // console.log(queryString);
+    navigate(`/Explore/${0}?${queryString}`);
   }
 
   return (
@@ -154,20 +129,20 @@ const Fillters = ({ usersUrl, setUsersUrl, formData, setFormData, loadingUsers, 
       <div className='gap-8 p-8 py-10 gap-x-12 flex flex-row justify-center items-center flex-wrap'>
 
       <div className={`${Styles.inputHolder} relative w-[100%] md:w-[35%] md1:w-[25%] lg2:w-[20%]`}>
-          <select 
-                  id="Gender"
-                  value={formData.gender ? JSON.stringify(formData.gender) : ''}
-                  onChange={handleInputChange}
-                  name="gender"
-                  aria-label={i18n.language === 'ar' ? 'الحالة العائلية' : 'Family Status'}
-                  className={`myFont w-full py-2 px-3 border-b-[3px] ${
-                    formData.gender ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
-                  } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-Black cursor-pointer`}
-              >
-                  <option value={JSON.stringify(["", ""])}>{i18n.language === 'ar' ? '-- لا يهم --' : '-- Any --'}</option>
-                  <option value={JSON.stringify(['ذكر', 'Male'])}>{i18n.language === 'ar' ? 'ذكر' : 'Male'}</option>
-                  <option value={JSON.stringify(['أنثى', 'Female'])}>{i18n.language === 'ar' ? 'أنثى' : 'Female'}</option>
-          </select>
+      <select 
+          id="Gender"
+          value={searchParams.gender || ''} 
+          onChange={handleInputChange}
+          name="gender"
+          aria-label={i18n.language === 'ar' ? 'الحالة العائلية' : 'Family Status'}
+          className={`myFont w-full py-2 px-3 border-b-[3px] ${
+            searchParams.gender ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
+          } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-Black cursor-pointer`}
+        >
+          <option value="">{i18n.language === 'ar' ? '-- لا يهم --' : '-- Any --'}</option>
+          <option value="Male">{i18n.language === 'ar' ? 'ذكر' : 'Male'}</option>
+          <option value="Female">{i18n.language === 'ar' ? 'أنثى' : 'Female'}</option>
+        </select>
           <label
               htmlFor="Gender"
               className={`inputLabel absolute top-[15px] ${
@@ -178,29 +153,27 @@ const Fillters = ({ usersUrl, setUsersUrl, formData, setFormData, loadingUsers, 
             </label>
         </div>
 
-        
-
           <div className={`${Styles.inputHolder} relative w-[100%] md:w-[35%] md1:w-[25%] lg2:w-[20%]`}>
           <select 
-                  id="Country"
-                  value={formData.country ? JSON.stringify(formData.country) : ''}
-                  onChange={handleInputChange}
-                  name="country"
-                  aria-label={i18n.language === 'ar' ? 'البلد' : 'country'}
-                  className={`myFont w-full py-2 px-3 border-b-[3px] ${
-                    formData.country ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
-                  } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-Black cursor-pointer`}
-              >
-                    <option value={JSON.stringify(["", "", ""])}>{i18n.language === 'ar' ? '-- لا يهم --' : 'Any'}</option>
-                    {Countires.map((country) => (
-                        <option 
-                            key={country.code} 
-                            value={JSON.stringify([country.country_ar, country.country_en, country.code])}
-                        >
-                            {i18n.language === 'ar' ? country.country_ar : country.country_en}
-                        </option>
-                    ))}
-          </select>
+              id="Country"
+              value={searchParams.country || ''} 
+              onChange={handleInputChange}
+              name="country"
+              aria-label={i18n.language === 'ar' ? 'البلد' : 'Country'}
+              className={`myFont w-full py-2 px-3 border-b-[3px] ${
+                searchParams.country ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
+              } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-Black cursor-pointer`}
+            >
+              <option value="">{i18n.language === 'ar' ? '-- لا يهم --' : 'Any'}</option>
+              {Countires.map((country) => (
+                <option 
+                  key={country.code} 
+                  value={country.country_en} 
+                >
+                  {i18n.language === 'ar' ? country.country_ar : country.country_en}
+                </option>
+              ))}
+            </select>
           <label
               htmlFor="Country"
               className={`inputLabel absolute top-[15px] ${
@@ -213,15 +186,15 @@ const Fillters = ({ usersUrl, setUsersUrl, formData, setFormData, loadingUsers, 
         <div className={`${Styles.inputHolder} relative w-[100%] md:w-[35%] md1:w-[25%] lg2:w-[20%]`}>
           <select 
                   id="City"
-                  value={formData.city ? JSON.stringify(formData.city) : ''}
+                  value={searchParams.city || ''}
                   onChange={handleInputChange}
                   name="city"
                   aria-label={i18n.language === 'ar' ? 'المدينة' : 'City'}
                   className={`myFont w-full py-2 px-3 border-b-[3px] ${
-                    formData.city ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
+                    searchParams.city ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
                   } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-Black cursor-pointer`}
               >
-                  <option value={JSON.stringify(["", ""])}>{i18n.language === 'ar' ? '-- لا يهم --' : 'Any'}</option>
+                  <option value={""}>{i18n.language === 'ar' ? '-- لا يهم --' : 'Any'}</option>
                   
           </select>
           <label
@@ -234,25 +207,25 @@ const Fillters = ({ usersUrl, setUsersUrl, formData, setFormData, loadingUsers, 
             </label>
         </div>
         <div className={`${Styles.inputHolder} relative w-[100%] md:w-[35%] md1:w-[25%] lg2:w-[20%]`}>
-          <select 
-                  id="Nationality"
-                  value={formData.nationality ? JSON.stringify(formData.nationality) : ''}
-                  onChange={handleInputChange}
-                  name="nationality"
-                  aria-label={i18n.language === 'ar' ? 'الجنسية' : 'Nationality'}
-                  className={`myFont w-full py-2 px-3 border-b-[3px] ${
-                    formData.nationality ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
-                  } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-Black cursor-pointer`}
+        <select 
+            id="Nationality"
+            value={searchParams.nationality || ''} 
+            onChange={handleInputChange}
+            name="nationality"
+            aria-label={i18n.language === 'ar' ? 'الجنسية' : 'Nationality'}
+            className={`myFont w-full py-2 px-3 border-b-[3px] ${
+              searchParams.nationality ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
+            } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-Black cursor-pointer`}
+          >
+            <option value="">{i18n.language === 'ar' ? '-- لا يهم --' : 'Any'}</option>
+            {Countires.map((country) => (
+              <option 
+                key={country.code} 
+                value={country.nationality_en} 
               >
-                  <option value={JSON.stringify(["", ""])}>{i18n.language === 'ar' ? '-- لا يهم --' : 'Any'}</option>
-                    {Countires.map((country) => (
-                        <option 
-                            key={country.code} 
-                            value={JSON.stringify([country.natianality_ar, country.nationality_en])}
-                        >
-                            {i18n.language === 'ar' ? country.natianality_ar : country.nationality_en}
-                        </option>
-                    ))}
+                {i18n.language === 'ar' ? country.natianality_ar : country.nationality_en}
+              </option>
+            ))}
           </select>
           <label
               htmlFor="Nationality"
@@ -264,25 +237,25 @@ const Fillters = ({ usersUrl, setUsersUrl, formData, setFormData, loadingUsers, 
             </label>
         </div>
         <div className={`${Styles.inputHolder} relative w-[100%] md:w-[35%] md1:w-[25%] lg2:w-[20%]`}>
-          <select 
-                  id="CountryOfResidence"
-                  value={formData.countryOfResidence ? JSON.stringify(formData.countryOfResidence) : ''}
-                  onChange={handleInputChange}
-                  name="countryOfResidence"
-                  aria-label={i18n.language === 'ar' ? 'الإقامة' : 'countryOfResidence'}
-                  className={`myFont w-full py-2 px-3 border-b-[3px] ${
-                    formData.countryOfResidence ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
-                  } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-Black cursor-pointer`}
+        <select 
+            id="CountryOfResidence"
+            value={searchParams.countryOfResidence || ''} 
+            onChange={handleInputChange}
+            name="countryOfResidence"
+            aria-label={i18n.language === 'ar' ? 'الإقامة' : 'Country of Residence'}
+            className={`myFont w-full py-2 px-3 border-b-[3px] ${
+              searchParams.countryOfResidence ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
+            } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-Black cursor-pointer`}
+          >
+            <option value="">{i18n.language === 'ar' ? '-- لا يهم --' : 'Any'}</option>
+            {Countires.map((country) => (
+              <option 
+                key={country.code}
+                value={country.country_en} 
               >
-                  <option value={JSON.stringify(["", ""])}>{i18n.language === 'ar' ? '-- لا يهم --' : 'Any'}</option>
-                  {Countires.map((country) => (
-                      <option 
-                          key={country.code} 
-                          value={JSON.stringify([country.country_ar, country.country_en])}
-                      >
-                          {i18n.language === 'ar' ? country.country_ar : country.country_en}
-                      </option>
-                  ))}
+                {i18n.language === 'ar' ? country.country_ar : country.country_en}
+              </option>
+            ))}
           </select>
           <label
               htmlFor="CountryOfResidence"
@@ -296,23 +269,23 @@ const Fillters = ({ usersUrl, setUsersUrl, formData, setFormData, loadingUsers, 
         <div className={`${Styles.inputHolder} relative w-[100%] md:w-[35%] md1:w-[25%] lg2:w-[20%]`}>
           <select 
                   id="FamilyStatus"
-                  value={formData.familyStatus ? JSON.stringify(formData.familyStatus) : ''}
+                  value={searchParams.familyStatus || ''}
                   onChange={handleInputChange}
                   name="familyStatus"
                   aria-label={i18n.language === 'ar' ? 'الحالة العائلية' : 'Family Status'}
                   className={`myFont w-full py-2 px-3 border-b-[3px] ${
-                    formData.familyStatus ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
+                    searchParams.familyStatus ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
                   } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-Black cursor-pointer`}
               >
-                  <option value={JSON.stringify(["", ""])}>{i18n.language === 'ar' ? '-- لا يهم --' : 'Any'}</option>
+                  <option value={""}>{i18n.language === 'ar' ? '-- لا يهم --' : 'Any'}</option>
                   {
-                    formData.gender[1] &&
+                    searchParams.gender &&
                     (
                       <>
-                        <option value={JSON.stringify([formData.gender[1] === 'Male' ? 'أعزب' : 'آنسة', 'Single'])}>{i18n.language === 'ar' ? formData.gender[1] === 'Male' ? 'أعزب' : 'آنسة' : 'Single'}</option>
-                        {formData.gender[1] === 'Male' && <option value={JSON.stringify(['متزوج', 'Married'])}>{i18n.language === 'ar' ? 'متزوج' : 'Married'}</option>}
-                        <option value={JSON.stringify([formData.gender[1] === 'Male' ? 'مطلق' : 'مطلقة', 'Divorced'])}>{i18n.language === 'ar' ? formData.gender[1] === 'Male' ? 'مطلق' : 'مطلقة' : 'Divorced'}</option>
-                        <option value={JSON.stringify([formData.gender[1] === 'Male' ? 'أرمل' : 'أرملة', 'Widowed'])}>{i18n.language === 'ar' ? formData.gender[1] === 'Male' ? 'أرمل' : 'أرملة' : 'Widowed'}</option>
+                        <option value={'Single'}>{i18n.language === 'ar' ? searchParams.gender === 'Male' ? 'أعزب' : 'آنسة' : 'Single'}</option>
+                        {searchParams.gender === 'Male' && <option value={'Married'}>{i18n.language === 'ar' ? 'متزوج' : 'Married'}</option>}
+                        <option value={'Divorced'}>{i18n.language === 'ar' ? searchParams.gender === 'Male' ? 'مطلق' : 'مطلقة' : 'Divorced'}</option>
+                        <option value={'Widowed'}>{i18n.language === 'ar' ? searchParams.gender === 'Male' ? 'أرمل' : 'أرملة' : 'Widowed'}</option>
                       </>
                     )
                   }
@@ -329,36 +302,36 @@ const Fillters = ({ usersUrl, setUsersUrl, formData, setFormData, loadingUsers, 
         <div className={`${Styles.inputHolder} relative w-[100%] md:w-[35%] md1:w-[25%] lg2:w-[20%]`}>
           <select 
                   id="MarriageType"
-                  value={formData.marriageType ? JSON.stringify(formData.marriageType) : ''}
+                  value={searchParams.marriageType || ''}
                   onChange={handleInputChange}
                   name="marriageType"
                   aria-label={i18n.language === 'ar' ? 'نوع الزواج' : 'Marriage Type'}
                   className={`myFont w-full py-2 px-3 border-b-[3px] ${
-                    formData.marriageType ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
+                    searchParams.marriageType ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
                   } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-Black cursor-pointer`}
               >
-                  <option value={JSON.stringify(["", ""])}>{i18n.language === 'ar' ? '-- لا يهم --' : 'Any'}</option>
-                  {formData.gender[1] === 'Male' ? (
+                  <option value={""}>{i18n.language === 'ar' ? '-- لا يهم --' : 'Any'}</option>
+                  {searchParams.gender === 'Male' ? (
                     <>
-                      <option value={JSON.stringify(['الزوجة الأولى', 'First Wife'])}>
+                      <option value={'First Wife'}>
                         {i18n.language === 'ar' ? 'الزوجة الأولى' : 'First Wife'}
                       </option>
-                      <option value={JSON.stringify(['الزوجة الثانية', 'Second Wife'])}>
+                      <option value={'Second Wife'}>
                         {i18n.language === 'ar' ? 'الزوجة الثانية' : 'Second Wife'}
                       </option>
-                      <option value={JSON.stringify(['الزوجة الثالثة', 'Third Wife'])}>
+                      <option value={'Third Wife'}>
                         {i18n.language === 'ar' ? 'الزوجة الثالثة' : 'Third Wife'}
                       </option>
-                      <option value={JSON.stringify(['الزوجة الرابعة', 'Fourth Wife'])}>
+                      <option value={'Fourth Wife'}>
                         {i18n.language === 'ar' ? 'الزوجة الرابعة' : 'Fourth Wife'}
                       </option>
                     </>
-                  ) : formData.gender[1] === 'Female' && (
+                  ) : searchParams.gender === 'Female' && (
                     <>
-                      <option value={JSON.stringify(['لا اقبل تعدد الزوجات', 'I don\'t accept polygamy'])}>
+                      <option value={'I don\'t accept polygamy'}>
                         {i18n.language === 'ar' ? 'لا اقبل تعدد الزوجات' : "I don't accept polygamy"}
                       </option>
-                      <option value={JSON.stringify(['اقبل تعدد الزوجات', 'I accept polygamy'])}>
+                      <option value={'I accept polygamy'}>
                         {i18n.language === 'ar' ? 'اقبل تعدد الزوجات' : 'I accept polygamy'}
                       </option>
                     </>
@@ -376,17 +349,17 @@ const Fillters = ({ usersUrl, setUsersUrl, formData, setFormData, loadingUsers, 
         <div className={`${Styles.inputHolder} relative w-[100%] md:w-[35%] md1:w-[25%] lg2:w-[20%]`}>
           <select 
                   id="Religion"
-                  value={formData.religion ? JSON.stringify(formData.religion) : ''}
+                  value={searchParams.religion || ''}
                   onChange={handleInputChange}
                   name="religion"
                   aria-label={i18n.language === 'ar' ? 'الديانة' : 'Religion'}
                   className={`myFont w-full py-2 px-3 border-b-[3px] ${
-                    formData.religion ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
+                    searchParams.religion ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
                   } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-Black cursor-pointer`}
               >
-              <option value={JSON.stringify(["", ""])}>{i18n.language === 'ar' ? '-- لا يهم --' : 'Any'}</option>
-              <option value={JSON.stringify(['الإسلام', 'Islam'])}>{i18n.language === 'ar' ? 'الإسلام' : 'Islam'}</option>
-              <option value={JSON.stringify(['المسيحية', 'Christianity'])}>{i18n.language === 'ar' ? 'المسيحية' : 'Christianity'}</option>
+              <option value={""}>{i18n.language === 'ar' ? '-- لا يهم --' : 'Any'}</option>
+              <option value={'Islam'}>{i18n.language === 'ar' ? 'الإسلام' : 'Islam'}</option>
+              <option value={'Christianity'}>{i18n.language === 'ar' ? 'المسيحية' : 'Christianity'}</option>
           </select>
           <label
               htmlFor="Religion"
@@ -400,26 +373,26 @@ const Fillters = ({ usersUrl, setUsersUrl, formData, setFormData, loadingUsers, 
         <div className={`${Styles.inputHolder} relative w-[100%] md:w-[35%] md1:w-[25%] lg2:w-[20%]`}>
           <select 
                   id="Doctrine"
-                  value={formData.doctrine ? JSON.stringify(formData.doctrine) : ''}
+                  value={searchParams.doctrine || ''}
                   onChange={handleInputChange}
                   name="doctrine"
                   aria-label={i18n.language === 'ar' ? 'المذهب' : 'Doctrine'}
                   className={`myFont w-full py-2 px-3 border-b-[3px] ${
-                    formData.doctrine ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
+                    searchParams.doctrine ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
                   } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-Black cursor-pointer`}
               >
-                  <option value={JSON.stringify(["", ""])}>{i18n.language === 'ar' ? '-- لا يهم --' : 'Any'}</option>
-                    {formData.religion[0] === 'الإسلام' && (
+                  <option value={""}>{i18n.language === 'ar' ? '-- لا يهم --' : 'Any'}</option>
+                    {searchParams.religion === 'Islam' && (
                       <>
-                        <option value={JSON.stringify(['سني', 'Sunni'])}>{i18n.language === 'ar' ? 'سني' : 'Sunni'}</option>
-                        <option value={JSON.stringify(['شيعي', 'Shia'])}>{i18n.language === 'ar' ? 'شيعي' : 'Shia'}</option>
+                        <option value={'Sunni'}>{i18n.language === 'ar' ? 'سني' : 'Sunni'}</option>
+                        <option value={'Shia'}>{i18n.language === 'ar' ? 'شيعي' : 'Shia'}</option>
                       </>
                     )}
-                    {formData.religion[0] === 'المسيحية' && (
+                    {searchParams.religion === 'Christianity' && (
                       <>
-                        <option value={JSON.stringify(['الكاثوليكية', 'Catholic'])}>{i18n.language === 'ar' ? 'الكاثوليكية' : 'Catholic'}</option>
-                        <option value={JSON.stringify(['البروتستانتية', 'Protestant'])}>{i18n.language === 'ar' ? 'البروتستانتية' : 'Protestant'}</option>
-                        <option value={JSON.stringify(['الأرثوذكسية', 'Orthodox'])}>{i18n.language === 'ar' ? 'الأرثوذكسية' : 'Orthodox'}</option>
+                        <option value={'Catholic'}>{i18n.language === 'ar' ? 'الكاثوليكية' : 'Catholic'}</option>
+                        <option value={'Protestant'}>{i18n.language === 'ar' ? 'البروتستانتية' : 'Protestant'}</option>
+                        <option value={'Orthodox'}>{i18n.language === 'ar' ? 'الأرثوذكسية' : 'Orthodox'}</option>
                       </>
                     )}
           </select>
@@ -440,11 +413,11 @@ const Fillters = ({ usersUrl, setUsersUrl, formData, setFormData, loadingUsers, 
                 onChange={handleInputChange}
                 name="minAge"
                 placeholder= {i18n.language === 'ar' ? 'العمر من' : 'Age From'}
-                value={formData.minAge}
+                value={searchParams.minAge}
                 min={18}
-                max={formData.maxAge}
+                max={searchParams.maxAge || 100}
                 className={`myFont w-full py-2 px-3 border-b-[3px] ${
-                  formData.minAge ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
+                  searchParams.minAge ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
                 } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-Black cursor-text`}
               />
               <label
@@ -463,11 +436,11 @@ const Fillters = ({ usersUrl, setUsersUrl, formData, setFormData, loadingUsers, 
                 onChange={handleInputChange}
                 name="maxAge"
                 placeholder= {i18n.language === 'ar' ? 'العمر من' : 'Age From'}
-                value={formData.maxAge}
-                min={formData.minAge}
+                value={searchParams.maxAge}
+                min={searchParams.minAge || 0}
                 max={100}
                 className={`myFont w-full py-2 px-3 border-b-[3px] ${
-                  formData.maxAge ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
+                  searchParams.maxAge ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
                 } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-Black cursor-text`}
               />
               <label
@@ -493,7 +466,7 @@ const Fillters = ({ usersUrl, setUsersUrl, formData, setFormData, loadingUsers, 
       <h1 className='text-3xl font-medium'>{i18n.language === 'ar' ? "ترتيب حسب" : "Sort By"}</h1>
       <div className='my-5 flex flex-wrap gap-5'>
         {sortTypeLabels.map((element, idx) => (
-          <button key={idx} onClick={() => { setSelectedIdx(idx); formData.sort = sortTypeLabels[idx]; }} className={`rounded-full border-2 border-Black text-Black text-lg py-3 px-6 w-max ${selectedIdx === idx ? "bg-Black text-White" : ""}`}>
+          <button key={idx} onClick={() => { setSelectedIdx(idx); searchParams.sort = sortTypeLabels[idx]; }} className={`rounded-full border-2 border-Black text-Black text-lg py-3 px-6 w-max ${selectedIdx === idx ? "bg-Black text-White" : ""}`}>
             {i18n.language === 'ar' ? element[0] : element[1]}
           </button>
         ))}

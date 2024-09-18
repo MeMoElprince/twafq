@@ -11,9 +11,9 @@ export default function AppDownload() {
             <div
             className="relative overflow-hidden pt-16 md:rounded-5xl xl:py-24">
             <div className="relative mx-auto grid gap-y-2 text-center xl:max-w-none">
-                <h4 className="text-2xl font-medium tracking-tight text-White md:text-3xl lg:text-3xl">
+                <p className="text-2xl font-medium tracking-tight text-White md:text-3xl lg:text-3xl">
                     {isRTL ? "قم بتحميل التطبيق" : "Download the application"}
-                </h4>
+                </p>
                 <div className="mt-12 flex flex-wrap justify-center gap-x-6 gap-y-4">
                 <div className="flex justify-center md:w-auto" tabIndex="0">
                     <a target="_blank" aria-label="Download on the Google Play Store"

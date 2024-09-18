@@ -16,7 +16,7 @@ import ColorTest from './Steps/ColorTest'
 
 export default function Form() {
 	const { isLogedIn} = useContext(AuthenticationContext)
-	const [step, setStep] = useState(6)
+	const [step, setStep] = useState(0)
 	const [loading, setLoading] = useState(false)
 	const [data, setData] = useState(null)
 	const [errorMessage, setErrorMessage] = useState('')
@@ -30,7 +30,6 @@ export default function Form() {
 			email: '',
 			password: '',
 			confirmPassword: '',
-			username: '',
 			firstName: '',
 			lastName: '',
 			phone: '',
@@ -54,7 +53,6 @@ export default function Form() {
 			doctrine : ["", ""],
 			religiousCommitment : ["", ""],
 			smoking : ["", ""],
-			alcoholDrgus : ["", ""],
 			selfDescription: '',
 			partnerDescription: '',
 			isChecked: false,
@@ -92,9 +90,9 @@ export default function Form() {
 		e.preventDefault();
 		if (loading) return;
 		// if (formData.email === '' || formData.password === '') {
-		// 	setErrorMessage('Please fill all fields')
-		// 	return
-		// }
+			// 	setErrorMessage('Please fill all fields')
+			// 	return
+			// }
 		let ansHolder = [];
 		for(let i = 0; i<isSelected.length; i++){
 			if(isSelected[i]){
@@ -103,8 +101,10 @@ export default function Form() {
 		}
 		const RET = {
 			...formData,
-			colorAnswers: ansHolder
+			colorAnswers: ansHolder,
+			// username: formData.firstName + formData.lastName
 		}
+		console.log(RET);
 		setErrorMessage('')
 		Fetch({ url: SignupUrl(), setLoading, setData, setErrorMessage, method: 'POST', body: RET })
 	}
