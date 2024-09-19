@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import logo from '../../assets/logo.png';
 import ArLogo from '../../assets/ArLogo.png'
 import EnLogo from '../../assets/EnLogo.png';
 import { useLayoutDirection } from '../../Store/Context/LayoutDirectionContext'

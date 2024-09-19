@@ -45,10 +45,8 @@ function Footer() {
             </li>
             <li>
               <a href='https://gmail.com' className="text-gray-300 hover:text-white text-sm">{i18n.language == 'ar' ? "البريد الإلكتروني" : "Email"}</a>
-              <a href='https://gmail.com' className="text-gray-300 hover:text-white text-sm">{i18n.language == 'ar' ? "البريد الإلكتروني" : "Email"}</a>
             </li>
             <li>
-              <a href='tel:01284223335' className="text-gray-300 hover:text-white text-sm">{i18n.language == 'ar' ? "الهاتف" : "Phone"}</a>
               <a href='tel:01284223335' className="text-gray-300 hover:text-white text-sm">{i18n.language == 'ar' ? "الهاتف" : "Phone"}</a>
             </li>
           </ul>
@@ -62,10 +60,8 @@ function Footer() {
             </li>
             <li>
               <a href='' className="text-gray-300 hover:text-white text-sm">{i18n.language == 'ar' ? "الشروط والأحكام" : "Terms & Conditions"}</a>
-              <a href='' className="text-gray-300 hover:text-white text-sm">{i18n.language == 'ar' ? "الشروط والأحكام" : "Terms & Conditions"}</a>
             </li>
             <li>
-              <a href='' className="text-gray-300 hover:text-white text-sm">{i18n.language == 'ar' ? "سياسة الخصوصية" : "Privacy Policy"}</a>
               <a href='' className="text-gray-300 hover:text-white text-sm">{i18n.language == 'ar' ? "سياسة الخصوصية" : "Privacy Policy"}</a>
             </li>
           </ul>

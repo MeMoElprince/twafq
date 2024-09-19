@@ -1,14 +1,36 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import {useTranslation} from "react-i18next"
 import { BlogCard } from './Components/BlogCard';
+import { useLayoutDirection } from '../../Store/Context/LayoutDirectionContext';
+import { useParams } from 'react-router-dom';
+import { getSingleBlog } from '../../Store/urls';
+import useFetch from '../../Components/CustomHooks/useFetch';
 
 export default function SingleBlog() {
     const { t, i18n } = useTranslation("global");
+    const { isRTL, setIsRTL } = useLayoutDirection();
+    var english = /^[A-Za-z]*$/;
+    const { id } = useParams();
+    const { retData: blog, loading: blogLoading } = useFetch({
+        url: `${getSingleBlog()}blogId=${id}`,
+        method: 'GET',
+      });
+    const [blogG, setBlogG] = useState(blog);
+    const [loadingBlog, setLoadingBlog] = useState(blogLoading);
+
+    useEffect(() => {
+        if (blog) {
+            setBlogG(blog);
+            setLoadingBlog(false);
+        }
+        console.log(blogG)
+    }, [blog])
+
 
     function NewSentence({title, sentence, link}){
         return (
             <div className="flex flex-col gap-1 py-4">
-                {title && <h3 className='text-xl sm2:text-2xl font-bold text-Black'>{title}</h3>}
+                {title && <h3 className='text-xl sm2:text-2xl font-bold text-Black'>{blogG?.title}</h3>}
                 <p className='text-sm sm2:text-base'>{sentence}</p>
                 {link && <a href={link.href} target='_blank' className='text-blue-500 font-medium underline max-w-max'>{link.text}</a>}
             </div>
@@ -20,7 +42,7 @@ export default function SingleBlog() {
         <div className="w-[95%] lg2:w-[80%] max-w-4xl bg-white shadow-sm border border-Black/20 rounded-[4px] p-5 sm2:p-10 h-max flex flex-col">
             <div className="py-8">
                 <h1 className="text-2xl sm2:text-4xl font-bold text-center mb-3 text-Black">Blog post title</h1>
-                <p className="text-gray-500 text-sm"><time datetime="2022-04-05">April 5, 2022</time></p>
+                <p className="text-gray-500 text-sm"><time dateTime="2022-04-05">April 5, 2022</time></p>
             </div>
 
             <img src="https://images.unsplash.com/photo-1493723843671-1d655e66ac1c" alt="Featured image" className="w-full h-auto mb-8" />

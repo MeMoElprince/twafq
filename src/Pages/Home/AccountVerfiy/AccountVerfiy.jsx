@@ -5,7 +5,7 @@ import {
 } from "@material-tailwind/react";
 import { useLayoutDirection } from '../../../Store/Context/LayoutDirectionContext'
 import {useTranslation} from "react-i18next"
-import Confirmed from "../../../assets/Confirmed.png"
+import Confirmed from "../../../assets/Confirmed.webp"
 
 export default function AccountVerfiy() {
   const { isRTL, setIsRTL } = useLayoutDirection();

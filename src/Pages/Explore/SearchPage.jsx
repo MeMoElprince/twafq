@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import Card from './Components/Card';
-import ReactSlider from 'react-slider'
 import Spinner from '../../Components/Ui-Components/Spinner'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useLayoutDirection } from '../../Store/Context/LayoutDirectionContext'

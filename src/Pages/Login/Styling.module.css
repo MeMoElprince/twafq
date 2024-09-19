@@ -52,7 +52,7 @@ input[data-autocompleted] {
 
 
 .formContainer{
-    background-image: linear-gradient(rgba(3, 7, 38, 0.7),rgba(10, 4, 35, 0.7)),url('./Form/assets/LoginBackground.jpg');
+    background-image: linear-gradient(rgba(3, 7, 38, 0.7),rgba(10, 4, 35, 0.7)),url('./Form/assets/LoginBackground.webp');
     background-position: center;
     background-size: cover;
     position: absolute;

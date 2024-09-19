@@ -1,15 +1,9 @@
 import React from "react";
-import {
-  Button,
-  Typography,
-} from "@material-tailwind/react";
 import { useLayoutDirection } from '../../../Store/Context/LayoutDirectionContext'
 import {useTranslation} from "react-i18next"
-import Img from "../../../../src/assets/Image1.png"
 import SingleFeature from "./Components/SingleFeature";
 
 export default function Features() {
-  const { isRTL, setIsRTL } = useLayoutDirection();
   const { t, i18n } = useTranslation("global");
 
   const features = [

@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom"
+import ScrollToTop from "./Components/ScrollToTop/ScrollToTop"
 import Root from './Pages/Root'
 import Login from './Pages/Login/index'
 import SignUp from './Pages/SignUp/index'
@@ -10,7 +11,7 @@ import Home from "./Pages/Home/index"
 import UserProfile from "./Pages/UserProfile/index"
 import SingleBlog from "./Pages/SingleBlog/SingleBlog"
 import MyProfile from "./Pages/MyProfile/index"
-import ScrollToTop from "./Components/ScrollToTop/ScrollToTop"
+import Services from "./Pages/Services/index"
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="Login" element={<Login />} />
           <Route path="SignUp" element={<SignUp />} />
           <Route path="Contact" element={<Contact />} />
+          <Route path="Services" element={<Services />} />
           <Route path="Blogs" element={<Blogs />} />
           <Route path="Blogs/:id" element={<SingleBlog />} />
           <Route path="Explore/:page" element={<Explore />} />

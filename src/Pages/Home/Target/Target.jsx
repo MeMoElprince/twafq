@@ -1,11 +1,10 @@
 import React from "react";
 import {
-  Button,
   Typography,
 } from "@material-tailwind/react";
 import { useLayoutDirection } from '../../../Store/Context/LayoutDirectionContext'
 import {useTranslation} from "react-i18next"
-import Img from "../../../../src/assets/Target.jpg"
+import Img from "../../../../src/assets/Target.webp"
 
 
 export default function Target() {

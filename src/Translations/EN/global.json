@@ -114,5 +114,10 @@
     "blogs" :{
         "title" : "Blogs",
         "description" : "Explore relationship advice and success stories at Arayes Blog."
+    },
+    "services": {
+        "title": "Family Consultant Service",
+        "subtitle": "We'll keep your family safe",
+        "description": "A family consultant is an expert specialized in family relationships. The consultant analyzes various family issues and provides practical solutions tailored to each case. The role of the family consultant includes helping families communicate effectively, improving family relationships, enhancing trust among individuals, and offering guidance and advice to solve the problems they face. Questions can be submitted via the dedicated email for the service, and responses will be provided in a confidential manner, unless the participant wishes for others to benefit from the proposed solutions and their personal experience."
     }
 }

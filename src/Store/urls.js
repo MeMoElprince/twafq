@@ -10,7 +10,8 @@ const VerifyOTP = () => (`${APIURL}api/v1/users/verify`);
 const ForgetPassword = () => (`${APIURL}api/v1/users/forget-password`);
 const ResetPassword = () => (`${APIURL}api/v1/users/reset-password`);
 const AskForVerificationCode = () => (`${APIURL}api/v1/users/verify-token`);
-const getCart = () => (`${APIURL}api/v1/carts`);
+const getBlogs = () => (`${APIURL}api/blogs`);
+const getSingleBlog = () => (`${APIURL}api/blog?`);
 const deleteFromCart = (id) => (`${APIURL}api/v1/carts/${id}`);
 const updateFromCart = (id) => (`${APIURL}api/v1/carts/${id}`);
 const getCountries = () => (`${APIURL}api/v1/countries/`);
@@ -33,9 +34,10 @@ export {
   MyDataUrl,
   VerifyOTP,
   ForgetPassword,
+  getSingleBlog,
   ResetPassword,
   AskForVerificationCode,
-  getCart,
+  getBlogs,
   deleteFromCart,
   updateFromCart,
   getCountries,
