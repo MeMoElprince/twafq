@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import { useLayoutDirection } from '../../../Store/Context/LayoutDirectionContext';
-import imgHolder from './assets/imgHolder.jpg'
+import imgHolder from './assets/imgHolder.webp'
 
 
 export function BlogCard(props){

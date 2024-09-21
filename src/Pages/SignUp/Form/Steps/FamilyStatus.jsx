@@ -96,7 +96,6 @@ export default function FamilyStatus({handleChange, formData, setFormData, error
                     formData.children ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
                   } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-pointer`}
               >
-                  <option value="">{i18n.language === 'ar' ? '-- اختر --' : '-- Choose --'}</option>
                 {[...Array(11)].map((_, index) => (
                     <option key={index} value={index}>
                         {index}
@@ -151,7 +150,6 @@ export default function FamilyStatus({handleChange, formData, setFormData, error
               {t("personalInfo.next")}
             </button>
         </div>
-        <p className="text-red-700 font-bold -mb-5 -mt-5">{errorMessage}</p>
       </div>
     </>
   );

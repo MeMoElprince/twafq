@@ -115,7 +115,6 @@ export default function FamilyStatus({handleChange, formData, setFormData, error
         {/* <div className={`${Styles.forgotPassword} self-end mt-[-15px]`}>
                     <button onClick={() => { setType('forgotpassword') }} type='button' className={`${Styles.clickableButton}`}><p className='myFont text-[18px] opacity-80 cursor-pointer font-medium'>نسيت كلمة السر</p></button>
                 </div> */}
-        <p className="text-red-700 font-bold -mb-5 -mt-5">{errorMessage}</p>
       </div>
     </>
   );

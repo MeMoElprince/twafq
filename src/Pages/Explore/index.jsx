@@ -29,8 +29,10 @@ export default function Explore() {
       size: 5,
     }
   );
+  let ageParam = retFormData?.age ? `?age=${retFormData.age[0]}` : '';
+  let likemeParam = retFormData?.likeme ? `?likeme=${retFormData.likeme[0]}` : '';
   const { retData: users, loading: usersLoading } = useFetch({
-    url: getUsers(),
+    url: `${getUsers()}${ageParam}${likemeParam}`,
     method: 'POST',
     setErrorMessage,
     body: retFormData
@@ -48,6 +50,7 @@ export default function Explore() {
       setLoadingUsers(false);
     }
   }, [users]);
+
 
   useEffect(() => {
     if (usersS?.length === 0) {

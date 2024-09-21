@@ -102,7 +102,7 @@ export default function Root() {
     } else {
       setIsLogedIn(false);
     }
-  }, [data, setIsLogedIn, setFirstName, setLastName, setColorAnswers, setEmail, setGender, setPhone, setAge, setWeight, setHeight, setSkinColor, setShape, setHealth, setNationality, setCountry, setCity, setResidence, setFamilyStatus, setMarriageType, setChildreen, setEducationLevel, setWork, setFinancialStatus, setReligion, setDoctrine, setReligiousCommitment, setSmoking, setSelfDescription, setPartnerDescription, setIsChecked]);
+  }, [data]);
 
 
   useEffect(() => {

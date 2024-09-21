@@ -8,7 +8,7 @@ import { Helmet } from 'react-helmet-async';
 
 
 
-export default function Contact(){
+export default function Contact(props){
     const { t, i18n } = useTranslation("global");
     const [formData, setFormData] = useState(
 		{
@@ -62,8 +62,8 @@ export default function Contact(){
             </Helmet>
             <div className="grid sm:grid-cols-2 items-start gap-16 p-4 myFont h-full w-[90%] my-[20vh]">
                 <div>
-                    <h1 className="text-Black text-4xl font-extrabold">{t("contact.title")}</h1>
-                    <p className="text-lg text-Black/80 mt-4 font-medium">{t("contact.description")}</p>
+                    <h1 className="text-Black text-4xl font-extrabold">{props.title || t("contact.title")}</h1>
+                    <p className="text-lg text-Black/80 mt-4 font-medium">{props.description || t("contact.description")}</p>
 
                     <div className='flex flex-col mt-16 gap-12'>
                         <GenerateIcon title = {i18n.language === 'ar' ? "رقم الهاتف" : "Phone Number"} text = "01284438883" Icon = {FaPhoneAlt} />

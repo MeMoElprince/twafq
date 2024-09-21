@@ -98,7 +98,6 @@ export default function Description({handleChange, formData, setFormData, errorM
               {t("personalInfo.next")}
             </button>
         </div>
-        <p className="text-red-700 font-bold -mb-5 -mt-5">{errorMessage}</p>
       </div>
     </>
   );

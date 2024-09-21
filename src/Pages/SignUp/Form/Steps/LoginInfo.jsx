@@ -154,6 +154,7 @@ export default function LoginInfo({handleChange, formData, setFormData, errorMes
             </button>
             <button
               onClick={() => handleStep(1)}
+              onKeyDown={e => e.key === 'enter' ? `() => ${handleStep(1)}` : ""}
               className={`${
                 Styles.loginBtnAnimate
               } bg-Black myFont text-White text-[18px] sm2:text-[22px] w-[100%] py-[14px] rounded-full
@@ -171,7 +172,6 @@ export default function LoginInfo({handleChange, formData, setFormData, errorMes
               {t("personalInfo.next")}
             </button>
         </div>
-        <p className="text-red-700 font-bold -mb-5 -mt-5">{errorMessage}</p>
       </div>
     </>
   );

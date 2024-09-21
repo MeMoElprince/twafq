@@ -59,7 +59,7 @@ export default function Card({ userDetailsReceived }) {
   };
 
   return (
-    <div className="bg-white p-6 select-none relative pt-[82px] h-[470px] border border-Black/20 max-w-[400px] w-[100%] md:w-[50%] md4:w-[35%] lg:w-[30%] rounded-2xl myFont overflow-hidden mt-4">
+    <div alt={`link to user profile`} className="bg-white p-6 select-none relative pt-[82px] h-[470px] border border-Black/20 max-w-[400px] w-[100%] md:w-[50%] md4:w-[35%] lg:w-[30%] rounded-2xl myFont overflow-hidden mt-4">
       
       <div className="w-full bg-Black/20 h-[50px] absolute top-0 left-0 flex gap-4">
         {
@@ -105,7 +105,7 @@ export default function Card({ userDetailsReceived }) {
         </div>
 
 
-      <div className="flex flex-col items-center gap-4">
+      <Link to={`/userprofile/${userDetailsReceived.id}`} className="flex flex-col items-center gap-4">
         <div className="min-h-[130px]">
           <img
             src={
@@ -149,7 +149,7 @@ export default function Card({ userDetailsReceived }) {
             <p className="text-md font-semibold text-Black">{i18n.language === 'ar' ? "الوصف الشخصي:" : "About me:"}</p>
             <p className={`text-base text-Black/80 ${containsLongWord(userDetails?.selfDescription || "") && "break-all hyphenated"} overflow-hidden line-clamp-3`}>{userDetails?.selfDescription || (isRTL ? "عند التعارف" : "After Messaging")}</p>
         </div>
-      </div>
+      </Link>
     </div>
   );
 }

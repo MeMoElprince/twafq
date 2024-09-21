@@ -13,7 +13,7 @@ export default function ColorTest({handleChange, isSelected, colors, setColors, 
       try {
         const response = await fetch(getColorsUrl());
         const data = await response.json();
-        console.log(data);
+        // console.log(data);
         setColors(data);
         setIsSelected(new Array(data.length).fill(0));
       } catch (error) {
@@ -98,7 +98,6 @@ export default function ColorTest({handleChange, isSelected, colors, setColors, 
               {i18n.language === 'ar' ? "إنشاء حساب" : "Sign up"}
             </button>
         </div>
-        <p className="text-red-700 font-bold -mb-5 -mt-5">{errorMessage}</p>
       </div>
     </>
   );

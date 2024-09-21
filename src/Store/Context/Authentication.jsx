@@ -78,7 +78,7 @@ export default function AuthenticationProvider({ children }) {
       setColorAnswers([]);
     } else {
       Cookies.set('token', Token, { expires: 7 });
-      localStorage.setItem('token', Token);
+      // localStorage.setItem('token', Token);
     }
   }, [isLogedIn]);
 

@@ -10,18 +10,20 @@ export default async function Fetch({ url, setData, setLoading, setErrorMessage,
       body: modifiedBody
     })
 
+    console.log(response)
     const string = await response.text();
     console.log(string);
     const data = string === "" ? {} : JSON.parse(string);
 
     if (!response.ok) {
-      throw new Error(data.message)
+      throw new Error(data.errorMessage)
     }
     if (setData) setData(data)
+    console.log(data);
     
   } catch (error) {
     if (setErrorMessage) setErrorMessage(error.message)
-    console.error(error)
+    console.error(error.message)
   } finally {
     if (setLoading) setLoading(false)
   }

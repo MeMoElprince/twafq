@@ -12,15 +12,10 @@ const ResetPassword = () => (`${APIURL}api/v1/users/reset-password`);
 const AskForVerificationCode = () => (`${APIURL}api/v1/users/verify-token`);
 const getBlogs = () => (`${APIURL}api/blogs`);
 const getSingleBlog = () => (`${APIURL}api/blog?`);
-const deleteFromCart = (id) => (`${APIURL}api/v1/carts/${id}`);
-const updateFromCart = (id) => (`${APIURL}api/v1/carts/${id}`);
+const getMostViewBlogs = () => (`${APIURL}api/blog/most-viewed`);
+const increaseViewCount = () => (`${APIURL}api/blog/view?`);
+const getUserProfile = () => (`${APIURL}api/profile?`);
 const getCountries = () => (`${APIURL}api/v1/countries/`);
-const getMyDefaultAddress = () => (`${APIURL}api/v1/addresses/defaultAddress`);
-const addNewAddress = () => (`${APIURL}api/v1/addresses/`);
-const updateAddress = (id) => (`${APIURL}api/v1/addresses/${id}`);
-const Checkout = () => (`${APIURL}api/v1/sales/checkout`);
-const popularProdcuts = () => (`${APIURL}api/v1/products/popular`);
-const getCategories = () => (`${APIURL}api/v1/categories`);
 const getUsers = () => (`${APIURL}api/users/filter`);
 const getSingleItem = (id) => (`${APIURL}api/v1/products/items/${id}`);
 const addItemToCart = (id) => (`${APIURL}api/v1/products/${id}/carts/item`);
@@ -38,18 +33,13 @@ export {
   ResetPassword,
   AskForVerificationCode,
   getBlogs,
-  deleteFromCart,
-  updateFromCart,
+  increaseViewCount,
   getCountries,
   getColorsUrl,
-  getMyDefaultAddress,
-  addNewAddress,
-  updateAddress,
-  Checkout,
-  popularProdcuts,
+  getMostViewBlogs,
+  getUserProfile,
   updateMyData,
   changeMyPassword,
-  getCategories,
   getUsers,
   getSingleItem,
   addItemToCart,
