@@ -1,11 +1,12 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import { useLayoutDirection } from '../../../../Store/Context/LayoutDirectionContext'
 import {useTranslation} from "react-i18next"
 import Styles from '../../Styling.module.css'
 
 export default function PersonalInfo({handleChange, formData, setFormData, errorMessage, setErrorMessage, handleStep}) {
-  const { isRTL, setIsRTL } = useLayoutDirection();
+  const { isRTL } = useLayoutDirection();
 	const { t, i18n } = useTranslation("global");
+
 
   const healthConditions = [
       { ar: 'ألم الظهر', en: 'Back pain' },

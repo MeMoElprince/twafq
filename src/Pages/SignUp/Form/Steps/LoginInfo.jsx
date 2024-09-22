@@ -4,8 +4,9 @@ import {useTranslation} from "react-i18next"
 import Styles from '../../Styling.module.css'
 
 export default function LoginInfo({handleChange, formData, setFormData, errorMessage, setErrorMessage, handleStep}) {
-    const { isRTL, setIsRTL } = useLayoutDirection();
+    const { isRTL } = useLayoutDirection();
 	const { t, i18n } = useTranslation("global");
+
   return (
     <>
       <h2 className="Title text-Black myFont text-[25px] font-semibold">

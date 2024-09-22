@@ -7,8 +7,8 @@ const getColorsUrl = () => (`${APIURL}api/colors`)
 const updateMyData = () => (`${APIURL}api/v1/users/updateMe`);
 const changeMyPassword = () => (`${APIURL}api/v1/users/change-password`);
 const VerifyOTP = () => (`${APIURL}api/v1/users/verify`);
-const ForgetPassword = () => (`${APIURL}api/v1/users/forget-password`);
-const ResetPassword = () => (`${APIURL}api/v1/users/reset-password`);
+const ForgetPassword = () => (`${APIURL}api/forgotpassword?`);
+const ResetPassword = () => (`${APIURL}api/resetpassword?`);
 const AskForVerificationCode = () => (`${APIURL}api/v1/users/verify-token`);
 const getBlogs = () => (`${APIURL}api/blogs`);
 const getSingleBlog = () => (`${APIURL}api/blog?`);

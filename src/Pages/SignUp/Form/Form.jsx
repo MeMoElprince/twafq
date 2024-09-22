@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from 'react'
 import Fetch from '../../../Components/CustomHooks/Fetch'
 import { SignupUrl } from '../../../Store/urls'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import Styles from '../Styling.module.css'
 import { AuthenticationContext } from '../../../Store/Context/Authentication'
 import LoginInfo from './Steps/LoginInfo'
@@ -12,8 +12,8 @@ import Education from './Steps/Education'
 import Religion from './Steps/Religion'
 import Description from './Steps/Description'
 import ColorTest from './Steps/ColorTest'
-import { FaCircle } from "react-icons/fa6";
 import { useLayoutDirection } from '../../../Store/Context/LayoutDirectionContext'
+import Swal from 'sweetalert2'
 import { handleLoginInfo, handlePersonalInfo, handleNationality, handleReligion, handleFamilyStatus, handleEducation } from '../Components/ErrorHandling'
 
 
@@ -130,7 +130,7 @@ export default function Form() {
 			colorAnswers: ansHolder,
 			// username: formData.firstName + formData.lastName
 		}
-		// console.log(RET);
+		console.log(RET);
 		setErrorMessage([]);
 		Fetch({ url: SignupUrl(), setLoading, setData, setErrorMessage, method: 'POST', body: RET })
 	}
@@ -138,14 +138,31 @@ export default function Form() {
 	useEffect(() => {
 		if (!data) return
 		if (data.statusCode === '200') {
-			Navigate('/login');
+			const titleText = isRTL || i18n.language === 'ar' 
+				? "تحقق من بريدك الإلكتروني" 
+				: "Check your email";
+			const bodyText = isRTL || i18n.language === 'ar' 
+				? "لقد أرسلنا لك رابط تأكيد. يرجى التحقق من بريدك الإلكتروني." 
+				: "We have sent you a verification link. Please check your email.";
+			Swal.fire({
+				title: titleText,
+				text: bodyText,
+				icon: 'info',
+				confirmButtonText: isRTL || i18n.language === 'ar' ? "موافق" : "OK",
+				confirmButtonColor: '#E84762',
+				reverseButtons: isRTL,
+			  }).then((result) => {
+				if (result.isConfirmed) {
+				  Navigate('/login');
+				}
+			  });
 		}
 	}, [data])
 
 
 	useEffect(() => {
 		if (isLogedIn) {
-			Navigate('/')
+			Navigate('/');
 			window.location.reload();
 		}
 	}, [isLogedIn])
@@ -210,16 +227,16 @@ export default function Form() {
 		setCurrPerc(Math.round(100 / 8 * step));
 	}, [step])
 
-	// useEffect(() => {
-	// 	const timer = setTimeout(() => {
-	// 	  window.scrollTo({
-	// 		top: 0,
-	// 		behavior: 'smooth',
-	// 	  });
-	// 	}, 500);
+	useEffect(() => {
+		const timer = setTimeout(() => {
+		  window.scrollTo({
+			top: 0,
+			behavior: 'smooth',
+		  });
+		}, 200);
 	  
-	// 	return () => clearTimeout(timer);
-	//   }, [step, currPerc]);
+		return () => clearTimeout(timer);
+	  }, [step, currPerc]);
 
 
 	return (
@@ -237,7 +254,7 @@ export default function Form() {
 					{step === 4 && <FamilyStatus handleStep = {handleStep} handleChange = {handleChange} formData={formData} setFormData = {setFormData} errorMessage = {errorMessage} setErrorMessage = {setErrorMessage} />}
 					{step === 5 && <Education handleStep = {handleStep} handleChange = {handleChange} formData={formData} setFormData = {setFormData} errorMessage = {errorMessage} setErrorMessage = {setErrorMessage} />}
 					{step === 6 && <Description handleStep = {handleStep} handleChange = {handleChange} formData={formData} setFormData = {setFormData} errorMessage = {errorMessage} setErrorMessage = {setErrorMessage} />}
-					{step === 7 && <ColorTest colors={colors} setColors={setColors} isSelected={isSelected} setIsSelected={setIsSelected} handleStep = {handleStep} handleChange = {handleChange} formData={formData} setFormData = {setFormData} errorMessage = {errorMessage} setErrorMessage = {setErrorMessage} handleSubmit = {handleSubmit} />}
+					{step === 7 && <ColorTest colors={colors} loading={loading} setColors={setColors} isSelected={isSelected} setIsSelected={setIsSelected} handleStep = {handleStep} handleChange = {handleChange} formData={formData} setFormData = {setFormData} errorMessage = {errorMessage} setErrorMessage = {setErrorMessage} handleSubmit = {handleSubmit} />}
 					{
 						errorMessage.length !== 0 && (
 							<div className="bg-red-200/90 w-[70%] -mb-3 -mt-3 rounded-sm px-4 py-4 flex flex-col gap-3">

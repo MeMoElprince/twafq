@@ -9,8 +9,6 @@ export function handleLoginInfo(formData, setErrorMessage) {
     // Check if phone is provided
     if (!formData.phone || formData.phone.trim() === "") {
       errorMessage.push(["يرجى إدخال رقم الهاتف", "Please enter a phone number"]);
-    }else if (/[^0-9]/.test(formData.phone)) {
-        errorMessage.push(["يرجى إدخال رقم هاتف صحيح", "Please enter a valid phone number"]);
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -23,7 +21,7 @@ export function handleLoginInfo(formData, setErrorMessage) {
     let test = 0;
   
     // Check if password is at least 8 characters long and contains both letters and digits
-    const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d).{8,}$/;
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
     if (!formData.password || !passwordRegex.test(formData.password)) {
         test = 1;
       errorMessage.push(["كلمة المرور يجب أن تكون 8 أحرف على الأقل وتحتوي على أرقام وأحرف", 
@@ -86,6 +84,7 @@ export function handleNationality(formData, setErrorMessage) {
 
     labels.map((label) => {
         if((!formData[label][1] || !formData[label][0])){
+            // console.log(label)
             if(!testFound)
                 errorMessage.push(["الرجاء ملء جميع الحقول", "Please fill all the required"]);
             testFound = 1;

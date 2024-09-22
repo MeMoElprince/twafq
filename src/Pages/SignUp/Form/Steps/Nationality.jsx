@@ -1,11 +1,11 @@
-import React, {useState, useEffect} from "react";
+import React from "react";
 import { useLayoutDirection } from '../../../../Store/Context/LayoutDirectionContext'
 import {useTranslation} from "react-i18next"
 import Styles from '../../Styling.module.css'
 import Countires from '../../Components/Countires.json'
 
 export default function Nationality({handleChange, formData, setFormData, errorMessage, setErrorMessage, handleStep}) {
-  const { isRTL, setIsRTL } = useLayoutDirection();
+  const { isRTL } = useLayoutDirection();
 	const { t, i18n } = useTranslation("global");
 
   return (

@@ -16,30 +16,45 @@
 }
 @keyframes goIn {
     0% {
-        top: -7px;
-        font-size: 15px;
-        left: -3px;
+        top: -12px;
+        font-size: 19px;
+        font-weight: 600;
+        opacity: 100%;
+        padding-left: 8px;
+        padding-right: 8px;
     }
     100% {
-        font-size: 1.125rem;
+        font-size: 1.0rem;
         line-height: 1.75rem;
         top: 16px;
+        padding-left: 16px;
+        padding-right: 16px;
+        opacity: 70%;
     }
 }
 
 @keyframes goOut {
     0% {
-        font-size: 1.125rem;
+        font-size: 1.0rem;
         line-height: 1.75rem;
         top: 16px;
+        padding-left: 16px;
+        padding-right: 16px;
+        opacity: 70%;
     }
     100% {
-        top: -7px;
-        font-size: 15px;
-        left: -3px;
+        top: -12px;
+        font-size: 19px;
+        font-weight: 600;
+        opacity: 100%;
+        padding-left: 8px;
+        padding-right: 8px;
     }
 }
 
+.custom-icon .swal2-success {
+    color: #E84762 !important;
+  }
 
 input:-webkit-autofill,
 input:-webkit-autofill:focus {

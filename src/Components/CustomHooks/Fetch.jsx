@@ -19,11 +19,11 @@ export default async function Fetch({ url, setData, setLoading, setErrorMessage,
       throw new Error(data.errorMessage)
     }
     if (setData) setData(data)
-    console.log(data);
+    // console.log(data);
     
   } catch (error) {
     if (setErrorMessage) setErrorMessage(error.message)
-    console.error(error.message)
+    // console.error(error.message)
   } finally {
     if (setLoading) setLoading(false)
   }

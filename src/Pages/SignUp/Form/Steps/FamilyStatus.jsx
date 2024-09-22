@@ -4,7 +4,7 @@ import {useTranslation} from "react-i18next"
 import Styles from '../../Styling.module.css'
 
 export default function FamilyStatus({handleChange, formData, setFormData, errorMessage, setErrorMessage, handleStep}) {
-  const { isRTL, setIsRTL } = useLayoutDirection();
+  const { isRTL } = useLayoutDirection();
 	const { t, i18n } = useTranslation("global");
   return (
     <>
