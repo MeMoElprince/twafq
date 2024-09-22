@@ -2,7 +2,7 @@ const APIURL = import.meta.env.VITE_API_URL;
 
 const SignupUrl = () => (`${APIURL}api/signup`);
 const LoginUrl = () => (`${APIURL}api/signin`);
-const MyDataUrl = () => (`${APIURL}api/profile`);
+const MyDataUrl = () => (`${APIURL}api/user/data/by-token?`);
 const getColorsUrl = () => (`${APIURL}api/colors`)
 const updateMyData = () => (`${APIURL}api/v1/users/updateMe`);
 const changeMyPassword = () => (`${APIURL}api/v1/users/change-password`);

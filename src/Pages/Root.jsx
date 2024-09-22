@@ -15,94 +15,67 @@ import ReceivedRequests from "../Components/ReceivedRequests/ReceivedRequests"
 import AccepetedRequests from "../Components/AccepetedRequests.jsx/AccepetedRequests"
 
 export default function Root() {
-  const { isRTL, setIsRTL } = useLayoutDirection();
-	const { t, i18n } = useTranslation("global");
+  const { isRTL } = useLayoutDirection();
   const [popActive, setPopActive] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   
-  const {
-    setIsLogedIn,
-    setFirstName,
-    setLastName,
-    setEmail,
-    setGender,
-    setPhone,
-    setAge,
-    setWeight,
-    setHeight,
-    setSkinColor,
-    setShape,
-    setHealth,
-    setNationality,
-    setCountry,
-    setCity,
-    setResidence,
-    setFamilyStatus,
-    setMarriageType,
-    setChildreen,
-    setEducationLevel,
-    setWork,
-    setFinancialStatus,
-    setReligion,
-    setDoctrine,
-    setReligiousCommitment,
-    setSmoking,
-    setSelfDescription,
-    setPartnerDescription,
-    setIsChecked,
-    setColorAnswers,
-  } = useContext(AuthenticationContext);
+  const { handleFormDataChange, setIsLogedIn, isLogedIn } = useContext(AuthenticationContext);
   
   const { retData: data } = useFetch({
-    url: MyDataUrl(),
+    url: `${MyDataUrl()}token=${Cookies.get('token')}`,
     method: 'GET',
     setErrorMessage,
     Token: Cookies.get('token'),
   });
 
-  // console.log(data);
-  
+  console.log(data);
+  console.log(isLogedIn)
+
   useEffect(() => {
     if (!data) return;
 
     if (data) {
       setIsLogedIn(true);
-
+      console.log(isLogedIn)
       const user = data;
 
-      setFirstName(user?.firstName || '');
-      setLastName(user?.lastName || '');
-      setEmail(user?.username || '');
-      setGender([user?.gender[!isRTL] || '', '']);
-      setPhone(user?.phone || '');
-      setAge(user?.age || '');
-      setWeight(user?.weight || '');
-      setHeight(user?.height || '');
-      setSkinColor([user?.skinColor[!isRTL] || '', '']);
-      setShape([user?.shape[!isRTL] || '', '']);
-      setHealth([user?.health[!isRTL] || '', '']);
-      setNationality([user?.nationality[!isRTL] || '', '']);
-      setCountry([user?.country[!isRTL] || '', '', '']);
-      setCity([user?.city[!isRTL] || '', '']);
-      setResidence([user?.residence[!isRTL] || '', '']);
-      setFamilyStatus([user?.familyStatus[!isRTL] || '', '']);
-      setMarriageType([user?.marriageType[!isRTL] || '', '']);
-      setChildreen(user?.children || '');
-      setEducationLevel([user?.educationLevel[!isRTL] || '', '']);
-      setWork(user?.work || '');
-      setFinancialStatus([user?.financialStatus[!isRTL] || '', '']);
-      setReligion([user?.religion[!isRTL] || '', '']);
-      setDoctrine([user?.doctrine[!isRTL] || '', '']);
-      setReligiousCommitment([user?.religiousCommitment[!isRTL] || '', '']);
-      setSmoking([user?.smoking[!isRTL] || '', '']);
-      setSelfDescription(user?.selfDescription || '');
-      setPartnerDescription(user?.partnerDescription || '');
-      setIsChecked(user?.isChecked || false);
-      setColorAnswers(user?.colorAnswers);
+      // Updating formData
+      handleFormDataChange('firstName', user?.firstName || '');
+      handleFormDataChange('lastName', user?.lastName || '');
+      handleFormDataChange('id', user?.id || '');
+      handleFormDataChange('email', user?.email || '');
+      handleFormDataChange('gender', user?.gender || ['', '']);
+      handleFormDataChange('phone', user?.phone || '');
+      handleFormDataChange('age', user?.age || 0);
+      handleFormDataChange('weight', user?.weight || 0);
+      handleFormDataChange('height', user?.height || 0);
+      handleFormDataChange('skinColor', user?.skinColor || ['', '']);
+      handleFormDataChange('shape', user?.shape || ['', '']);
+      handleFormDataChange('health', user?.health || ["انا بحالة جيدة", "I'm fine"]);
+      handleFormDataChange('nationality', user?.nationality || ['', '']);
+      handleFormDataChange('country', user?.country || ['', '', '']);
+      handleFormDataChange('city', user?.city || ["القاهرة", "Cairo"]);
+      handleFormDataChange('residence', user?.residence || ['', '']);
+      handleFormDataChange('familyStatus', user?.familyStatus || ['', '']);
+      handleFormDataChange('marriageType', user?.marriageType || ['', '']);
+      handleFormDataChange('children', user?.children || 0);
+      handleFormDataChange('educationLevel', user?.educationLevel || ['', '']);
+      handleFormDataChange('work', user?.work || '');
+      handleFormDataChange('financialStatus', user?.financialStatus || ['', '']);
+      handleFormDataChange('religion', user?.religion || ['', '']);
+      handleFormDataChange('doctrine', user?.doctrine || ['', '']);
+      handleFormDataChange('religiousCommitment', user?.religiousCommitment || ['', '']);
+      handleFormDataChange('smoking', user?.smoking || ['', '']);
+      handleFormDataChange('selfDescription', user?.selfDescription || '');
+      handleFormDataChange('partnerDescription', user?.partnerDescription || '');
+      handleFormDataChange('isChecked', user?.isChecked || false);
+      handleFormDataChange('colorAnswers', user?.colorAnswers || []);
     } else {
       setIsLogedIn(false);
+      // console.log("Logged out")
     }
-  }, [data]);
+}, [data, isRTL]);
+
 
 
   useEffect(() => {

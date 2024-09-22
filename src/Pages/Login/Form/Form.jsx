@@ -7,11 +7,12 @@ import { AuthenticationContext } from '../../../Store/Context/Authentication'
 import ForgotPassword from '../ForgotPassword'
 import { useLayoutDirection } from '../../../Store/Context/LayoutDirectionContext'
 import {useTranslation} from "react-i18next"
+import Cookies from 'js-cookie'
 
 
 export default function Form() {
 	const { isLogedIn, setIsLogedIn, setToken } = useContext(AuthenticationContext)
-	const { isRTL, setIsRTL } = useLayoutDirection();
+	const { isRTL } = useLayoutDirection();
 	const { t, i18n } = useTranslation("global");
 	const [LoginType, setLoginType] = useState('login')
 	const [loading, setLoading] = useState(false)
@@ -73,6 +74,7 @@ export default function Form() {
 		if (!data) return;
 		setToken(data.token);
 		setIsLogedIn(true)
+		Cookies.set("token", data.token)
 	}, [data])
 
 
