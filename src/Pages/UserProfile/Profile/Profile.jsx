@@ -34,14 +34,14 @@ export default function Profile({ profileDetails }) {
   const [dataA, setDataA] = useState(data);
   const [loadingData, setLoadingData] = useState(dataLoading);
 
-  console.log(dataA)
+  // console.log(dataA)
 
   useEffect(() => {
       if (data) {
           setDataA(data);
           setLoadingData(false);
       }
-      console.log(dataA)
+      // console.log(dataA)
   }, [data])
 
   async function handleFavorite() {
@@ -122,7 +122,7 @@ export default function Profile({ profileDetails }) {
                 : Woman
             }
             alt="user-avatar-image"
-            className="border-4 border-solid w-[200px] h-[200px] border-White rounded-full"
+            className="border-4 border-solid size-[130px] sm2:size-[200px] mt-10 mb-4 border-White rounded-full"
           />
           {
             profileDetails?.isVerifiedUser && 
@@ -145,7 +145,7 @@ export default function Profile({ profileDetails }) {
             )
           }
         <div className="absolute group w-full">
-          <div className={`center gap-2 absolute top-[10.5px] shadow-dm border border-Black/10 ${i18n.language === 'ar' ? "-left-[102px]" : "-right-[96px]"} py-1 px-3 bg-green-200 rounded-full`}>
+          <div className={`center gap-2 absolute top-[20px] sm2:-top-[6.5px] shadow-dm border border-Black/10 ${i18n.language === 'ar' ? "-left-[95px] sm2:-left-[102px]" : "-right-[89px] sm2:-right-[96px]"} py-1 px-3 bg-green-200 rounded-full`}>
             <FaCircle  className={`text-green-600`} size={12} />
             <p className={`text-sm`}>3 اشهر</p>
           </div>
@@ -163,7 +163,7 @@ export default function Profile({ profileDetails }) {
                 : ""
             }`}
           >
-            <h3 className="text-center myFont font-bold text-3xl text-Black">
+            <h3 className="text-center myFont font-bold text-2xl sm2:text-3xl text-Black">
               {dataA?.firstName + " " + dataA?.lastName}
             </h3>
             <p className="text-lg text-Black font-medium text-center">
@@ -268,7 +268,7 @@ export default function Profile({ profileDetails }) {
                 : ""
             }`}
           >
-            {dataA?.selfDescription}
+            {dataA?.selfDescription || (isRTL ? "عند التعارف" : "After Messaging")}
           </div>
         </div>
         <div className="bg-DarkBeige/40 overflow-hidden shadow-lg rounded-lg border border-Black/15 lg2:max-w-[43.25%] w-[90%]">
@@ -358,7 +358,7 @@ export default function Profile({ profileDetails }) {
                 : ""
             }`}
           >
-            {dataA?.partnerDescription}
+            {dataA?.partnerDescription || (isRTL ? "عند التعارف" : "After Messaging")}
           </div>
         </div>
       </div>

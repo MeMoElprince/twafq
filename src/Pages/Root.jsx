@@ -19,62 +19,40 @@ export default function Root() {
   const [popActive, setPopActive] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   
-  const { handleFormDataChange, setIsLogedIn, isLogedIn } = useContext(AuthenticationContext);
+  const { handleFormDataChange, setIsLogedIn, isLogedIn, formData } = useContext(AuthenticationContext);
   
-  const { retData: data } = useFetch({
-    url: `${MyDataUrl()}token=${Cookies.get('token')}`,
-    method: 'GET',
-    setErrorMessage,
-    Token: Cookies.get('token'),
-  });
+  const token = Cookies.get('token')
 
-  console.log(data);
-  console.log(isLogedIn)
+  const { retData: data } = useFetch(
+    token
+      ? {
+          url: `${MyDataUrl()}token=${token}`,
+          method: 'GET',
+          setErrorMessage,
+          Token: token,
+        }
+      : { url: '', method: 'GET', setErrorMessage: () => {}, Token: '' } // Dummy fetch
+  );
+
+  // console.log(data);
+  // console.log(isLogedIn)
 
   useEffect(() => {
-    if (!data) return;
+      if (!data) return;
 
-    if (data) {
-      setIsLogedIn(true);
-      console.log(isLogedIn)
-      const user = data;
+      if (data) {
+        setIsLogedIn(true);
+        // console.log(isLogedIn)
+        handleFormDataChange(data);
+      } else {
+        setIsLogedIn(false);
+        // console.log("Logged out")
+      }
+  }, [data, isRTL, isLogedIn]);
 
-      // Updating formData
-      handleFormDataChange('firstName', user?.firstName || '');
-      handleFormDataChange('lastName', user?.lastName || '');
-      handleFormDataChange('id', user?.id || '');
-      handleFormDataChange('email', user?.email || '');
-      handleFormDataChange('gender', user?.gender || ['', '']);
-      handleFormDataChange('phone', user?.phone || '');
-      handleFormDataChange('age', user?.age || 0);
-      handleFormDataChange('weight', user?.weight || 0);
-      handleFormDataChange('height', user?.height || 0);
-      handleFormDataChange('skinColor', user?.skinColor || ['', '']);
-      handleFormDataChange('shape', user?.shape || ['', '']);
-      handleFormDataChange('health', user?.health || ["انا بحالة جيدة", "I'm fine"]);
-      handleFormDataChange('nationality', user?.nationality || ['', '']);
-      handleFormDataChange('country', user?.country || ['', '', '']);
-      handleFormDataChange('city', user?.city || ["القاهرة", "Cairo"]);
-      handleFormDataChange('residence', user?.residence || ['', '']);
-      handleFormDataChange('familyStatus', user?.familyStatus || ['', '']);
-      handleFormDataChange('marriageType', user?.marriageType || ['', '']);
-      handleFormDataChange('children', user?.children || 0);
-      handleFormDataChange('educationLevel', user?.educationLevel || ['', '']);
-      handleFormDataChange('work', user?.work || '');
-      handleFormDataChange('financialStatus', user?.financialStatus || ['', '']);
-      handleFormDataChange('religion', user?.religion || ['', '']);
-      handleFormDataChange('doctrine', user?.doctrine || ['', '']);
-      handleFormDataChange('religiousCommitment', user?.religiousCommitment || ['', '']);
-      handleFormDataChange('smoking', user?.smoking || ['', '']);
-      handleFormDataChange('selfDescription', user?.selfDescription || '');
-      handleFormDataChange('partnerDescription', user?.partnerDescription || '');
-      handleFormDataChange('isChecked', user?.isChecked || false);
-      handleFormDataChange('colorAnswers', user?.colorAnswers || []);
-    } else {
-      setIsLogedIn(false);
-      // console.log("Logged out")
-    }
-}, [data, isRTL]);
+  // useEffect(() => {
+  //   console.log(formData)
+  // }, [formData])
 
 
 

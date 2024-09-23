@@ -1,59 +1,51 @@
-import React from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
-  Button,
   Typography,
 } from "@material-tailwind/react";
 import { useLayoutDirection } from '../../../Store/Context/LayoutDirectionContext'
 import {useTranslation} from "react-i18next"
 import Card from "./Card/Card";
-
+import { getUsersLikeMe } from "../../../Store/urls";
+import { AuthenticationContext } from "../../../Store/Context/Authentication";
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
-
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { Link } from "react-router-dom";
 
-// Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import 'swiper/css/scrollbar';
+import "./customSwiper.css";
 
-const dummyDetails = 
-    {
-        "firstName": "احمد",
-        "lastName": "سعد",
-        "gender": { "ar": "ذكر", "en": "Male" },
-        "age": 28,
-        "weight": 75,
-        "height": 175,
-        "skinColor": { "ar": "قمحاوي", "en": "Moderate Brown" },
-        "shape": { "ar": "متوسط", "en": "Average" },
-        "healthCondition": { "ar": "ألم الظهر", "en": "Back pain" },
-        "religion": { "ar": "الإسلام", "en": "Islam" },
-        "doctrine": { "ar": "سني", "en": "Sunni" },
-        "religiousCommitment": { "ar": "ملتزم", "en": "Committed" },
-        "smoking": { "ar": "غير مدخن", "en": "Non-Smoker" },
-        "familyStatus": { "ar": "أعزب", "en": "Single" },
-        "marriageType": { "ar": "الزوجة الأولى", "en": "First Wife" },
-        "children": 0,
-        "educationLevel": { "ar": "درجة البكالوريوس", "en": "Bachelor's Degree" },
-        "financialStatus": { "ar": "متوسط", "en": "Average" },
-        "nationality": { "ar": "مصري", "en": "Egyptian" },
-        "country": { "ar": "مصر", "en": "Egypt" },
-        "city": { "ar": "القاهرة", "en": "Cairo" },
-        "residence": { "ar": "مدينة نصر", "en": "Nasr City" },
-        "work": { "ar": "مهندس معماري", "en": "Architect" },
-        "selfDescription": "أنا شخص هادئ وبسيط.",
-        "partnerDescription": "أبحث عن شريك طيب القلب وصادق.",
-        "phone": "+20 1234567890",
-        "isVerified": true,
-        "compatibilityRatio" : 78,
-        "lastSeen": "25/4/2002"
-    }
 
 export default function UsersCardRatio() {
-  const { isRTL, setIsRTL } = useLayoutDirection();
-  const { t, i18n } = useTranslation("global");
+  const { isRTL } = useLayoutDirection();
+  const { i18n } = useTranslation("global");
+  const {formData, isLogedIn, Token} = useContext(AuthenticationContext)
+  const [usedCards, setUsedCards] = useState([])
+  // console.log(formData)
 
+  // useEffect(() => {
+  //   console.log(usedCards);
+  // }, [usedCards])
+
+  useEffect(() => {
+    if (usedCards.length === 0 && isLogedIn && formData?.id) {
+      const fetchCards = async () => {
+        try {
+          const response = await fetch(`${getUsersLikeMe()}userId=${formData.id}`, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${Token}`
+            }
+          });
+          const data = await response.json();
+          setUsedCards(data.content || data);
+          // console.log(data)
+        } catch (error) {
+          console.error("Error fetching cards:", error);
+        }
+      };
+      fetchCards();
+    }
+  }, [usedCards, setUsedCards, isLogedIn, formData?.id]);
 
   return (
     <div className="w-[85%] h-full flex flex-col gap-8 py-16 pb-32">
@@ -64,11 +56,11 @@ export default function UsersCardRatio() {
             >
                 {i18n.language === 'ar' ? "الاعضاء الاكثر توافقاً معك" : "Highest Compatibility"}
             </Typography>
-            <Button 
-                className={`shadow-none text-Black bg-none border-x-2 rounded-full border-Black  py- px-4 text-base hover:text-DarkPink hover:border-DarkPink`}
+            <Link to={`explore/0`} aria-label={isRTL ? "عرض الكل" : "view all"}
+                className={`shadow-none text-Black bg-none border-x-2 rounded-full border-Black center px-4 text-base hover:text-DarkPink hover:border-DarkPink`}
             >
                 {i18n.language === 'ar' ? "عرض الكل" : "View all"}
-            </Button>
+            </Link>
         </div>
         
         {
@@ -80,7 +72,7 @@ export default function UsersCardRatio() {
                 slidesPerView={1}
                 spaceBetween={100}
                 centeredSlides={true}
-                navigation
+                pagination = {{clickable: true}}
                 dir="rtl"
                 breakpoints={{
                   620: {
@@ -88,6 +80,12 @@ export default function UsersCardRatio() {
                     spaceBetween: 50,
                     centeredSlides: true,
                     centeredSlidesBounds: true,
+                  },
+                  830: {
+                    slidesPerView: 2,
+                    spaceBetween: 30,
+                    centeredSlides: false,
+                    centeredSlidesBounds: false,
                   },
                   1100: {
                     slidesPerView: 3,
@@ -109,11 +107,14 @@ export default function UsersCardRatio() {
                   },
                 }}
               >
-                {Array.from({ length: 15 }).map((_, index) => (
-                  <SwiperSlide key={index}>
-                    <Card userDetails={dummyDetails} />
-                  </SwiperSlide>
-                ))}
+                {
+                  usedCards &&
+                  usedCards.map((el, index) => (
+                    <SwiperSlide key={index} className="h-[530px]  flex justify-center">
+                        <Card userInfo={el} isLogedIn={isLogedIn} />
+                    </SwiperSlide>
+                  ))
+                }
             </Swiper>
           )
         }
@@ -126,7 +127,7 @@ export default function UsersCardRatio() {
                 slidesPerView={1}
                 spaceBetween={100}
                 centeredSlides={true}
-                navigation
+                pagination = {{clickable: true}}
                 dir="ltr"
                 breakpoints={{
                   620: {
@@ -134,6 +135,12 @@ export default function UsersCardRatio() {
                     spaceBetween: 50,
                     centeredSlides: true,
                     centeredSlidesBounds: true,
+                  },
+                  830: {
+                    slidesPerView: 2,
+                    spaceBetween: 30,
+                    centeredSlides: false,
+                    centeredSlidesBounds: false,
                   },
                   1100: {
                     slidesPerView: 3,
@@ -155,11 +162,14 @@ export default function UsersCardRatio() {
                   },
                 }}
               >
-                {Array.from({ length: 15 }).map((_, index) => (
-                  <SwiperSlide key={index}>
-                    <Card userDetails={dummyDetails} />
-                  </SwiperSlide>
-                ))}
+                {
+                  usedCards &&
+                  usedCards.map((el, index) => (
+                    <SwiperSlide key={index} className="h-[530px]  flex justify-center">
+                        <Card userInfo={el} isLogedIn={isLogedIn} />
+                    </SwiperSlide>
+                  ))
+                }
             </Swiper>
           )
         }

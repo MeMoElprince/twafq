@@ -4,8 +4,8 @@ import Cookies from 'js-cookie';
 export const AuthenticationContext = createContext();
 
 export default function AuthenticationProvider({ children }) {
-  const [isLogedIn, setIsLogedIn] = useState(false);
-  const [Token, setToken] = useState(Cookies.get('token'));
+  const [Token, setToken] = useState(Cookies.get('token')); 
+  const [isLogedIn, setIsLogedIn] = useState(!!Token);
 
   const [formData, setFormData] = useState({
     gender: ["", ""],
@@ -42,11 +42,8 @@ export default function AuthenticationProvider({ children }) {
     colorAnswers: []
   });
 
-  const handleFormDataChange = (field, value) => {
-    setFormData(prevState => ({
-      ...prevState,
-      [field]: value
-    }));
+  const handleFormDataChange = (data) => {
+    setFormData(data);
   };
 
   useEffect(() => {

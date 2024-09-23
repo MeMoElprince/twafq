@@ -151,6 +151,7 @@ export default function Form() {
 				confirmButtonText: isRTL || i18n.language === 'ar' ? "موافق" : "OK",
 				confirmButtonColor: '#E84762',
 				reverseButtons: isRTL,
+				scrollbarPadding: false
 			  }).then((result) => {
 				if (result.isConfirmed) {
 				  Navigate('/login');

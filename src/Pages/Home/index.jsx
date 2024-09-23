@@ -4,15 +4,18 @@ import Features from './Features/Features'
 import Target from './Target/Target'
 import AccountVerfiy from './AccountVerfiy/AccountVerfiy'
 import FAQ from './FAQ/FAQ'
-import UsersCardRatio from './UsersCardRatio.jsx/UsersCardRatio'
+import UsersCardRatio from './UsersCardRatio/UsersCardRatio'
 import { useLayoutDirection } from "../../Store/Context/LayoutDirectionContext";
 import { useTranslation } from "react-i18next";
 import { Helmet } from 'react-helmet-async';
 import Reviews from './Reviews/Reviews'
+import { AuthenticationContext } from '../../Store/Context/Authentication'
+import UsersCard from './UsersCard/UsersCard'
 
 
 
 export default function Home() {
+  const {isLogedIn} = React.useContext(AuthenticationContext)
   const { isRTL, setIsRTL } = useLayoutDirection();
   const { t, i18n } = useTranslation("global");
   return (
@@ -23,7 +26,8 @@ export default function Home() {
       </Helmet>
         <Describe />
         <Target />
-        <UsersCardRatio />
+        {isLogedIn && <UsersCardRatio />}
+        <UsersCard />
         <Features />
         <AccountVerfiy />
         <Reviews />

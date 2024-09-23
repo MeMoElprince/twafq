@@ -74,7 +74,7 @@ export default function Form() {
 		if (!data) return;
 		setToken(data.token);
 		setIsLogedIn(true)
-		Cookies.set("token", data.token)
+		Cookies.set("token", data.token, { expires: 7 })
 	}, [data])
 
 
@@ -87,7 +87,6 @@ export default function Form() {
 	useEffect(() => {
 		if (isLogedIn) {
 			Navigate('/')
-			window.location.reload();
 		}
 	}, [isLogedIn])
 

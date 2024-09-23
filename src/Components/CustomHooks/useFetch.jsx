@@ -22,7 +22,6 @@ export default function useFetch({ url, setErrorMessage, method = 'GET', body, T
         if (body && (method !== 'GET' && method !== 'HEAD')) {
           options.body = JSON.stringify(body);
         }
-
         
         const response = await fetch(url, options);
         
@@ -33,7 +32,7 @@ export default function useFetch({ url, setErrorMessage, method = 'GET', body, T
         if (!response.ok) {
           throw new Error(data.error || 'Something went wrong');
         }
-        console.log(data)
+        // console.log(data)
         setRetData(data.content || data);
 
       } catch (error) {
