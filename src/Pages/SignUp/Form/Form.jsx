@@ -148,6 +148,7 @@ export default function Form() {
 				title: titleText,
 				text: bodyText,
 				icon: 'info',
+				iconColor: '#E84762',
 				confirmButtonText: isRTL || i18n.language === 'ar' ? "موافق" : "OK",
 				confirmButtonColor: '#E84762',
 				reverseButtons: isRTL,

@@ -24,6 +24,42 @@ export default function Card({ userDetails, isLogedIn, formData, Token }) {
       : null,
       Token
   });
+  const [lastActive, setLastActive] = useState("");
+
+  useEffect(() => {
+    const calculateLastActive = () => {
+      const now = new Date();
+      const lastModified = userDetails?.lastLogin ? new Date(userDetails.lastLogin) : new Date();
+      const diffInMilliseconds = now - lastModified;
+      const diffInMinutes = Math.floor(diffInMilliseconds / (1000 * 60));
+      const diffInHours = Math.floor(diffInMinutes / 60);
+      const diffInDays = Math.floor(diffInHours / 24);
+      const diffInWeeks = Math.floor(diffInDays / 7);
+      const diffInMonths = Math.floor(diffInDays / 30);
+
+      if (diffInMinutes < 1) {
+        return i18n.language === 'ar' ? "متواجد" : "Online";
+      } else if (diffInMinutes < 60) {
+        return `${diffInMinutes} ${i18n.language === 'ar' ? "دقيقة" : "minutes"}`;
+      } else if (diffInHours < 24) {
+        return `${diffInHours} ${i18n.language === 'ar' ? "ساعة" : "hours"}`;
+      } else if (diffInDays < 7) {
+        return i18n.language === 'ar' 
+        ? (diffInDays === 1 ? "يوم" : (diffInDays === 2 ? "يومان" : diffInDays + " ايام"))
+        : `${diffInDays} ${diffInDays === 1 ? "day" : "days"}`;
+      } else if (diffInWeeks < 4) {
+        return i18n.language === 'ar' 
+        ? (diffInWeeks === 1 ? "اسبوع" : (diffInWeeks === 2 ? "اسبوعان" : diffInWeeks + " اسابيع"))
+        : `${diffInWeeks} ${diffInWeeks === 1 ? "week" : "weeks"}`;
+      } else {
+        return i18n.language === 'ar' 
+        ? (diffInMonths === 1 ? "شهر" : (diffInMonths === 2 ? "شهران" : diffInMonths + " شهور"))
+        : `${diffInMonths} ${diffInMonths === 1 ? "month" : "months"}`;
+      }
+    };
+    
+    setLastActive(calculateLastActive());
+  }, [userDetails?.lastLogin, i18n.language]);
   
   const [percentage, setPercentage] = useState(data);
   const [loadingPer, setLoadingPer] = useState(perLoading);
@@ -103,7 +139,7 @@ export default function Card({ userDetails, isLogedIn, formData, Token }) {
           <div className="relative group h-full">
             <div className="center gap-2 absolute top-[118px] shadow-dm border border-Black/10 py-1 px-3 bg-green-200 rounded-full">
               <FaCircle className={`text-green-600 top-[114px]`} size={12} />
-              <p className={`text-sm`}>3 اشهر</p>
+              <p className={`text-sm`}>{lastActive}</p>
             </div>
             <span
               className={`absolute bg-gray-300 text-Black pointer-events-none text-sm font-medium p-1 px-2 top-[140px] ${

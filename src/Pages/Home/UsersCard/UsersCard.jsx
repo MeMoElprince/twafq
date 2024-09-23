@@ -59,6 +59,9 @@ export default function UsersCardRatio() {
   }, [usedCards, setUsedCards]);
 
 
+  if(!usedCards.length)
+      return;
+
   return (
     <div className="w-[85%] h-full flex flex-col gap-8 py-16 pb-32">
         <div className="flex w-full gap-5 flex-wrap">
@@ -120,12 +123,18 @@ export default function UsersCardRatio() {
                 }}
               >
                 {
-                  usedCards &&
-                  usedCards.slice(0, 10).map((el, index) => (
-                    <SwiperSlide key={index} className="h-[530px]  flex justify-center">
-                        <Card userDetails={el} isLogedIn={isLogedIn} formData={formData} Token={Token} />
-                    </SwiperSlide>
-                  ))
+                  usedCards && Array.isArray(usedCards) &&
+                  usedCards.slice(0, 10).map((el, index) => {
+                    if(formData.id != el.id){
+                      return (
+                        <SwiperSlide key={index} className="h-[530px]  flex justify-center">
+                            <Card userDetails={el} isLogedIn={isLogedIn} Token={Token} formData={formData} />
+                        </SwiperSlide>
+                      )
+                    }else{
+                      return null
+                    }
+                  })
                 }
             </Swiper>
           )
@@ -175,12 +184,18 @@ export default function UsersCardRatio() {
                 }}
               >
                 {
-                  usedCards &&
-                  usedCards.map((el, index) => (
-                    <SwiperSlide key={index} className="h-[530px]  flex justify-center">
-                        <Card userDetails={el} isLogedIn={isLogedIn} Token={Token} formData={formData} />
-                    </SwiperSlide>
-                  ))
+                  usedCards && Array.isArray(usedCards) &&
+                  usedCards.slice(0, 10).map((el, index) => {
+                    if(formData.id != el.id){
+                      return (
+                        <SwiperSlide key={index} className="h-[530px]  flex justify-center">
+                            <Card userDetails={el} isLogedIn={isLogedIn} Token={Token} formData={formData} />
+                        </SwiperSlide>
+                      )
+                    }else{
+                      return null
+                    }
+                  })
                 }
             </Swiper>
           )

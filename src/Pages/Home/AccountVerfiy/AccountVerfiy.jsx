@@ -18,8 +18,8 @@ export default function AccountVerfiy() {
                 <div className="max-w-[90%]">
                     <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">{t("aboutVerify.title")}</h2>
                     <p className="mt-4 text-gray-600 text-lg w-[100%] md4:w-[90%]">{t("aboutVerify.description")}</p>
-                    <div className="mt-8 group transition-all duration-300">
-                        <a href="#" className="text-DarkPink hover:text-[#e84762] font-medium text-lg">{t("aboutVerify.buttonText")}
+                    <div className="mt-8 group w-max transition-all duration-300">
+                        <a href="#" className="text-DarkPink w-max hover:text-[#e84762] font-medium text-lg">{t("aboutVerify.buttonText")}
                             {isRTL ? <span className="mr-2 group-hover:mr-4 transition-all duration-300">&#8592;</span> : <span className="ml-2 group-hover:ml-4 transition-all duration-300">&#8594;</span>}
                         </a>
                     </div>

@@ -55,7 +55,7 @@ export default function LoggedInMenu({ handleLogout, upper }) {
             aria-labelledby="dropdownDividerButton"
           >
             <li>
-              <Link to="/myProfile" aria-label={isRTL ? "الملف الشخصي" : "My profile"} className="block px-4 py-2 hover:bg-gray-600 text-center">
+              <Link to="/myProfile" onClick={() => setIsActive(prev => !prev)} aria-label={isRTL ? "الملف الشخصي" : "My profile"} className="block px-4 py-2 hover:bg-gray-600 text-center">
                 {isRTL ? "الملف الشخصي" : "My profile"}
               </Link>
             </li>

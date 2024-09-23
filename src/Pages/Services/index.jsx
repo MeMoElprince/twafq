@@ -83,7 +83,7 @@ export default function index() {
         </div>
       </div>
 
-      <div className="-mt-20">
+      <div className="-mt-20 w-full">
         <Contact
             title={i18n.language === "ar" ? "استشارة أسرية" : "Family Counseling"}
             description={

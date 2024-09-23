@@ -25,6 +25,7 @@ export default function UsersCardRatio() {
   //   console.log(usedCards);
   // }, [usedCards])
 
+
   useEffect(() => {
     if (usedCards.length === 0 && isLogedIn && formData?.id) {
       const fetchCards = async () => {
@@ -47,6 +48,9 @@ export default function UsersCardRatio() {
     }
   }, [usedCards, setUsedCards, isLogedIn, formData?.id]);
 
+  if(!usedCards.length)
+    return;
+   
   return (
     <div className="w-[85%] h-full flex flex-col gap-8 py-16 pb-32">
         <div className="flex w-full gap-5 flex-wrap">

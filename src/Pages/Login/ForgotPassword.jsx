@@ -40,7 +40,7 @@ const EnterEmail = ({ email, setEmail, setType, loading, setLoading, i18n, t }) 
         },
       })
       const data = await response.json()
-      console.log(data)
+      // console.log(data)
       if (data.statusCode !== '200') {
         throw new Error(data.errorMessage)
       } else {
@@ -48,7 +48,7 @@ const EnterEmail = ({ email, setEmail, setType, loading, setLoading, i18n, t }) 
       }
     } catch (error) {
       setErrorMessage(error.message)
-      console.error(error.message)
+      // console.error(error.message)
     } finally {
       setLoading(false)
     }
@@ -179,7 +179,7 @@ const EnterPassword = ({ setLoginType, email, code, setCode, i18n, t, password, 
         }
       })
       const data = await response.json()
-      console.log(data);
+      // console.log(data);
       if (data.statusCode !== '200') {
         throw new Error(data.errorMessage)
       } else {
@@ -204,7 +204,7 @@ const EnterPassword = ({ setLoginType, email, code, setCode, i18n, t, password, 
       }
     } catch (error) {
       setErrorMessage(error.message)
-      console.error(error.message)
+      // console.error(error.message)
     } finally {
       setLoading(false)
     }

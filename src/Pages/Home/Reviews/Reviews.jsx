@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import {
   Button,
   Typography,
@@ -6,6 +6,7 @@ import {
 import { useLayoutDirection } from '../../../Store/Context/LayoutDirectionContext'
 import {useTranslation} from "react-i18next"
 import Card from "./Card/Card";
+import { getAllReviews } from "../../../Store/urls";
 
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
 
@@ -17,22 +18,31 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 
-const dummyDetails = 
-    {
-        "firstName": "احمد",
-        "lastName": "سعد",
-        "gender": { "ar": "ذكر", "en": "Male" },
-        "age": 28,
-        "nationality": { "ar": "مصري", "en": "Egyptian" },
-        "country": { "ar": "مصر", "en": "Egypt" },
-        "city": { "ar": "القاهرة", "en": "Cairo" },
-        "message": "هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذا النص أو العديد من النصوص الأخرى إضافة إلى زيادة عدد الحروف.",
-        "isVerified": true,
-    }
-
 export default function Reviews() {
-  const { isRTL, setIsRTL } = useLayoutDirection();
-  const { t, i18n } = useTranslation("global");
+  const { isRTL } = useLayoutDirection();
+  const { i18n } = useTranslation("global");
+  const [usedReviews, setUsedReviews] = useState([])
+
+  useEffect(() => {
+    if (usedReviews.length === 0) {
+      const fetchReviews = async () => {
+        try {
+          const response = await fetch( getAllReviews() , {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            }
+          });
+          const data = await response.json();
+          setUsedReviews(data.content || data);
+          console.log(data)
+        } catch (error) {
+          console.error("Error fetching reviews:", error);
+        }
+      };
+      fetchReviews();
+    }
+  }, [usedReviews, setUsedReviews]);
 
 
   return (
@@ -63,9 +73,10 @@ export default function Reviews() {
               dir='rtl'
             >
                 {
-                  Array.from({ length: 15 }).map((_, index) => (
+                  usedReviews &&
+                  usedReviews.map((el, index) => (
                     <SwiperSlide key={index}>
-                      <Card userDetails={dummyDetails}/>
+                        <Card userInfo={el} />
                     </SwiperSlide>
                   ))
                 }
@@ -83,9 +94,10 @@ export default function Reviews() {
               dir='ltr'
             >
                 {
-                  Array.from({ length: 15 }).map((_, index) => (
+                  usedReviews &&
+                  usedReviews.map((el, index) => (
                     <SwiperSlide key={index}>
-                      <Card userDetails={dummyDetails}/>
+                        <Card userInfo={el} />
                     </SwiperSlide>
                   ))
                 }
