@@ -23,7 +23,7 @@ export default function Religion({handleChange, formData, setFormData, errorMess
                     formData.religion ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
                   } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-pointer`}
               >
-              <option value={JSON.stringify(["", ""])}>{i18n.language === 'ar' ? '-- اختر --' : '-- Choose --'}</option>
+              
               <option value={JSON.stringify(['الإسلام', 'Islam'])}>{i18n.language === 'ar' ? 'الإسلام' : 'Islam'}</option>
               <option value={JSON.stringify(['المسيحية', 'Christianity'])}>{i18n.language === 'ar' ? 'المسيحية' : 'Christianity'}</option>
           </select>
@@ -47,7 +47,7 @@ export default function Religion({handleChange, formData, setFormData, errorMess
                     formData.doctrine ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
                   } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-pointer`}
               >
-                  <option value={JSON.stringify(["", ""])}>{i18n.language === 'ar' ? '-- اختر --' : '-- Choose --'}</option>
+                  
                     {formData.religion[0] === 'الإسلام' && (
                       <>
                         <option value={JSON.stringify(['سني', 'Sunni'])}>{i18n.language === 'ar' ? 'سني' : 'Sunni'}</option>
@@ -82,9 +82,6 @@ export default function Religion({handleChange, formData, setFormData, errorMess
                     formData.religiousCommitment ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
                   } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-pointer`}
               >
-                  <option value={JSON.stringify(["", ""])}>
-                      {i18n.language === 'ar' ? '-- اختر --' : '-- Choose --'}
-                  </option>
                   <option value={JSON.stringify(['غير ملتزم', 'Not Committed'])}>
                       {i18n.language === 'ar' ? 'غير ملتزم' : 'Not Committed'}
                   </option>
@@ -118,7 +115,7 @@ export default function Religion({handleChange, formData, setFormData, errorMess
                     formData.smoking ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
                   } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-pointer`}
               >
-                  <option value={JSON.stringify(["", ""])}>{i18n.language === 'ar' ? '-- اختر --' : '-- Choose --'}</option>
+                  
                   <option value={JSON.stringify(['مدخن', 'Smoker'])}>{i18n.language === 'ar' ? 'مدخن' : 'Smoker'}</option>
                   <option value={JSON.stringify(['غير مدخن', 'Non-Smoker'])}>{i18n.language === 'ar' ? 'غير مدخن' : 'Non-Smoker'}</option>
           </select>
@@ -142,7 +139,7 @@ export default function Religion({handleChange, formData, setFormData, errorMess
                     formData.alcoholDrugs ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
                   } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-pointer`}
               >
-                  <option value={JSON.stringify(["", ""])}>{i18n.language === 'ar' ? '-- اختر --' : '-- Choose --'}</option>
+                  
           </select>
           <label
               htmlFor="AlcoholDrugs"

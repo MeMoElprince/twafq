@@ -22,7 +22,7 @@ export default function Card({ userDetailsReceived }) {
   useEffect(() => {
     const calculateLastActive = () => {
       const now = new Date();
-      const lastModified = userDetails?.lastModifiedDate ? new Date(userDetails.lastModifiedDate) : new Date();
+      const lastModified = userDetails?.lastLogin ? new Date(userDetails.lastLogin) : new Date();
       const diffInMilliseconds = now - lastModified;
       const diffInMinutes = Math.floor(diffInMilliseconds / (1000 * 60));
       const diffInHours = Math.floor(diffInMinutes / 60);
@@ -31,11 +31,15 @@ export default function Card({ userDetailsReceived }) {
       const diffInMonths = Math.floor(diffInDays / 30);
 
       if (diffInMinutes < 1) {
-        return i18n.language === 'ar' ? "متواجد" : "Online now";
+        return i18n.language === 'ar' ? "متواجد" : "Online";
       } else if (diffInMinutes < 60) {
-        return `${diffInMinutes} ${i18n.language === 'ar' ? "دقيقة" : "minutes"}`;
+        return i18n.language === 'ar' 
+        ? (diffInMinutes === 1 ? "دقيقية" : (diffInMinutes === 2 ? "دقيقتان" : diffInMinutes + " دقيقة"))
+        : `${diffInMinutes} ${diffInMinutes === 1 ? "min" : "mins"}`;
       } else if (diffInHours < 24) {
-        return `${diffInHours} ${i18n.language === 'ar' ? "ساعة" : "hours"}`;
+        return i18n.language === 'ar' 
+        ? (diffInHours === 1 ? "ساعة" : (diffInHours === 2 ? "ساعتان" : diffInHours + " ساعات"))
+        : `${diffInHours} ${diffInHours === 1 ? "hour" : "hours"}`;
       } else if (diffInDays < 7) {
         return i18n.language === 'ar' 
         ? (diffInDays === 1 ? "يوم" : (diffInDays === 2 ? "يومان" : diffInDays + " ايام"))
@@ -52,7 +56,7 @@ export default function Card({ userDetailsReceived }) {
     };
     
     setLastActive(calculateLastActive());
-  }, [userDetails?.lastModifiedDate, i18n.language]);
+  }, [userDetails?.lastLogin, i18n.language]);
 
   const containsLongWord = (sentence) => {
     return sentence.split(" ").some((word) => word.length > 14);

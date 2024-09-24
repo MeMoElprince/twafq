@@ -5,6 +5,7 @@ const LoginUrl = () => (`${APIURL}api/signin`);
 const MyDataUrl = () => (`${APIURL}api/user/data/by-token?`);
 const getUsersLikeMe = () => (`${APIURL}api/users/sorted/usersLikeMe?`);
 const getColorsUrl = () => (`${APIURL}api/colors`)
+const updateInfoURL = () => (`${APIURL}api/profile?`)
 const updateMyData = () => (`${APIURL}api/v1/users/updateMe`);
 const changeMyPassword = () => (`${APIURL}api/v1/users/change-password`);
 const VerifyOTP = () => (`${APIURL}api/v1/users/verify`);
@@ -54,5 +55,6 @@ export {
   addFav,
   delFav,
   getUsersLikeMe,
+  updateInfoURL,
   delFavByProId
 }

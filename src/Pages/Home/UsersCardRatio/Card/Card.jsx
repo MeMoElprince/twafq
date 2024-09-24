@@ -38,9 +38,13 @@ export default function Card({ userInfo, isLogedIn }) {
       if (diffInMinutes < 1) {
         return i18n.language === 'ar' ? "متواجد" : "Online";
       } else if (diffInMinutes < 60) {
-        return `${diffInMinutes} ${i18n.language === 'ar' ? "دقيقة" : "minutes"}`;
+        return i18n.language === 'ar' 
+        ? (diffInMinutes === 1 ? "دقيقية" : (diffInMinutes === 2 ? "دقيقتان" : diffInMinutes + " دقيقة"))
+        : `${diffInMinutes} ${diffInMinutes === 1 ? "min" : "mins"}`;
       } else if (diffInHours < 24) {
-        return `${diffInHours} ${i18n.language === 'ar' ? "ساعة" : "hours"}`;
+        return i18n.language === 'ar' 
+        ? (diffInHours === 1 ? "ساعة" : (diffInHours === 2 ? "ساعتان" : diffInHours + " ساعات"))
+        : `${diffInHours} ${diffInHours === 1 ? "hour" : "hours"}`;
       } else if (diffInDays < 7) {
         return i18n.language === 'ar' 
         ? (diffInDays === 1 ? "يوم" : (diffInDays === 2 ? "يومان" : diffInDays + " ايام"))
@@ -149,7 +153,7 @@ export default function Card({ userInfo, isLogedIn }) {
             <div className="min-h-[130px]">
               <img
                 src={
-                  userDetails?.isVerified
+                  userDetails?.isVerifiedUser
                     ? userDetails?.gender[1] === "Male"
                       ? verifiedMan
                       : verifiedWoman

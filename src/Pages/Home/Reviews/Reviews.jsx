@@ -35,7 +35,7 @@ export default function Reviews() {
           });
           const data = await response.json();
           setUsedReviews(data.content || data);
-          console.log(data)
+          // console.log(data)
         } catch (error) {
           console.error("Error fetching reviews:", error);
         }

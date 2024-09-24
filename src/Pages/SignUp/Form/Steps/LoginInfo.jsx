@@ -20,7 +20,7 @@ export default function LoginInfo({handleChange, formData, setFormData, errorMes
                   value={formData.gender ? JSON.stringify(formData.gender) : ''}
                   onChange={handleChange}
                   name="gender"
-                  aria-label={i18n.language === 'ar' ? 'الحالة العائلية' : 'Family Status'}
+                  aria-label={i18n.language === 'ar' ? 'الجنس' : 'Gender'}
                   className={`myFont w-full py-2 px-3 border-b-[3px] ${
                     formData.gender ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
                   } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-pointer`}

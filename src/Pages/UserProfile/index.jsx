@@ -76,9 +76,6 @@ export default function UserProfile() {
                 </div>} */}
               <>
                     <Profile profileDetails = { dummyDetails } />
-                    {/* <ReviewCards /> */}
-                    {/* <ExtraDetails isFavourite = {0} /> */}
-                    {/* <SimilarProducts />  */}
                 </>
             </div>
         </>

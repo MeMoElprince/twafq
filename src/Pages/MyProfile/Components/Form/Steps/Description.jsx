@@ -31,7 +31,7 @@ export default function Description({handleChange, formData, setFormData, errorM
               className={`inputLabel absolute top-[15px] transition-all duration-150 ${
                 isRTL ? `${formData.selfDescription ? "-" : ""}right-2` : `${formData.selfDescription ? "-" : ""}left-2`
               } transform pointer-events-none -translate-y-2.5 px-1 myFont w-[100%] ${formData.selfDescription ? "text-[19px] font-semibold text-Black": "text-lg text-Black/70"}`}
-              style={formData.selfDescription ? { top: '-12px' } : {}}
+              style={formData.selfDescription ? { top: '-20px' } : {}}
             >
               {formData.selfDescription ? t("description.selfDescription").slice(0, -3) : t("description.selfDescription")}
             </label>
@@ -54,7 +54,7 @@ export default function Description({handleChange, formData, setFormData, errorM
               className={`inputLabel absolute top-[15px] transition-all duration-150 ${
                 isRTL ? `${formData.partnerDescription ? "-" : ""}right-2` : `${formData.partnerDescription ? "-" : ""}left-2`
               } transform pointer-events-none -translate-y-2.5 px-1 myFont w-[100%] ${formData.partnerDescription ? "text-[19px] font-semibold text-Black": "text-lg text-Black/70"}`}
-              style={formData.partnerDescription ? { top: '-12px' } : {}}
+              style={formData.partnerDescription ? { top: '-20px' } : {}}
             >
               {formData.partnerDescription ? t("description.partnerDescription").slice(0, -3) : t("description.partnerDescription")}
             </label>

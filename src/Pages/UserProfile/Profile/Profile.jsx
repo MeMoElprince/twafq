@@ -28,21 +28,61 @@ export default function Profile({ profileDetails }) {
   var english = /^[A-Za-z]*$/;
   const { id } = useParams();
   const { retData: data, loading: dataLoading } = useFetch({
-      url: `${getUserProfile()}userId=${id}`,
-      method: 'GET',
-    });
+    url: `${getUserProfile()}userId=${id}`,
+    method: "GET",
+  });
   const [dataA, setDataA] = useState(data);
   const [loadingData, setLoadingData] = useState(dataLoading);
+  const [lastActive, setLastActive] = useState("");
 
   // console.log(dataA)
 
   useEffect(() => {
-      if (data) {
-          setDataA(data);
-          setLoadingData(false);
+    if (data) {
+      setDataA(data);
+      setLoadingData(false);
+    }
+    // console.log(dataA)
+  }, [data]);
+
+  useEffect(() => {
+    const calculateLastActive = () => {
+      const now = new Date();
+      const lastModified = profileDetails?.lastLogin ? new Date(profileDetails.lastLogin) : new Date();
+      const diffInMilliseconds = now - lastModified;
+      const diffInMinutes = Math.floor(diffInMilliseconds / (1000 * 60));
+      const diffInHours = Math.floor(diffInMinutes / 60);
+      const diffInDays = Math.floor(diffInHours / 24);
+      const diffInWeeks = Math.floor(diffInDays / 7);
+      const diffInMonths = Math.floor(diffInDays / 30);
+
+      if (diffInMinutes < 1) {
+        return i18n.language === 'ar' ? "متواجد" : "Online now";
+      } else if (diffInMinutes < 60) {
+        return i18n.language === 'ar' 
+        ? (diffInMinutes === 1 ? "دقيقية" : (diffInMinutes === 2 ? "دقيقتان" : diffInMinutes + " دقيقة"))
+        : `${diffInMinutes} ${diffInMinutes === 1 ? "min" : "mins"}`;
+      } else if (diffInHours < 24) {
+        return i18n.language === 'ar' 
+        ? (diffInHours === 1 ? "ساعة" : (diffInHours === 2 ? "ساعتان" : diffInHours + " ساعات"))
+        : `${diffInHours} ${diffInHours === 1 ? "hour" : "hours"}`;
+      } else if (diffInDays < 7) {
+        return i18n.language === 'ar' 
+        ? (diffInDays === 1 ? "يوم" : (diffInDays === 2 ? "يومان" : diffInDays + " ايام"))
+        : `${diffInDays} ${diffInDays === 1 ? "day" : "days"}`;
+      } else if (diffInWeeks < 4) {
+        return i18n.language === 'ar' 
+        ? (diffInWeeks === 1 ? "اسبوع" : (diffInWeeks === 2 ? "اسبوعان" : diffInWeeks + " اسابيع"))
+        : `${diffInWeeks} ${diffInWeeks === 1 ? "week" : "weeks"}`;
+      } else {
+        return i18n.language === 'ar' 
+        ? (diffInMonths === 1 ? "شهر" : (diffInMonths === 2 ? "شهران" : diffInMonths + " شهور"))
+        : `${diffInMonths} ${diffInMonths === 1 ? "month" : "months"}`;
       }
-      // console.log(dataA)
-  }, [data])
+    };
+    
+    setLastActive(calculateLastActive());
+  }, [profileDetails?.lastLogin, i18n.language]);
 
   async function handleFavorite() {
     // if (loading) return;
@@ -98,9 +138,7 @@ export default function Profile({ profileDetails }) {
       <div className="">
         <div
           className={`absolute top-0 left-0 z-10 w-full h-[180px] mt-20 ${
-            dataA?.gender[1] === "Male"
-              ? "bg-Blue/50"
-              : "bg-DarkPink/50"
+            dataA?.gender[1] === "Male" ? "bg-Blue/50" : "bg-DarkPink/50"
           }`}
         ></div>
         <img
@@ -113,7 +151,7 @@ export default function Profile({ profileDetails }) {
         <div className="flex items-center justify-center relative z-10 mb-2.5 w-max">
           <img
             src={
-              dataA?.isVerified
+              dataA?.isVerifiedUser
                 ? dataA?.gender[1] === "Male"
                   ? verifiedMan
                   : verifiedWoman
@@ -124,35 +162,42 @@ export default function Profile({ profileDetails }) {
             alt="user-avatar-image"
             className="border-4 border-solid size-[130px] sm2:size-[200px] mt-10 mb-4 border-White rounded-full"
           />
-          {
-            profileDetails?.isVerifiedUser && 
-            (
-              <div className="group">
-                <MdVerified
-                  className={`absolute text-blue-600 ${
-                    isRTL ? "-right-12" : "-left-12"
-                  } top-[55%]`}
-                  size={32}
-                />
-                <span
-                  className={`absolute bg-gray-300 text-Black text-sm font-medium p-1 px-2 top-[73%] ${
-                    isRTL ? "-right-[55px]" : "-left-[67px]"
-                  } rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
-                >
-                  {i18n.language === "ar" ? "موثق" : "Verified"}
-                </span>
-              </div>
-            )
-          }
-        <div className="absolute group w-full">
-          <div className={`center gap-2 absolute top-[20px] sm2:-top-[6.5px] shadow-dm border border-Black/10 ${i18n.language === 'ar' ? "-left-[95px] sm2:-left-[102px]" : "-right-[89px] sm2:-right-[96px]"} py-1 px-3 bg-green-200 rounded-full`}>
-            <FaCircle  className={`text-green-600`} size={12} />
-            <p className={`text-sm`}>3 اشهر</p>
+          {profileDetails?.isVerifiedUser && (
+            <div className="group">
+              <MdVerified
+                className={`absolute text-blue-600 ${
+                  isRTL ? "-right-12" : "-left-12"
+                } top-[55%]`}
+                size={32}
+              />
+              <span
+                className={`absolute bg-gray-300 text-Black text-sm font-medium p-1 px-2 top-[73%] ${
+                  isRTL ? "-right-[55px]" : "-left-[67px]"
+                } rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
+              >
+                {i18n.language === "ar" ? "موثق" : "Verified"}
+              </span>
+            </div>
+          )}
+          <div className="absolute group w-full">
+            <div
+              className={`center gap-2 absolute top-[20px] sm2:-top-[6.5px] shadow-dm border border-Black/10 ${
+                i18n.language === "ar"
+                  ? "-left-[95px] sm2:-left-[102px]"
+                  : "-right-[89px] sm2:-right-[96px]"
+              } py-1 px-3 bg-green-200 rounded-full`}
+            >
+              <FaCircle className={`text-green-600`} size={12} />
+              <p className={`text-sm`}>{lastActive}</p>
+            </div>
+            <span
+              className={`absolute bg-gray-300 text-Black text-sm font-medium p-1 px-2 top-[53px] sm2:top-[35px] ${
+                isRTL ? "-left-20" : "-right-24"
+              } rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
+            >
+              {i18n.language === "ar" ? "آخر ظهور" : "Last seen"}
+            </span>
           </div>
-          <span className={`absolute bg-gray-300 text-Black text-sm font-medium p-1 px-2 top-[45px] ${isRTL ? "-left-16" : "-right-20"} rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300`}>
-            {i18n.language === 'ar' ? "آخر ظهور" : "Last seen"}
-          </span>
-        </div>
         </div>
         <div className="text-center center flex-col gap-4">
           <div
@@ -167,46 +212,79 @@ export default function Profile({ profileDetails }) {
               {dataA?.firstName + " " + dataA?.lastName}
             </h3>
             <p className="text-lg text-Black font-medium text-center">
-              {"(" +
-                dataA?.age +
-                " " +
-                (isRTL ? "سنة" : "Years") +
-                ")"}
+              {"(" + dataA?.age + " " + (isRTL ? "سنة" : "Years") + ")"}
             </p>
           </div>
           <div className="center flex-wrap w-full gap-2">
             <FaLocationDot size={24} className="text-Black" />
             <p className="text-lg text-Black font-bold">
-              {(isRTL
-                ? dataA?.country[0]
-                : dataA?.country[1]) +
+              {(isRTL ? dataA?.country[0] : dataA?.country[1]) +
                 ", " +
                 (isRTL ? dataA?.city[0] : dataA?.city[1])}
             </p>
           </div>
-          <div className={`relative mt-4 flex flex-col items-center justify-center gap-3`}>
-            <svg className="size-40 -rotate-90" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+          <div
+            className={`relative mt-4 flex flex-col items-center justify-center gap-3`}
+          >
+            <svg
+              className="size-40 -rotate-90"
+              viewBox="0 0 36 36"
+              xmlns="http://www.w3.org/2000/svg"
+            >
               {/* <!-- Background Circle --> */}
-              <circle cx="18" cy="18" r="16" fill="none" className="stroke-current text-DarkPink/30" strokeWidth="3"></circle>
+              <circle
+                cx="18"
+                cy="18"
+                r="16"
+                fill="none"
+                className="stroke-current text-DarkPink/30"
+                strokeWidth="3"
+              ></circle>
               {/* <!-- Progress Circle --> */}
-              <circle cx="18" cy="18" r="16" fill="none" className="stroke-current text-DarkPink" strokeWidth="3" strokeDasharray="100" strokeDashoffset={100 - (isLogged ? (dataA?.compatibilityRatio || 75) : 75)} strokeLinecap="round"></circle>
+              <circle
+                cx="18"
+                cy="18"
+                r="16"
+                fill="none"
+                className="stroke-current text-DarkPink"
+                strokeWidth="3"
+                strokeDasharray="100"
+                strokeDashoffset={
+                  100 - (isLogged ? dataA?.compatibilityRatio || 75 : 75)
+                }
+                strokeLinecap="round"
+              ></circle>
             </svg>
 
             {/* <!-- Percentage Text --> */}
-            <div className={`absolute ${!isLogged ? "top-[43%]" : "top-1/2"} ${isRTL ? "end-1/2" : "start-1/2"} transform -translate-y-1/2 -translate-x-1/2 flex flex-col items-center`}>
-              <span className="text-center text-xl font-semibold text-DarkPink">{isLogged ? (dataA?.compatibilityRatio || "?") : "?"}&#x25;</span>
-              <span className="text-center text-base font-semibold text-DarkPink">{isRTL ? "التوافق" : "Compatibility"}</span>
+            <div
+              className={`absolute ${!isLogged ? "top-[43%]" : "top-1/2"} ${
+                isRTL ? "end-1/2" : "start-1/2"
+              } transform -translate-y-1/2 -translate-x-1/2 flex flex-col items-center`}
+            >
+              <span className="text-center text-xl font-semibold text-DarkPink">
+                {isLogged ? dataA?.compatibilityRatio || "?" : "?"}&#x25;
+              </span>
+              <span className="text-center text-base font-semibold text-DarkPink">
+                {isRTL ? "التوافق" : "Compatibility"}
+              </span>
             </div>
 
-            {
-              !isLogged && 
-              (
-                <div className="w-full center z-20 gap-2">
-                    <Link to = "/login" className="text-md sm:text-lg font-medium text-Black underline cursor-pointer hover:text-DarkPink">{i18n.language === 'ar' ? "تسجيل الدخول" : "Login"}</Link>
-                    <p className="text-md sm:text-lg font-medium text-Black">{i18n.language === 'ar' ? "لحساب التوافق" : "To Calculate Compatibility"}</p>
-                </div>
-              )
-            }
+            {!isLogged && (
+              <div className="w-full center z-20 gap-2">
+                <Link
+                  to="/login"
+                  className="text-md sm:text-lg font-medium text-Black underline cursor-pointer hover:text-DarkPink"
+                >
+                  {i18n.language === "ar" ? "تسجيل الدخول" : "Login"}
+                </Link>
+                <p className="text-md sm:text-lg font-medium text-Black">
+                  {i18n.language === "ar"
+                    ? "لحساب التوافق"
+                    : "To Calculate Compatibility"}
+                </p>
+              </div>
+            )}
           </div>
           <div className="center w-full flex-col sm:flex-row gap-2">
             <button
@@ -268,7 +346,8 @@ export default function Profile({ profileDetails }) {
                 : ""
             }`}
           >
-            {dataA?.selfDescription || (isRTL ? "عند التعارف" : "After Messaging")}
+            {dataA?.selfDescription ||
+              (isRTL ? "عند التعارف" : "After Messaging")}
           </div>
         </div>
         <div className="bg-DarkBeige/40 overflow-hidden shadow-lg rounded-lg border border-Black/15 lg2:max-w-[43.25%] w-[90%]">
@@ -279,11 +358,26 @@ export default function Profile({ profileDetails }) {
           </div>
           <div className="border-t border-Black/10 text-lg text-gray-900 px-4 py-2 sm:p-0">
             <div className="flex flex-wrap">
-            <UserProfileField label={`${isRTL ? "الطول" : "Height"}`} value={`${dataA?.height} ${isRTL ? "سم" : "CM"}`} />
-            <UserProfileField label={`${isRTL ? "الوزن" : "Weight"}`} value={`${dataA?.weight} ${isRTL ? "كغ" : "KG"}`} />
-            <UserProfileField label={`${isRTL ? "لون البشرة" : "Skin Color"}`} value={`${dataA?.skinColor[isRTL ? 0 : 1]}`} />
-            <UserProfileField label={`${isRTL ? "الهيئة" : "Shape"}`} value={`${dataA?.shape[isRTL ? 0 : 1]}`} />
-            <UserProfileField label={`${isRTL ? "الحالة الصحية" : "Health Status"}`} value={`${dataA?.health[isRTL ? 0 : 1]}`} />
+              <UserProfileField
+                label={`${isRTL ? "الطول" : "Height"}`}
+                value={`${dataA?.height} ${isRTL ? "سم" : "CM"}`}
+              />
+              <UserProfileField
+                label={`${isRTL ? "الوزن" : "Weight"}`}
+                value={`${dataA?.weight} ${isRTL ? "كغ" : "KG"}`}
+              />
+              <UserProfileField
+                label={`${isRTL ? "لون البشرة" : "Skin Color"}`}
+                value={`${dataA?.skinColor[isRTL ? 0 : 1]}`}
+              />
+              <UserProfileField
+                label={`${isRTL ? "الهيئة" : "Shape"}`}
+                value={`${dataA?.shape[isRTL ? 0 : 1]}`}
+              />
+              <UserProfileField
+                label={`${isRTL ? "الحالة الصحية" : "Health Status"}`}
+                value={`${dataA?.health[isRTL ? 0 : 1]}`}
+              />
             </div>
           </div>
         </div>
@@ -295,10 +389,22 @@ export default function Profile({ profileDetails }) {
           </div>
           <div className="border-t border-Black/10 text-lg text-gray-900 px-4 py-2 sm:p-0">
             <div className="flex flex-wrap">
-            <UserProfileField label={`${isRTL ? "البلد" : "Country"}`} value={`${dataA?.country[isRTL ? 0 : 1]}`} />
-            <UserProfileField label={`${isRTL ? "المدينة" : "City"}`} value={`${dataA?.city[isRTL ? 0 : 1]}`} />
-            <UserProfileField label={`${isRTL ? "الجنسية" : "Nationality"}`} value={`${dataA?.nationality[isRTL ? 0 : 1]}`} />
-            <UserProfileField label={`${isRTL ? "مكان الإقامة" : "Residence"}`} value={`${dataA?.residence[isRTL ? 0 : 1]}`} />
+              <UserProfileField
+                label={`${isRTL ? "البلد" : "Country"}`}
+                value={`${dataA?.country[isRTL ? 0 : 1]}`}
+              />
+              <UserProfileField
+                label={`${isRTL ? "المدينة" : "City"}`}
+                value={`${dataA?.city[isRTL ? 0 : 1]}`}
+              />
+              <UserProfileField
+                label={`${isRTL ? "الجنسية" : "Nationality"}`}
+                value={`${dataA?.nationality[isRTL ? 0 : 1]}`}
+              />
+              <UserProfileField
+                label={`${isRTL ? "مكان الإقامة" : "Residence"}`}
+                value={`${dataA?.residence[isRTL ? 0 : 1]}`}
+              />
             </div>
           </div>
         </div>
@@ -310,24 +416,45 @@ export default function Profile({ profileDetails }) {
           </div>
           <div className="border-t border-Black/10 text-lg text-gray-900 px-4 py-2 sm:p-0">
             <div className="flex flex-wrap">
-              <UserProfileField label={`${isRTL ? "الديانة" : "Religion"}`} value={`${dataA?.religion[isRTL ? 0 : 1]}`} />
-              <UserProfileField label={`${isRTL ? "الطائفة" : "Doctrine"}`} value={`${dataA?.doctrine[isRTL ? 0 : 1]}`} />
-              <UserProfileField label={`${isRTL ? "الالتزام الديني" : "Religious Commitment"}`} value={`${dataA?.religiousCommitment[isRTL ? 0 : 1]}`} />
-              <UserProfileField label={`${isRTL ? "التدخين" : "Smoking"}`} value={`${dataA?.smoking[isRTL ? 0 : 1]}`} />
+              <UserProfileField
+                label={`${isRTL ? "الديانة" : "Religion"}`}
+                value={`${dataA?.religion[isRTL ? 0 : 1]}`}
+              />
+              <UserProfileField
+                label={`${isRTL ? "الطائفة" : "Doctrine"}`}
+                value={`${dataA?.doctrine[isRTL ? 0 : 1]}`}
+              />
+              <UserProfileField
+                label={`${isRTL ? "الالتزام الديني" : "Religious Commitment"}`}
+                value={`${dataA?.religiousCommitment[isRTL ? 0 : 1]}`}
+              />
+              <UserProfileField
+                label={`${isRTL ? "التدخين" : "Smoking"}`}
+                value={`${dataA?.smoking[isRTL ? 0 : 1]}`}
+              />
             </div>
           </div>
         </div>
         <div className="bg-DarkBeige/40 overflow-hidden shadow-lg rounded-lg border border-Black/15 lg2:max-w-[43.25%] w-[90%]">
           <div className="px-4 py-5 sm:px-6">
             <h3 className="text-xl leading-6 font-semibold text-Black">
-                {t("familyStatus.title")}
+              {t("familyStatus.title")}
             </h3>
           </div>
           <div className="border-t border-Black/10 text-lg text-gray-900 px-4 py-2 sm:p-0">
             <div className="flex flex-wrap">
-              <UserProfileField label={`${isRTL ? "الوضع العائلي" : "Family Status"}`} value={`${dataA?.familyStatus[isRTL ? 0 : 1]}`} />
-              <UserProfileField label={`${isRTL ? "نوع الزواج" : "Marriage Type"}`} value={`${dataA?.marriageType[isRTL ? 0 : 1]}`} />
-              <UserProfileField label={`${isRTL ? "عدد الأطفال" : "Children"}`} value={`${dataA?.children}`} />
+              <UserProfileField
+                label={`${isRTL ? "الوضع العائلي" : "Family Status"}`}
+                value={`${dataA?.familyStatus[isRTL ? 0 : 1]}`}
+              />
+              <UserProfileField
+                label={`${isRTL ? "نوع الزواج" : "Marriage Type"}`}
+                value={`${dataA?.marriageType[isRTL ? 0 : 1]}`}
+              />
+              <UserProfileField
+                label={`${isRTL ? "عدد الأطفال" : "Children"}`}
+                value={`${dataA?.children}`}
+              />
             </div>
           </div>
         </div>
@@ -339,26 +466,38 @@ export default function Profile({ profileDetails }) {
           </div>
           <div className="border-t border-Black/10 text-lg text-gray-900 px-4 py-2 sm:p-0">
             <div className="flex flex-wrap">
-              <UserProfileField label={`${isRTL ? "المؤهل" : "Education Level"}`} value={`${dataA?.educationLevel[isRTL ? 0 : 1]}`} />
-              <UserProfileField label={`${isRTL ? "العمل" : "Work"}`} value={`${dataA?.work}`} />
-              <UserProfileField label={`${isRTL ? "الحالة المادية" : "Financial Status"}`} value={`${dataA?.financialStatus[isRTL ? 0 : 1]}`} />
+              <UserProfileField
+                label={`${isRTL ? "المؤهل" : "Education Level"}`}
+                value={`${dataA?.educationLevel[isRTL ? 0 : 1]}`}
+              />
+              <UserProfileField
+                label={`${isRTL ? "العمل" : "Work"}`}
+                value={`${dataA?.work}`}
+              />
+              <UserProfileField
+                label={`${isRTL ? "الحالة المادية" : "Financial Status"}`}
+                value={`${dataA?.financialStatus[isRTL ? 0 : 1]}`}
+              />
             </div>
           </div>
         </div>
         <div className="bg-DarkBeige/40 overflow-hidden shadow-lg rounded-lg border border-Black/15 lg2:w-[calc(43.25%+43.25%+2rem)] w-[90%]">
           <div className="px-4 py-5 sm:px-6">
             <h3 className="text-xl leading-6 font-semibold text-Black">
-                {i18n.language === 'ar' ? "وصف شريك الحياة" : "Partner Description"}
+              {i18n.language === "ar"
+                ? "وصف شريك الحياة"
+                : "Partner Description"}
             </h3>
           </div>
           <div
             className={`border-t border-Black/10 text-lg text-gray-900 py-6 px-3 sm:px-6 ${
-              containsLongWord(data?.partnerDescription)
+              containsLongWord(dataA?.partnerDescription)
                 ? "break-all hyphenated"
                 : ""
             }`}
           >
-            {dataA?.partnerDescription || (isRTL ? "عند التعارف" : "After Messaging")}
+            {dataA?.partnerDescription ||
+              (isRTL ? "عند التعارف" : "After Messaging")}
           </div>
         </div>
       </div>

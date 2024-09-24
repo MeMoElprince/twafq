@@ -23,9 +23,7 @@ export default function Education({handleChange, formData, setFormData, errorMes
                     formData.educationLevel ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
                   } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-pointer`}
               >
-                  <option value={JSON.stringify(["", ""])}>
-                      {i18n.language === 'ar' ? '-- اختر --' : '-- Choose --'}
-                  </option>
+                  
                   <option value={JSON.stringify(['دون تعليم', 'No Education'])}>
                       {i18n.language === 'ar' ? 'دون تعليم' : 'No Education'}
                   </option>
@@ -86,9 +84,7 @@ export default function Education({handleChange, formData, setFormData, errorMes
                     formData.financialStatus ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
                   } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-pointer`}
               >
-                  <option value={JSON.stringify(["", ""])}>
-                      {i18n.language === 'ar' ? '-- اختر --' : '-- Choose --'}
-                  </option>
+                  
                   <option value={JSON.stringify(['فقير', 'Poor'])}>
                       {i18n.language === 'ar' ? 'فقير' : 'Poor'}
                   </option>

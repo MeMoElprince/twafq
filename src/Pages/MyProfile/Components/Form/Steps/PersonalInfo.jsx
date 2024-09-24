@@ -95,7 +95,7 @@ export default function PersonalInfo({handleChange, formData, setFormData, error
                     formData.height ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
                   } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-pointer`}
               >
-                  <option value="">{i18n.language == 'ar' ? '-- اختر --' : '-- Choose --'}</option>
+                  
                   {[...Array(83)].map((_, index) => (
                       <option key={index + 18} value={index + 18}>
                           {index + 18}
@@ -122,7 +122,7 @@ export default function PersonalInfo({handleChange, formData, setFormData, error
                   formData.weight ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
                 } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-pointer`}
             >
-                <option value="">{i18n.language == 'ar' ? '-- اختر --' : '-- Choose --'}</option>
+                
                 {[...Array(200-30+1)].map((_, index) => (
                     <option key={index + 30} value={index + 30}>
                         {index + 30}
@@ -149,7 +149,7 @@ export default function PersonalInfo({handleChange, formData, setFormData, error
                   formData.height ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
                 } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-pointer`}
             >
-                <option value="">{i18n.language == 'ar' ? '-- اختر --' : '-- Choose --'}</option>
+                
                 {[...Array(260 - 60 + 1)].map((_, index) => (
                     <option key={index + 60} value={index + 60}>
                         {index + 60}
@@ -168,7 +168,7 @@ export default function PersonalInfo({handleChange, formData, setFormData, error
         <div className={`relative w-full`}>
             <select 
                 id="SkinColor"
-                value={formData.skinColor ? JSON.stringify(formData.skinColor) : ''} // Stringify the array for 
+                value={formData.skinColor ? JSON.stringify(formData.skinColor) : ''}
                 onChange={handleChange}
                 name="skinColor"
                 aria-label={i18n.language === 'ar' ? 'لون البشرة' : 'Skin Color'}
@@ -176,7 +176,6 @@ export default function PersonalInfo({handleChange, formData, setFormData, error
                     formData.skinColor ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
                 } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-pointer`}
             >
-                <option value={JSON.stringify(["", ""])}>{i18n.language === 'ar' ? '-- اختر --' : '-- Choose --'}</option>
                 <option value={JSON.stringify(['أبيض', 'White'])}>{i18n.language === 'ar' ? 'أبيض' : 'White'}</option>
                 <option value={JSON.stringify(['قمحاوي مائل للبياض', 'Olive'])}>{i18n.language === 'ar' ? 'قمحاوي مائل للبياض' : 'Olive'}</option>
                 <option value={JSON.stringify(['قمحاوي', 'Moderate Brown'])}>{i18n.language === 'ar' ? 'قمحاوي' : 'Moderate Brown'}</option>
@@ -205,7 +204,6 @@ export default function PersonalInfo({handleChange, formData, setFormData, error
                     formData.shape ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
                 } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-pointer`}
             >
-                <option value={JSON.stringify(["", ""])}>{i18n.language === 'ar' ? '-- اختر --' : '-- Choose --'}</option>
                 <option value={JSON.stringify(['نحيف', 'Slim'])}>{i18n.language === 'ar' ? 'نحيف' : 'Slim'}</option>
                 <option value={JSON.stringify(['متوسط', 'Average'])}>{i18n.language === 'ar' ? 'متوسط' : 'Average'}</option>
                 <option value={JSON.stringify(['سمين', 'Overweight'])}>{i18n.language === 'ar' ? 'سمين' : 'Overweight'}</option>
@@ -225,7 +223,7 @@ export default function PersonalInfo({handleChange, formData, setFormData, error
         <div className={`relative w-full`}>
             <select 
                 id="Health"
-                value={formData.health ? JSON.stringify(formData.health) : ''} // Stringify the array for 
+                value={formData.health ? JSON.stringify(formData.health) : JSON.stringify(["انا بحالة جيدة", "I'm fine"])}
                 onChange={handleChange}
                 name="health"
                 aria-label={i18n.language === 'ar' ? 'الحالة الصحية' : 'Health Condition'}
@@ -233,7 +231,7 @@ export default function PersonalInfo({handleChange, formData, setFormData, error
                     formData.health ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
                 } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-pointer`}
             >
-                <option value={JSON.stringify(["", ""])}>{i18n.language === 'ar' ? '-- اختر --' : '-- Choose --'}</option>
+                <option value={JSON.stringify(["انا بحالة جيدة", "I'm fine"])}>{i18n.language === 'ar' ? "انا بحالة جيدة" : "I'm fine"}</option>
                 {healthConditions.map((condition, index) => (
                     <option 
                         key={index} 

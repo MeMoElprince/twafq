@@ -62,10 +62,10 @@ export function handlePersonalInfo(formData, setErrorMessage) {
     let testFound = 0;
 
     labels.map((label) => {
-        let ageTest = (label === 'age' && label != '' && (formData[label] < 18 || formData[label] > 100));
-        let weightTest = (label === 'weight' && label != '' && (formData[label] < 30 || formData[label] > 200));
-        let heightTest = (label === 'height' && label != '' && (formData[label] < 60 || formData[label] > 260));
-        if(!formData[label] || (!labels.slice(0, 2).includes(label) && (!formData[label][1] || !formData[label][0]))){
+        let ageTest = (label === 'age' && label !== '' && (formData[label] < 18 || formData[label] > 100));
+        let weightTest = (label === 'weight' && label !== '' && (formData[label] < 30 || formData[label] > 200));
+        let heightTest = (label === 'height' && label !== '' && (formData[label] < 60 || formData[label] > 260));
+        if(!formData[label] || (ageTest || weightTest || heightTest) ||(!labels.slice(0, 2).includes(label) && (!formData[label][1] || !formData[label][0]))){
             if(!testFound)
                 errorMessage.push(["الرجاء ملء جميع الحقول", "Please fill all the required"]);
             testFound = 1;

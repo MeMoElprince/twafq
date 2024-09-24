@@ -25,7 +25,7 @@ export default function Nationality({handleChange, formData, setFormData, errorM
                     formData.nationality ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
                   } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-pointer`}
               >
-                  <option value={JSON.stringify(["", ""])}>{i18n.language === 'ar' ? '-- اختر --' : '-- Choose --'}</option>
+                  
                     {Countires.map((country) => (
                         <option 
                             key={country.code} 
@@ -55,7 +55,6 @@ export default function Nationality({handleChange, formData, setFormData, errorM
                     formData.country ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
                   } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-pointer`}
               >
-                    <option value={JSON.stringify(["", "", ""])}>{i18n.language === 'ar' ? '-- اختر --' : '-- Choose --'}</option>
                     {Countires.map((country) => (
                         <option 
                             key={country.code} 
@@ -85,7 +84,7 @@ export default function Nationality({handleChange, formData, setFormData, errorM
                     formData.city ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
                   } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-pointer`}
               >
-                  <option value={JSON.stringify(["", ""])}>{i18n.language === 'ar' ? '-- اختر --' : '-- Choose --'}</option>
+                  
                   
           </select>
           <label
@@ -108,7 +107,7 @@ export default function Nationality({handleChange, formData, setFormData, errorM
                     formData.residence ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
                   } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-black cursor-pointer`}
               >
-                  <option value={JSON.stringify(["", ""])}>{i18n.language === 'ar' ? '-- اختر --' : '-- Choose --'}</option>
+                  
                   {Countires.map((country) => (
                       <option 
                           key={country.code} 

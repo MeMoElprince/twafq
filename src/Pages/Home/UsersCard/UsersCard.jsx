@@ -48,6 +48,8 @@ export default function UsersCardRatio() {
           };
   
           const shuffledCards = shuffleArray(data.content || data);
+
+          console.log(response);
   
           setUsedCards(shuffledCards);
         } catch (error) {

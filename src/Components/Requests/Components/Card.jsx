@@ -14,7 +14,7 @@ export default function Card({ userDetails }) {
       <div class="flex size-14 items-center shrink-0 rounded-full overflow-hidden bg-gray-200 text-Black group-hover:bg-pink-300">
         <img
           src={
-                userDetails?.isVerified ? 
+                userDetails?.isVerifiedUser ? 
                 userDetails?.gender[1] === 'Male' ? verifiedMan : verifiedWoman 
                 :
                 userDetails?.gender[1] === 'Male' ? Man : Woman 

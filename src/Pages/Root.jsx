@@ -9,7 +9,6 @@ import { AuthenticationContext } from "../Store/Context/Authentication";
 import AppDownload from "../Components/AppDownload/AppDownload"
 import RateUs from "../Components/RateUs/RateUs"
 import { useLayoutDirection } from "../Store/Context/LayoutDirectionContext"
-import { useTranslation } from "react-i18next"
 import Requests from "../Components/Requests/Requests"
 import ReceivedRequests from "../Components/ReceivedRequests/ReceivedRequests"
 import AccepetedRequests from "../Components/AccepetedRequests.jsx/AccepetedRequests"
@@ -19,7 +18,7 @@ export default function Root() {
   const [popActive, setPopActive] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   
-  const { handleFormDataChange, setIsLogedIn, isLogedIn, formData } = useContext(AuthenticationContext);
+  const { handleFormDataChange, setIsLogedIn, isLogedIn } = useContext(AuthenticationContext);
   
   const token = Cookies.get('token')
 

@@ -28,9 +28,9 @@ export default function Card({ userInfo }) {
     // console.log(data);
   }, [data]);
 
-  useEffect(() => {
-    console.log(userDetails);
-  }, [userDetails]);
+  // useEffect(() => {
+  //   console.log(userDetails);
+  // }, [userDetails]);
 
   if(!userInfo?.story || !userDetails)
       return;
