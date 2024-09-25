@@ -12,6 +12,7 @@ const VerifyOTP = () => (`${APIURL}api/v1/users/verify`);
 const ForgetPassword = () => (`${APIURL}api/forgotpassword?`);
 const ResetPassword = () => (`${APIURL}api/resetpassword?`);
 const likeMeTarget = () => (`${APIURL}api/user/likeme/target?`);
+const favoriteChange = () => (`${APIURL}api/user/favorite?`);
 const putReview = () => (`${APIURL}api/user/story?`);
 const getAllReviews = () => (`${APIURL}api/user/stories`);
 const AskForVerificationCode = () => (`${APIURL}api/v1/users/verify-token`);
@@ -41,6 +42,7 @@ export {
   getBlogs,
   increaseViewCount,
   putReview,
+  favoriteChange,
   getAllReviews,
   getCountries,
   getColorsUrl,

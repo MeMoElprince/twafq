@@ -17,14 +17,16 @@ import { FaCircle } from "react-icons/fa6";
 import useFetch from "../../../Components/CustomHooks/useFetch";
 import { getUserProfile } from "../../../Store/urls";
 import { useParams } from "react-router-dom";
+import { likeMeTarget } from "../../../Store/urls";
+import { useNavigate } from "react-router-dom";
+import { favoriteChange } from "../../../Store/urls";
 
-export default function Profile({ profileDetails }) {
-  // const { Token } = useContext(AuthenticationContext);
-  const [isLogged, setIsLogged] = useState(true);
-  const [isFavorite, setIsFavorite] = useState(0);
-  const { isRTL, setIsRTL } = useLayoutDirection();
+export default function Profile() {
+  const { isLogedIn, Token, formData } = useContext(AuthenticationContext);
+  const { isRTL } = useLayoutDirection();
   const { t, i18n } = useTranslation("global");
-  // console.log(profileDetails);
+  const navigate = useNavigate();
+  // console.log(dataA);
   var english = /^[A-Za-z]*$/;
   const { id } = useParams();
   const { retData: data, loading: dataLoading } = useFetch({
@@ -34,21 +36,77 @@ export default function Profile({ profileDetails }) {
   const [dataA, setDataA] = useState(data);
   const [loadingData, setLoadingData] = useState(dataLoading);
   const [lastActive, setLastActive] = useState("");
+  const [compatibilityRatio, setCompatibilityRatio] = useState(0);
+  const { retData: ratio } = useFetch({
+    url:
+      Token && isLogedIn && dataA && formData?.id && dataA?.id
+        ? `${likeMeTarget()}userId=${formData.id}&targetId=${dataA.id}`
+        : null,
+    Token,
+  });
 
-  // console.log(dataA)
+  const [isFavorite, setIsFavorite] = useState(formData?.favoriteUsers?.includes(dataA?.id) || false);
 
   useEffect(() => {
     if (data) {
-      setDataA(data);
-      setLoadingData(false);
+        setDataA(data);
+        if (formData?.favoriteUsers && data.id) {
+            setIsFavorite(formData.favoriteUsers.includes(data.id));
+        }
+        setLoadingData(false);
     }
-    // console.log(dataA)
-  }, [data]);
+}, [data, formData]);
+
+
+  
+
+  useEffect(() => {
+    console.log(isFavorite);
+  }, [isFavorite])
+
+  const [loadingFavo, setLoadingFavo] = useState(false);
+
+  async function handleFavorite() {
+      if(Token && dataA.id && formData?.id && isLogedIn){
+          if(loadingFavo)
+              return;
+          setLoadingFavo(true);
+          await Fetch({
+            url: `${favoriteChange()}userId=${formData.id}&favoriteUserId=${dataA?.id}`,
+            setLoadingFavo,
+            method: 'POST',
+            Token
+          })
+          setIsFavorite(prev => !prev);
+          setLoadingFavo(false);
+      }
+  }
+
+  if(formData?.id === dataA?.id){
+    navigate("/");
+    window.location.reload();
+  }
+
+  
+
+  // useEffect(() =>{
+  //   console.log(compatibilityRatio)
+  // }, [compatibilityRatio])
+
+  useEffect(() => {
+    if (isLogedIn && ratio) {
+      setCompatibilityRatio(Math.round(ratio));
+    }
+    // console.log(ratio);
+  }, [ratio, isLogedIn, Token]);
+
+  // console.log(dataA)
+
 
   useEffect(() => {
     const calculateLastActive = () => {
       const now = new Date();
-      const lastModified = profileDetails?.lastLogin ? new Date(profileDetails.lastLogin) : new Date();
+      const lastModified = dataA?.lastLogin ? new Date(dataA.lastLogin) : new Date();
       const diffInMilliseconds = now - lastModified;
       const diffInMinutes = Math.floor(diffInMilliseconds / (1000 * 60));
       const diffInHours = Math.floor(diffInMinutes / 60);
@@ -82,36 +140,8 @@ export default function Profile({ profileDetails }) {
     };
     
     setLastActive(calculateLastActive());
-  }, [profileDetails?.lastLogin, i18n.language]);
+  }, [dataA?.lastLogin, i18n.language]);
 
-  async function handleFavorite() {
-    // if (loading) return;
-    // setLoading(true)
-    // setErrorMessage('')
-    // if (isFavorite) {
-    //     await Fetch({
-    //         url: delFavByProId(dataA?.id),
-    //         setLoading,
-    //         setData,
-    //         setErrorMessage,
-    //         method: 'DELETE',
-    //         Token
-    //     })
-    //     setIsFavorite(prev => !prev);
-    // } else {
-    //     await Fetch({
-    //         url: addFav(),
-    //         setLoading,
-    //         setData,
-    //         setErrorMessage,
-    //         method: 'POST',
-    //         body: { product_item_id: dataA?.id },
-    //         Token
-    //     })
-    //     setIsFavorite(prev => !prev);
-    // }
-    setIsFavorite((prev) => !prev);
-  }
 
   // useEffect(() => {
   //     if (!data) return;
@@ -133,6 +163,17 @@ export default function Profile({ profileDetails }) {
     return sentence && sentence.split(" ").some((word) => word.length > 20);
   };
 
+  function LoadingSpinner(){
+    return (
+      <div className='center'>
+        <svg aria-hidden="true" className="w-8 h-8 text-gray-200 animate-spin fill-DarkPink" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
+          <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
+        </svg>
+      </div>
+    )
+  }
+
   return (
     <section className="w-full relative pt-36 pb-24 bg-White myFont flex flex-col justify-center items-center">
       <div className="">
@@ -148,57 +189,57 @@ export default function Profile({ profileDetails }) {
         />
       </div>
       <div className="w-full max-w-7xl mx-auto px-6 md:px-8 mt-4 flex flex-col items-center">
-        <div className="flex items-center justify-center relative z-10 mb-2.5 w-max">
-          <img
-            src={
-              dataA?.isVerifiedUser
-                ? dataA?.gender[1] === "Male"
-                  ? verifiedMan
-                  : verifiedWoman
-                : dataA?.gender[1] === "Male"
-                ? Man
-                : Woman
-            }
-            alt="user-avatar-image"
-            className="border-4 border-solid size-[130px] sm2:size-[200px] mt-10 mb-4 border-White rounded-full"
-          />
-          {profileDetails?.isVerifiedUser && (
-            <div className="group">
-              <MdVerified
-                className={`absolute text-blue-600 ${
-                  isRTL ? "-right-12" : "-left-12"
-                } top-[55%]`}
-                size={32}
-              />
+      <div className="flex items-center justify-center relative z-10 mb-2.5 w-max">
+            <img
+              src={
+                dataA?.isVerifiedUser
+                  ? dataA?.gender[1] === "Male"
+                    ? verifiedMan
+                    : verifiedWoman
+                  : dataA?.gender[1] === "Male"
+                  ? Man
+                  : Woman
+              }
+              alt="user-avatar-image"
+              className="border-4 border-solid size-[130px] sm2:size-[200px] mt-10 mb-4 border-White rounded-full"
+            />
+            {dataA?.isVerifiedUser && (
+              <div className="group">
+                <MdVerified
+                  className={`absolute text-blue-600 ${
+                    isRTL ? "-right-[41px]" : "-left-[41px]"
+                  } top-[69%] sm2:top-[47.5%]`}
+                  size={32}
+                />
+                <span
+                  className={`absolute bg-gray-300 text-Black text-sm font-medium text-center p-1 px-2 top-[60%] ${
+                    isRTL ? "-right-[48px]" : "-left-[58px]"
+                  } rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
+                >
+                  {i18n.language === "ar" ? "موثق" : "Verified"}
+                </span>
+              </div>
+            )}
+            <div className="absolute group w-full">
+              <div
+                className={`center gap-2 absolute top-[40px] sm2:-top-[6.5px] shadow-dm border border-Black/10 ${
+                  i18n.language === "ar"
+                    ? "-left-[95px] sm2:-left-[102px]"
+                    : "-right-[96px] sm2:-right-[96px]"
+                } py-1 px-3 bg-green-200 rounded-full`}
+              >
+                <FaCircle className={`text-green-600`} size={12} />
+                <p className={`text-xs`}>{lastActive}</p>
+              </div>
               <span
-                className={`absolute bg-gray-300 text-Black text-sm font-medium p-1 px-2 top-[73%] ${
-                  isRTL ? "-right-[55px]" : "-left-[67px]"
+                className={`absolute bg-gray-300 text-Black text-sm font-medium p-1 px-2 top-[70px] sm2:top-[25px] ${
+                  isRTL ? "-left-20" : "-right-24"
                 } rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
               >
-                {i18n.language === "ar" ? "موثق" : "Verified"}
+                {i18n.language === "ar" ? "آخر ظهور" : "Last seen"}
               </span>
             </div>
-          )}
-          <div className="absolute group w-full">
-            <div
-              className={`center gap-2 absolute top-[20px] sm2:-top-[6.5px] shadow-dm border border-Black/10 ${
-                i18n.language === "ar"
-                  ? "-left-[95px] sm2:-left-[102px]"
-                  : "-right-[89px] sm2:-right-[96px]"
-              } py-1 px-3 bg-green-200 rounded-full`}
-            >
-              <FaCircle className={`text-green-600`} size={12} />
-              <p className={`text-sm`}>{lastActive}</p>
-            </div>
-            <span
-              className={`absolute bg-gray-300 text-Black text-sm font-medium p-1 px-2 top-[53px] sm2:top-[35px] ${
-                isRTL ? "-left-20" : "-right-24"
-              } rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
-            >
-              {i18n.language === "ar" ? "آخر ظهور" : "Last seen"}
-            </span>
           </div>
-        </div>
         <div className="text-center center flex-col gap-4">
           <div
             className={`center flex-wrap w-full gap-2 ${
@@ -250,7 +291,7 @@ export default function Profile({ profileDetails }) {
                 strokeWidth="3"
                 strokeDasharray="100"
                 strokeDashoffset={
-                  100 - (isLogged ? dataA?.compatibilityRatio || 75 : 75)
+                  100 - (isLogedIn ? compatibilityRatio || 72 : 72)
                 }
                 strokeLinecap="round"
               ></circle>
@@ -258,19 +299,19 @@ export default function Profile({ profileDetails }) {
 
             {/* <!-- Percentage Text --> */}
             <div
-              className={`absolute ${!isLogged ? "top-[43%]" : "top-1/2"} ${
+              className={`absolute ${!isLogedIn ? "top-[43%]" : "top-1/2"} ${
                 isRTL ? "end-1/2" : "start-1/2"
               } transform -translate-y-1/2 -translate-x-1/2 flex flex-col items-center`}
             >
               <span className="text-center text-xl font-semibold text-DarkPink">
-                {isLogged ? dataA?.compatibilityRatio || "?" : "?"}&#x25;
+                {isLogedIn ? compatibilityRatio || "?" : "?"}&#x25;
               </span>
               <span className="text-center text-base font-semibold text-DarkPink">
                 {isRTL ? "التوافق" : "Compatibility"}
               </span>
             </div>
 
-            {!isLogged && (
+            {!isLogedIn && (
               <div className="w-full center z-20 gap-2">
                 <Link
                   to="/login"
@@ -304,30 +345,34 @@ export default function Profile({ profileDetails }) {
               onClick={handleFavorite}
               className={`text-DarkPink bg-none border-DarkPink cursor-pointer border hover:px-8 font-medium  transition-all duration-300 shadow-md tracking-wide rounded-full text-lg px-5 py-3 w-max !mt-6 center gap-4`}
             >
-              {isFavorite ? (
-                <>
-                  <p>
-                    {i18n.language === "ar"
-                      ? "إزالة من المفضلة"
-                      : "Remove favorite"}
-                  </p>
-                  <FaHeart className={`text-DarkPink`} size={26} />
-                </>
-              ) : (
-                <>
-                  <p>
-                    {i18n.language === "ar"
-                      ? "إضافة إلى المفضلة"
-                      : "Add to favorite"}
-                  </p>
-                  <FaHeart
-                    className={`${
-                      isFavorite ? "text-DarkPink" : "text-DarkPink/50"
-                    }`}
-                    size={26}
-                  />
-                </>
-              )}
+              {loadingFavo && <LoadingSpinner />}
+              {
+                (!loadingFavo && 
+                  (isFavorite ? (
+                    <>
+                      <p>
+                        {i18n.language === "ar"
+                          ? "إزالة من المفضلة"
+                          : "Remove favorite"}
+                      </p>
+                      <FaHeart className={`text-DarkPink`} size={26} />
+                    </>
+                  ) : (
+                    <>
+                      <p>
+                        {i18n.language === "ar"
+                          ? "إضافة إلى المفضلة"
+                          : "Add to favorite"}
+                      </p>
+                      <FaHeart
+                        className={`${
+                          isFavorite ? "text-DarkPink" : "text-DarkPink/50"
+                        }`}
+                        size={26}
+                      />
+                    </>
+                  )))
+              }
             </button>
           </div>
         </div>

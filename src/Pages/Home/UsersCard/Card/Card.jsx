@@ -19,17 +19,20 @@ export default function Card({ userDetails, isLogedIn, formData, Token }) {
   // console.log(userDetails)
   // console.log(Token)
   const { retData: data, loading: perLoading } = useFetch({
-    url: Token && formData?.id && userDetails?.id 
-      ? `${likeMeTarget()}userId=${formData.id}&targetId=${userDetails.id}`
-      : null,
-      Token
+    url:
+      Token && formData?.id && userDetails?.id
+        ? `${likeMeTarget()}userId=${formData.id}&targetId=${userDetails.id}`
+        : null,
+    Token,
   });
   const [lastActive, setLastActive] = useState("");
 
   useEffect(() => {
     const calculateLastActive = () => {
       const now = new Date();
-      const lastModified = userDetails?.lastLogin ? new Date(userDetails.lastLogin) : new Date();
+      const lastModified = userDetails?.lastLogin
+        ? new Date(userDetails.lastLogin)
+        : new Date();
       const diffInMilliseconds = now - lastModified;
       const diffInMinutes = Math.floor(diffInMilliseconds / (1000 * 60));
       const diffInHours = Math.floor(diffInMinutes / 60);
@@ -38,43 +41,62 @@ export default function Card({ userDetails, isLogedIn, formData, Token }) {
       const diffInMonths = Math.floor(diffInDays / 30);
 
       if (diffInMinutes < 1) {
-        return i18n.language === 'ar' ? "متواجد" : "Online";
+        return i18n.language === "ar" ? "متواجد" : "Online";
       } else if (diffInMinutes < 60) {
-        return i18n.language === 'ar' 
-        ? (diffInMinutes === 1 ? "دقيقية" : (diffInMinutes === 2 ? "دقيقتان" : diffInMinutes + " دقيقة"))
-        : `${diffInMinutes} ${diffInMinutes === 1 ? "min" : "mins"}`;
+        return i18n.language === "ar"
+          ? diffInMinutes === 1
+            ? "دقيقية"
+            : diffInMinutes === 2
+            ? "دقيقتان"
+            : diffInMinutes + " دقيقة"
+          : `${diffInMinutes} ${diffInMinutes === 1 ? "min" : "mins"}`;
       } else if (diffInHours < 24) {
-        return i18n.language === 'ar' 
-        ? (diffInHours === 1 ? "ساعة" : (diffInHours === 2 ? "ساعتان" : diffInHours + " ساعات"))
-        : `${diffInHours} ${diffInHours === 1 ? "hour" : "hours"}`;
+        return i18n.language === "ar"
+          ? diffInHours === 1
+            ? "ساعة"
+            : diffInHours === 2
+            ? "ساعتان"
+            : diffInHours + " ساعات"
+          : `${diffInHours} ${diffInHours === 1 ? "hour" : "hours"}`;
       } else if (diffInDays < 7) {
-        return i18n.language === 'ar' 
-        ? (diffInDays === 1 ? "يوم" : (diffInDays === 2 ? "يومان" : diffInDays + " ايام"))
-        : `${diffInDays} ${diffInDays === 1 ? "day" : "days"}`;
+        return i18n.language === "ar"
+          ? diffInDays === 1
+            ? "يوم"
+            : diffInDays === 2
+            ? "يومان"
+            : diffInDays + " ايام"
+          : `${diffInDays} ${diffInDays === 1 ? "day" : "days"}`;
       } else if (diffInWeeks < 4) {
-        return i18n.language === 'ar' 
-        ? (diffInWeeks === 1 ? "اسبوع" : (diffInWeeks === 2 ? "اسبوعان" : diffInWeeks + " اسابيع"))
-        : `${diffInWeeks} ${diffInWeeks === 1 ? "week" : "weeks"}`;
+        return i18n.language === "ar"
+          ? diffInWeeks === 1
+            ? "اسبوع"
+            : diffInWeeks === 2
+            ? "اسبوعان"
+            : diffInWeeks + " اسابيع"
+          : `${diffInWeeks} ${diffInWeeks === 1 ? "week" : "weeks"}`;
       } else {
-        return i18n.language === 'ar' 
-        ? (diffInMonths === 1 ? "شهر" : (diffInMonths === 2 ? "شهران" : diffInMonths + " شهور"))
-        : `${diffInMonths} ${diffInMonths === 1 ? "month" : "months"}`;
+        return i18n.language === "ar"
+          ? diffInMonths === 1
+            ? "شهر"
+            : diffInMonths === 2
+            ? "شهران"
+            : diffInMonths + " شهور"
+          : `${diffInMonths} ${diffInMonths === 1 ? "month" : "months"}`;
       }
     };
-    
+
     setLastActive(calculateLastActive());
   }, [userDetails?.lastLogin, i18n.language]);
-  
+
   const [percentage, setPercentage] = useState(data);
   const [loadingPer, setLoadingPer] = useState(perLoading);
-  
+
   useEffect(() => {
     if (isLogedIn && data) {
       setPercentage(data);
       setLoadingPer(false);
     }
   }, [data, isLogedIn, Token]);
-  
 
   // useEffect(() => {
   //   console.log(percentage);
@@ -154,7 +176,15 @@ export default function Card({ userDetails, isLogedIn, formData, Token }) {
             </span>
           </div>
 
-          <Link to={`userprofile/${userDetails?.id}`} aria-label={isRTL ? `الملف الشخصي الخاص بالمستخدم ${userDetails?.firstName}` : `User ${userDetails?.firstName} profile`} className="flex flex-col items-center gap-4">
+          <Link
+            to={`userprofile/${userDetails?.id}`}
+            aria-label={
+              isRTL
+                ? `الملف الشخصي الخاص بالمستخدم ${userDetails?.firstName}`
+                : `User ${userDetails?.firstName} profile`
+            }
+            className="flex flex-col items-center gap-4"
+          >
             <div className="min-h-[130px]">
               <img
                 src={
@@ -205,12 +235,15 @@ export default function Card({ userDetails, isLogedIn, formData, Token }) {
               <p className="text-md font-semibold text-Black">
                 {i18n.language === "ar" ? "الوصف الشخصي:" : "About me:"}
               </p>
-              <p className={`text-base text-Black/80 overflow-hidden line-clamp-3 ${
-                containsLongWord(userDetails?.selfDescription)
-                  ? "break-all hyphenated"
-                  : ""
-              }`}>
-                {userDetails?.selfDescription || (isRTL ? "عند التعارف" : "After Messaging")}
+              <p
+                className={`text-base text-Black/80 overflow-hidden line-clamp-3 ${
+                  containsLongWord(userDetails?.selfDescription)
+                    ? "break-all hyphenated"
+                    : ""
+                }`}
+              >
+                {userDetails?.selfDescription ||
+                  (isRTL ? "عند التعارف" : "After Messaging")}
               </p>
             </div>
           </Link>
