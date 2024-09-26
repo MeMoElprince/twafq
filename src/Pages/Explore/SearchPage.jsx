@@ -1,6 +1,5 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import Card from './Components/Card';
-import Spinner from '../../Components/Ui-Components/Spinner'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useLayoutDirection } from '../../Store/Context/LayoutDirectionContext'
 import {useTranslation} from "react-i18next"
@@ -8,12 +7,14 @@ import Countires from "../SignUp/Components/Countires.json"
 import Styles from './Styling.module.css'
 import { Link } from 'react-router-dom';
 import { TbHeartSearch } from "react-icons/tb";
+import { AuthenticationContext } from '../../Store/Context/Authentication';
 
 
-export default function SearchPage({ usersUrl, setUsersUrl, loadingUsers, setLoadingUsers, usersS, setUsersS, page }) {
-  const { isRTL, setIsRTL } = useLayoutDirection();
+export default function SearchPage({ loadingUsers, usersS, page, totalPages }) {
+  const { isRTL } = useLayoutDirection();
 	const { t, i18n } = useTranslation("global");
   const queryParams = new URLSearchParams(location.search);
+  const {formData} = useContext(AuthenticationContext)
 
   // console.log(usersS);
   
@@ -23,12 +24,12 @@ export default function SearchPage({ usersUrl, setUsersUrl, loadingUsers, setLoa
   return (
     <div className={`z[5] min-h-screen flex flex-col justify-center items-center md:justify-between gap-y-20 mainPadding mt-[20vh] mb-[20vh]`}>
       <div className={`${Styles.exactForm} bg-LighterPink/50 border-2 border-Black/20 shadow-xl rounded-2xl w-full px-8 sm:px-12 py-8 sm:py-12 z-10`}>
-        <Fillters usersUrl={usersUrl} setUsersUrl={setUsersUrl} loadingUsers={loadingUsers} setLoadingUsers={setLoadingUsers} usersS={usersS} setUsersS={setUsersS} isRTL={isRTL} i18n={i18n} t={t} />
+        <Fillters totalPages={totalPages} isRTL={isRTL} i18n={i18n} t={t} />
       </div>
       <div className='gap-12 flex flex-grow w-full flex-wrap justify-center items-center px-[5%]'>
         {
           !loadingUsers && usersS && usersS?.length > 0 && usersS?.map((el, index) => (
-              <Card userDetailsReceived={el} key={index}/>
+              (el.id !== formData.id && <Card userDetailsReceived={el} key={index}/>)
           ))
         }
         {
@@ -46,7 +47,7 @@ export default function SearchPage({ usersUrl, setUsersUrl, loadingUsers, setLoa
         }
       </div>
       <ul className="myFont flex mx-auto border-2 border-Black rounded w-max mt-4 bg-LighterPink/60">
-        <Link to={`/Explore/${Math.max(0, (+page - 1))}?${queryParams.toString()}`}>
+        <Link to={`/explore/${Math.max(0, (+page - 1))}?${queryParams.toString()}`} className={`${+page - 1 <= -1 && "pointer-events-none opacity-50"}`}>
           <li
             className={`px-5 py-2.5 flex items-center justify-center shrink-0 cursor-pointer text-base ${i18n.language === 'ar' && "border-l-2 border-Black"} font-semibold text-Black min-w-[110px] hover:bg-DarkPink/40 transition-all duration-200 hover:px-7`}>
             <svg xmlns="http://www.w3.org/2000/svg" className={`w-3 fill-current ${i18n.language === 'ar' ? "ml-3 scale-x-[-1]" : "mr-3"}`} viewBox="0 0 55.753 55.753">
@@ -57,7 +58,7 @@ export default function SearchPage({ usersUrl, setUsersUrl, loadingUsers, setLoa
             {i18n.language === 'ar' ? "السابق" : "Previous"}
           </li>
         </Link>
-        <Link to={`/Explore/${+page+1}?${queryParams.toString()}`}>
+        <Link to={`/explore/${Math.min(+page+1, 100)}?${queryParams.toString()}`} className={`${+page + 1 >= totalPages && ""}`}>
           <li
             className={`${i18n.language === 'en' && "border-l-2 border-Black"} px-5 py-2.5 flex items-center justify-center shrink-0 cursor-pointer text-base font-semibold text-Black min-w-[110px] hover:bg-DarkPink/40 transition-all duration-200 hover:px-7`}>
             {i18n.language === 'ar' ? "التالي" : "next"}
@@ -74,16 +75,16 @@ export default function SearchPage({ usersUrl, setUsersUrl, loadingUsers, setLoa
 }
 
 
-const Fillters = ({ usersUrl, setUsersUrl, formData, setFormData, loadingUsers, setLoadingUsers, usersS, setUsersS, isRTL, i18n, t }) => {
+const Fillters = ({ totalPages, isRTL, i18n, t }) => {
   const [selectedIdx, setSelectedIdx] = useState(0);
   const navigate = useNavigate();
-  const {page} = useParams();
   const queryParams = new URLSearchParams(location.search);
+  const {isLogedIn} = useContext(AuthenticationContext)
 
   const sortTypeLabels = [
+    ['عشوائي', 'Random'],
     ['اعلى نسبة توافق', 'Highest Compatibility'],
     ['اقل نسبة توافق', 'Lowest Compatibility'],
-    ['النشاط الاحدث', 'Most Recent Activity'],
     ['الاصغر في السن', 'Youngest'],
     ['الاكبر في السن', 'Oldest'],
   ];
@@ -117,9 +118,30 @@ const Fillters = ({ usersUrl, setUsersUrl, formData, setFormData, loadingUsers, 
   
   
   function handleSearch() {
+    searchParams.sort = sortTypeLabels[selectedIdx][1];
     const queryString = new URLSearchParams(searchParams).toString();
-    navigate(`/Explore/${0}?${queryString}`);
+    navigate(`/explore/${0}?${queryString}`);
   }
+
+  useEffect(() => {
+    const holder = searchParams.sort;
+    // console.log(holder);
+    if(!holder || holder === sortTypeLabels[0][1])
+        setSelectedIdx(0);
+    else if(holder === sortTypeLabels[1][1] && isLogedIn)
+        setSelectedIdx(1);
+    else if(holder === sortTypeLabels[2][1] && isLogedIn)
+        setSelectedIdx(2);
+    else if(holder === sortTypeLabels[3][1])
+        setSelectedIdx(3);
+    else if(holder === sortTypeLabels[4][1])
+        setSelectedIdx(4);
+    else{
+      setSelectedIdx(0);
+      searchParams.sort = sortTypeLabels[0][1]
+      handleSearch()
+    }
+  }, [])
 
   return (
     <div className='relative myFont'>
@@ -465,7 +487,7 @@ const Fillters = ({ usersUrl, setUsersUrl, formData, setFormData, loadingUsers, 
       <h1 className='text-3xl font-medium'>{i18n.language === 'ar' ? "ترتيب حسب" : "Sort By"}</h1>
       <div className='my-5 flex flex-wrap gap-5'>
         {sortTypeLabels.map((element, idx) => (
-          <button key={idx} onClick={() => { setSelectedIdx(idx); searchParams.sort = sortTypeLabels[idx]; }} className={`rounded-full border-2 border-Black text-Black text-lg py-3 px-6 w-max ${selectedIdx === idx ? "bg-Black text-White" : ""}`}>
+          <button key={idx} aria-label='sort type' onClick={() => { setSelectedIdx(idx);}} className={`rounded-full border-2 border-Black text-Black text-lg py-3 px-6 w-max ${selectedIdx === idx ? "bg-Black text-White" : ""} ${!isLogedIn && (idx === 1 || idx === 2) && "pointer-events-none opacity-50"}`}>
             {i18n.language === 'ar' ? element[0] : element[1]}
           </button>
         ))}
@@ -481,7 +503,7 @@ const Fillters = ({ usersUrl, setUsersUrl, formData, setFormData, loadingUsers, 
 
 const LoadingSpinner = () => {
   return (
-    <div className="bg-white p-6 select-none relative min-h-[400px] border border-Black/20 w-[290px] rounded-2xl myFont overflow-hidden mx-auto mt-4 animate-pulse center">
+    <div className="bg-white p-6 select-none relative min-h-[400px] border border-Black/20 max-w-[400px] w-[100%] md:w-[50%] md4:w-[35%] lg:w-[30%] rounded-2xl myFont overflow-hidden  mt-4 animate-pulse center">
       <svg aria-hidden="true" className="w-8 h-8 text-gray-200 animate-spin fill-DarkPink" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
         <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>

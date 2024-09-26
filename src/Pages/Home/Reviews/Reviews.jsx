@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from "react";
 import {
-  Button,
   Typography,
 } from "@material-tailwind/react";
 import { useLayoutDirection } from '../../../Store/Context/LayoutDirectionContext'
@@ -44,10 +43,12 @@ export default function Reviews() {
     }
   }, [usedReviews, setUsedReviews]);
 
+  if(usedReviews.length === 0)
+      return;
+
 
   return (
     <div className="relative w-full px-[7.5%] h-full flex flex-col gap-2 py-16 bg-[#eaeaea]">
-        
         <div className="flex w-full gap-5 flex-wrap z-10">
             <Typography
                 variant="h3"
@@ -55,11 +56,6 @@ export default function Reviews() {
             >
                 {i18n.language === 'ar' ? "آراء الأعضاء" : "Users reviews"}
             </Typography>
-            <Button 
-                className={`shadow-none text-Black bg-none border-x-2 rounded-full border-Black  py- px-4 text-base hover:text-DarkPink hover:border-DarkPink`}
-            >
-                {i18n.language === 'ar' ? "عرض الكل" : "View all"}
-            </Button>
         </div>
         
         {

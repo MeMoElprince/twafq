@@ -9,6 +9,7 @@ const updateInfoURL = () => (`${APIURL}api/profile?`)
 const updateMyData = () => (`${APIURL}api/v1/users/updateMe`);
 const changeMyPassword = () => (`${APIURL}api/v1/users/change-password`);
 const VerifyOTP = () => (`${APIURL}api/v1/users/verify`);
+const contactUsURL = () => (`${APIURL}api/user/contactus?`);
 const ForgetPassword = () => (`${APIURL}api/forgotpassword?`);
 const ResetPassword = () => (`${APIURL}api/resetpassword?`);
 const likeMeTarget = () => (`${APIURL}api/user/likeme/target?`);
@@ -50,6 +51,7 @@ export {
   getUserProfile,
   updateMyData,
   changeMyPassword,
+  contactUsURL,
   getUsers,
   getSingleItem,
   addItemToCart,

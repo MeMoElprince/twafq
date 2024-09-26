@@ -91,6 +91,7 @@ export default function index() {
                 ? "هل تحتاج إلى استشارة أسرية أو دعم في قرارات حياتك الأسرية؟ تواصل معنا الآن."
                 : "Need family counseling or support in your family decisions? Reach out to us now."
             }
+            intent="consultant"
         />
       </div>
     </div>

@@ -7,12 +7,12 @@ export default async function Fetch({ url, setData, setLoading, setErrorMessage,
     const response = await fetch(url, {
       method,
       headers,
-      body: modifiedBody
+      body: modifiedBody,
     })
 
-    // console.log(response)
+    console.log(response)
     const string = await response.text();
-    // console.log(string);
+    console.log(string);
     const data = string === "" ? {} : JSON.parse(string);
 
     if (!response.ok) {

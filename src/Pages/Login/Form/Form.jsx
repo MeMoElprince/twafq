@@ -80,13 +80,13 @@ export default function Form() {
 
 	useEffect(() => {
 		if (isLogedIn) {
-			Navigate('/')
+			Navigate("/", { replace: true });
 		}
 	}, [])
 
 	useEffect(() => {
 		if (isLogedIn) {
-			Navigate('/')
+			Navigate("/", { replace: true });
 		}
 	}, [isLogedIn])
 

@@ -48,21 +48,21 @@ export default function Profile() {
   const [isFavorite, setIsFavorite] = useState(formData?.favoriteUsers?.includes(dataA?.id) || false);
 
   useEffect(() => {
-    if (data) {
-        setDataA(data);
-        if (formData?.favoriteUsers && data.id) {
-            setIsFavorite(formData.favoriteUsers.includes(data.id));
-        }
-        setLoadingData(false);
-    }
-}, [data, formData]);
+      if (data) {
+          setDataA(data);
+          if (formData?.favoriteUsers && data.id) {
+              setIsFavorite(formData.favoriteUsers.includes(data.id));
+          }
+          setLoadingData(false);
+      }
+  }, [data, formData]);
 
 
   
 
-  useEffect(() => {
-    console.log(isFavorite);
-  }, [isFavorite])
+  // useEffect(() => {
+  //   console.log(isFavorite);
+  // }, [isFavorite])
 
   const [loadingFavo, setLoadingFavo] = useState(false);
 
@@ -83,7 +83,7 @@ export default function Profile() {
   }
 
   if(formData?.id === dataA?.id){
-    navigate("/");
+    navigate("/", { replace: true });
     window.location.reload();
   }
 

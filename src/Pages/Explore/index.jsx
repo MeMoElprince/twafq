@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import SearchPage from "./SearchPage";
 import useFetch from "../../Components/CustomHooks/useFetch";
 import { getUsers } from "../../Store/urls";
@@ -6,37 +6,42 @@ import { useParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import { AuthenticationContext } from "../../Store/Context/Authentication";
 
 export default function Explore() {
-  const { t, i18n } = useTranslation("global");
+  const { Token, formData } = useContext(AuthenticationContext)
+  const { i18n } = useTranslation("global");
   const { page } = useParams();
-  const [usersUrl, setUsersUrl] = useState(getUsers());
   const [errorMessage, setErrorMessage] = useState('');
+  const [totalPages, setTotalPages] = useState(0);
   const navigate = useNavigate();
   const queryParams = new URLSearchParams(location.search);
-  const sortTypeLabels = [
-    ['اعلى نسبة توافق', 'Highest Compatibility'],
-    ['النشاط الاحدث', 'Most Recent Activity'],
-    ['الاصغر في السن', 'Youngest'],
-    ['الاكبر في السن', 'Oldest'],
-  ]; 
+  let mp = new Map();
+  mp.set('Random', '');
+  mp.set('Highest Compatibility', 'likeme=desc');
+  mp.set('Lowest Compatibility', 'likeme=asc');
+  mp.set('Youngest', 'age=asc');
+  mp.set('Oldest', 'age=desc');
+  // const addId = formData?.id ? `?userId=${formData?.id}` : ``;
   const [retFormData, setRetFormData] = useState(
     {
       ...Object.fromEntries(
         [...queryParams].map(([key, value]) => [key, [value]])
       ),
-      page: +page || 0,
-      size: 5,
+      page: +page > 0 ? (+page || 0) : 0,
+      size: 10,
     }
   );
-  let ageParam = retFormData?.age ? `?age=${retFormData.age[0]}` : '';
-  let likemeParam = retFormData?.likeme ? `?likeme=${retFormData.likeme[0]}` : '';
+
   const { retData: users, loading: usersLoading } = useFetch({
-    url: `${getUsers()}${ageParam}${likemeParam}`,
+    url: `${getUsers()}${retFormData?.sort ? `?${mp.get(retFormData?.sort[0])}` : ""}`,
     method: 'POST',
     setErrorMessage,
-    body: retFormData
+    setTotalPages,
+    body: retFormData,
+    Token
   });
+  
   const [usersS, setUsersS] = useState(users);
   const [loadingUsers, setLoadingUsers] = useState(usersLoading);
 
@@ -45,16 +50,17 @@ export default function Explore() {
   // }, [usersS])
 
   useEffect(() => {
-    if (users) {
-      setUsersS(users);
-      setLoadingUsers(false);
-    }
-  }, [users]);
+  if (users) {
+    setUsersS(users.filter(user => user.id !== formData.id));
+    setLoadingUsers(false);
+  }
+}, [users, formData.id]);
+
 
 
   useEffect(() => {
-    if (usersS?.length === 0) {
-      navigate(`/Explore/${0}?${queryParams.toString()}`);
+    if (page < 0 || usersS?.length === 0) {
+      navigate(`/explore/${0}?${queryParams.toString()}`, {replace: true});
     }
   }, [usersS]);
 
@@ -62,7 +68,7 @@ export default function Explore() {
     
     setLoadingUsers(true);
 
-    setRetFormData(prevData => {
+    setRetFormData(() => {
       const updatedParams = Object.fromEntries(
         [...queryParams].map(([key, value]) => [
           key,
@@ -71,8 +77,8 @@ export default function Explore() {
       );
       return {
         ...updatedParams,
-        page: +page || 0,
-        size: 5,
+        page: +page > 0 ? (+page || 0) : 0,
+        size: 10,
       };
     });
 
@@ -99,12 +105,11 @@ export default function Explore() {
       </Helmet>
       <SearchPage
         page={page}
-        setUsersUrl={setUsersUrl}
-        usersUrl={usersUrl}
         loadingUsers={loadingUsers}
         setLoadingUsers={setLoadingUsers}
         usersS={usersS}
         setUsersS={setUsersS}
+        totalPages={totalPages}
       />
     </div>
   );

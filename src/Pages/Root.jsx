@@ -11,7 +11,7 @@ import RateUs from "../Components/RateUs/RateUs"
 import { useLayoutDirection } from "../Store/Context/LayoutDirectionContext"
 import Requests from "../Components/Requests/Requests"
 import ReceivedRequests from "../Components/ReceivedRequests/ReceivedRequests"
-import AccepetedRequests from "../Components/AccepetedRequests.jsx/AccepetedRequests"
+import Favorites from "../Components/Favorites/Favorites"
 
 export default function Root() {
   const { isRTL } = useLayoutDirection();
@@ -75,7 +75,7 @@ export default function Root() {
         </div>
       </div>
       {
-        popActive && 
+        !popActive && 
         (
           <div className="absolute w-full h-screen top-0 left-0">
             {/* <Requests
@@ -86,9 +86,9 @@ export default function Root() {
               title={i18n.language === 'ar' ? "الطلبات المرسلة إليك" : "Requests sent to you"} 
               subTitle={i18n.language === 'ar' ? "سيحذف خلال يوم" : "Deleting within a day"} 
             /> */}
-            {/* <AccepetedRequests
-              title={i18n.language === 'ar' ? "الطلبات المقبولة" : "Accepted Requests"} 
-            /> */}
+            <Favorites
+              title={isRTL ? "قائمة المفضلة" : "Favorites"} 
+            />
           </div>
         )
       }

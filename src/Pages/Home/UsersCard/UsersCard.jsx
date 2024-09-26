@@ -127,7 +127,7 @@ export default function UsersCardRatio() {
                 {
                   usedCards && Array.isArray(usedCards) &&
                   usedCards.slice(0, 10).map((el, index) => {
-                    if(formData.id != el.id){
+                    if(formData.id !== el.id){
                       return (
                         <SwiperSlide key={index} className="h-[530px]  flex justify-center">
                             <Card userDetails={el} isLogedIn={isLogedIn} Token={Token} formData={formData} />
@@ -188,7 +188,7 @@ export default function UsersCardRatio() {
                 {
                   usedCards && Array.isArray(usedCards) &&
                   usedCards.slice(0, 10).map((el, index) => {
-                    if(formData.id != el.id){
+                    if(formData.id !== el.id){
                       return (
                         <SwiperSlide key={index} className="h-[530px]  flex justify-center">
                             <Card userDetails={el} isLogedIn={isLogedIn} Token={Token} formData={formData} />

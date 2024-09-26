@@ -109,7 +109,11 @@ export default function SingleBlog() {
             <div className="py-8">
                 <h1 className="text-2xl sm2:text-4xl font-bold text-center mb-3 text-Black">{blogG?.title}</h1>
                 <p className="text-gray-500 text-sm">
-                    <time dateTime="2022-04-05">
+                    <time dateTime={new Date(blogG?.date).toLocaleDateString('en-GB', {
+                            day: '2-digit',
+                            month: '2-digit',
+                            year: 'numeric'
+                        })}>
                         {new Date(blogG?.date).toLocaleDateString('en-GB', {
                             day: '2-digit',
                             month: '2-digit',
@@ -119,7 +123,7 @@ export default function SingleBlog() {
                 </p>
             </div>
 
-            <img src={blogG?.image} loading='lazy' alt="Blog Image" className="w-full h-auto mb-8" />
+            <img src={blogG?.image} loading='lazy' alt={blogG?.title} className="w-full h-auto mb-8" />
 
 
             {
