@@ -15,11 +15,13 @@ import ColorTest from './Steps/ColorTest'
 import { useLayoutDirection } from '../../../Store/Context/LayoutDirectionContext'
 import Swal from 'sweetalert2'
 import { handleLoginInfo, handlePersonalInfo, handleNationality, handleReligion, handleFamilyStatus, handleEducation } from '../Components/ErrorHandling'
+import { useTranslation } from 'react-i18next'
 
 
 
 export default function Form() {
 	const { isLogedIn} = useContext(AuthenticationContext)
+	const {i18n} = useTranslation("global")
 	const { isRTL } = useLayoutDirection();
 	const [step, setStep] = useState(0)
 	const [loading, setLoading] = useState(false)
@@ -130,7 +132,7 @@ export default function Form() {
 			colorAnswers: ansHolder,
 			// username: formData.firstName + formData.lastName
 		}
-		console.log(RET);
+		// console.log(RET);
 		setErrorMessage([]);
 		Fetch({ url: SignupUrl(), setLoading, setData, setErrorMessage, method: 'POST', body: RET })
 	}

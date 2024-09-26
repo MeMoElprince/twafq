@@ -4,20 +4,20 @@ import { useTranslation } from 'react-i18next'
 import { AuthenticationContext } from "../../Store/Context/Authentication";
 import { Link } from "react-router-dom";
 
-export default function Favorites({ title, setPopType, setPopActive }) {
+export default function ContactWith({ title, setPopType, setPopActive }) {
   const {i18n } = useTranslation("global");
   const {formData, isLogedIn, Token} = useContext(AuthenticationContext)
-  const [currFavoList, setCurrFavoList] = useState([])
+  const [currContactList, setCurrContactList] = useState([])
   
   if(!formData || !isLogedIn)
     return null;
-  // console.log(formData.favoriteUsers)
+  // console.log(formData.usersContactWith)
 
   useEffect(() => {
     if(formData){
-      setCurrFavoList(formData?.favoriteUsers || []);
+      setCurrContactList(formData?.usersContactWith || []);
     }
-  }, [formData, formData?.favoriteUsers])
+  }, [formData, formData?.usersContactWith])
 
 
   // useEffect(() => {
@@ -59,15 +59,14 @@ export default function Favorites({ title, setPopType, setPopActive }) {
           <div className="mt-4">
             <div className="flex max-h-[400px] w-full flex-col overflow-y-scroll px-2 gap-5">
 
-            {currFavoList && currFavoList.length > 0 && currFavoList.map((id, index) => (
+            {currContactList && currContactList.length > 0 && currContactList.map((id, index) => (
                 <Card id={id} formData={formData} setPopActive={setPopActive} setPopType={setPopType} isLogedIn={isLogedIn} Token={Token} key={index} />
             ))}
             {
-              currFavoList.length <= 0 && (
+              currContactList.length <= 0 && (
                 <p className="w-full center h-[300px]">{i18n.language === 'ar' ? "لا يوجد اعضاء" : "There is no users"}</p>
               )
             }
-
             </div>
           </div>
         </div>

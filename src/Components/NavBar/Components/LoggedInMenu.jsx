@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useLayoutDirection } from "../../../Store/Context/LayoutDirectionContext";
 import { Link } from "react-router-dom";
 
-export default function LoggedInMenu({ handleLogout, upper }) {
+export default function LoggedInMenu({ handleLogout, upper, setIsOpen, setPopType, setPopActive }) {
   const { isRTL } = useLayoutDirection();
   const [isActive, setIsActive] = useState(false);
   const menuRef = useRef(null);
@@ -18,6 +18,16 @@ export default function LoggedInMenu({ handleLogout, upper }) {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [menuRef]);
+
+  function handlePop({ label }){
+    // console.log(label)
+    setPopActive(prev => !prev);
+    setPopType(prev => {
+      return prev === '' ? label : '';
+    })
+    setIsActive(false)
+    setIsOpen(prevOpen => !prevOpen);
+  }
 
   return (
     <div
@@ -51,13 +61,23 @@ export default function LoggedInMenu({ handleLogout, upper }) {
       {isActive && (
         <div className={`bg-gray-700 absolute ${upper ? "bottom-[100%] mb-2" : "top-[100%] mt-2"} divide-y divide-gray-600 rounded-lg shadow w-44`}>
           <ul
-            className="py-2 text-sm text-White"
+            className="py-2 text-sm text-White w-full"
             aria-labelledby="dropdownDividerButton"
           >
-            <li>
-              <Link to="/myProfile" onClick={() => setIsActive(prev => !prev)} aria-label={isRTL ? "الملف الشخصي" : "My profile"} className="block px-4 py-2 hover:bg-gray-600 text-center">
+            <li className="center w-full">
+              <Link to="/myProfile" onClick={() => {setIsActive(prev => !prev); setIsOpen(prevOpen => !prevOpen);}} aria-label={isRTL ? "الملف الشخصي" : "My profile"} className="block px-4 py-2 w-full hover:bg-gray-600 text-center">
                 {isRTL ? "الملف الشخصي" : "My profile"}
               </Link>
+            </li>
+            <li className="center w-full">
+              <button onClick={() => handlePop({label : 'Favorites'})} aria-label={isRTL ? "قائمة المفضلة" : "Favorites"} className="block px-4 py-2 w-full hover:bg-gray-600 text-center">
+                {isRTL ? "قائمة المفضلة" : "Favorites"}
+              </button>
+            </li>
+            <li className="center w-full">
+              <button onClick={() => handlePop({label : 'ContactWith'})} aria-label={isRTL ? "قائمة التواصل" : "Contact List"} className="block px-4 py-2 w-full hover:bg-gray-600 text-center">
+                {isRTL ? "قائمة التواصل" : "Contact List"}
+              </button>
             </li>
             
           </ul>

@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthenticationContext } from "../../Store/Context/Authentication";
 
 export default function Explore() {
-  const { Token, formData } = useContext(AuthenticationContext)
+  const { Token, formData, isLogedIn } = useContext(AuthenticationContext)
   const { i18n } = useTranslation("global");
   const { page } = useParams();
   const [errorMessage, setErrorMessage] = useState('');
@@ -29,18 +29,21 @@ export default function Explore() {
         [...queryParams].map(([key, value]) => [key, [value]])
       ),
       page: +page > 0 ? (+page || 0) : 0,
-      size: 10,
+      size: 6,
+      userId: formData?.id || ''
     }
   );
 
   const { retData: users, loading: usersLoading } = useFetch({
-    url: `${getUsers()}${retFormData?.sort ? `?${mp.get(retFormData?.sort[0])}` : ""}`,
+    url: `${getUsers()}${retFormData?.sort ? (isLogedIn && Token && `?${mp.get(retFormData?.sort[0])}`) : ""}`,
     method: 'POST',
     setErrorMessage,
     setTotalPages,
     body: retFormData,
     Token
   });
+
+  // console.log(totalPages)
   
   const [usersS, setUsersS] = useState(users);
   const [loadingUsers, setLoadingUsers] = useState(usersLoading);
@@ -51,7 +54,7 @@ export default function Explore() {
 
   useEffect(() => {
   if (users) {
-    setUsersS(users.filter(user => user.id !== formData.id));
+    setUsersS(users.filter(el => el.id !== formData?.id));
     setLoadingUsers(false);
   }
 }, [users, formData.id]);
@@ -78,13 +81,14 @@ export default function Explore() {
       return {
         ...updatedParams,
         page: +page > 0 ? (+page || 0) : 0,
-        size: 10,
+        size: 6,
+        userId: formData?.id || ''
       };
     });
 
-    console.log(retFormData);
+    // console.log(retFormData);
     
-  }, [page, queryParams.toString()]);
+  }, [page, queryParams.toString(), formData]);
 
   useEffect(() => {
     window.scrollTo(0, 0);

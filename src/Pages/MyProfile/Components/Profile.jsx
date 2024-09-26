@@ -43,7 +43,7 @@ export default function Profile({ profileDetails }) {
         return i18n.language === 'ar' ? "متواجد" : "Online";
       } else if (diffInMinutes < 60) {
         return i18n.language === 'ar' 
-        ? (diffInMinutes === 1 ? "دقيقية" : (diffInMinutes === 2 ? "دقيقتان" : diffInMinutes + " دقيقة"))
+        ? (diffInMinutes === 1 ? "دقيقية" : (diffInMinutes === 2 ? "دقيقتان" : diffInMinutes + " دقائق"))
         : `${diffInMinutes} ${diffInMinutes === 1 ? "min" : "mins"}`;
       } else if (diffInHours < 24) {
         return i18n.language === 'ar' 

@@ -60,7 +60,7 @@ export default function UsersCardRatio() {
             >
                 {i18n.language === 'ar' ? "الاعضاء الاكثر توافقاً معك" : "Highest Compatibility"}
             </Typography>
-            <Link to={`explore/0`} aria-label={isRTL ? "عرض الكل" : "view all"}
+            <Link to={`/explore/0?sort=Highest+Compatibility`} aria-label={isRTL ? "عرض الكل" : "view all"}
                 className={`shadow-none text-Black bg-none border-x-2 rounded-full border-Black center px-4 text-base hover:text-DarkPink hover:border-DarkPink`}
             >
                 {i18n.language === 'ar' ? "عرض الكل" : "View all"}

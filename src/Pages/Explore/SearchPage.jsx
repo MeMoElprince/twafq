@@ -58,7 +58,7 @@ export default function SearchPage({ loadingUsers, usersS, page, totalPages }) {
             {i18n.language === 'ar' ? "السابق" : "Previous"}
           </li>
         </Link>
-        <Link to={`/explore/${Math.min(+page+1, 100)}?${queryParams.toString()}`} className={`${+page + 1 >= totalPages && ""}`}>
+        <Link to={`/explore/${Math.min(+page+1, +totalPages)}?${queryParams.toString()}`} className={`${+page + 1 > +totalPages && "pointer-events-none opacity-50"}`}>
           <li
             className={`${i18n.language === 'en' && "border-l-2 border-Black"} px-5 py-2.5 flex items-center justify-center shrink-0 cursor-pointer text-base font-semibold text-Black min-w-[110px] hover:bg-DarkPink/40 transition-all duration-200 hover:px-7`}>
             {i18n.language === 'ar' ? "التالي" : "next"}

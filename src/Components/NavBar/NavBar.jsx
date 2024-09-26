@@ -9,7 +9,7 @@ import { AuthenticationContext } from '../../Store/Context/Authentication';
 import Swal from 'sweetalert2';
 import LoggedInMenu from './Components/LoggedInMenu';
 
-const Navbar = () => {
+const Navbar = ({setPopType, setPopActive}) => {
   const {isLogedIn, setIsLogedIn} = useContext(AuthenticationContext);
   const [isOpen, setIsOpen] = useState(false);
   const { t, i18n } = useTranslation("global");
@@ -70,7 +70,7 @@ const Navbar = () => {
           }
           {
             isLogedIn &&
-              <div className={`${isRTL ? "mr-auto" : "ml-auto"} hidden md4:block`}><LoggedInMenu upper={false} handleLogout={handleLogout}/></div>
+              <div className={`${isRTL ? "mr-auto" : "ml-auto"} hidden md4:block`}><LoggedInMenu setPopActive={setPopActive} setIsOpen={setIsOpen} setPopType={setPopType} upper={false} handleLogout={handleLogout}/></div>
           }
         </div>
         <button onClick={() => setIsRTL(!isRTL)} aria-label={isRTL ? "التحويل إلى الانجليزية" : "Switch to Arabic"} className={`absolute ${isRTL ? "md4:left-[2%] left-[7%]" : "md4:right-[2%] right-[7%]"} inline-flex items-center justify-center rounded-md text-Black hover:text-white focus:outline-none`}>
@@ -94,7 +94,7 @@ const Navbar = () => {
           }
           {
             isLogedIn &&
-              <div className='mt-8'><LoggedInMenu handleLogout={handleLogout} upper={true} /></div>
+              <div className='mt-8'><LoggedInMenu handleLogout={handleLogout} setIsOpen={setIsOpen} setPopActive={setPopActive} setPopType={setPopType} upper={true} /></div>
           }
         </div>
       )}

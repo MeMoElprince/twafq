@@ -95,18 +95,18 @@ export default function Card({ id, formData, isLogedIn, Token, setPopActive, set
         </div>
       </Link>
       <div className="center gap-3 max-w-sm w-full overflow-visible">
-          <a href={hasContact ? `tel:${dataA?.phone}` : `` } className="py-2.5 w-[240px] rounded-full text-sm font-medium text-DarkPink  border-2 border-DarkPink backdrop-blur-lg hover:bg-DarkPink/5 shadow-lg hover:w-[250px] transition-all duration-300">
-            <div className="center gap-4">
-              <p className="myFont tracking-wider">
-                  {hasContact && dataA?.phone}
-                  {!hasContact && (isRTL ? "طلب بيانات التواصل" : "Request contact info")}
-              </p>
-              <MdContactPhone
-                className={`text-DarkPink ${!isRTL && "scale-x-[-1]"}`}
-                size={20}
-              />
-            </div>
-          </a>
+            <a href={hasContact ? `tel:${dataA?.phone}` : `` } className="py-2.5 w-[240px] rounded-full text-sm font-medium text-DarkPink  border-2 border-DarkPink backdrop-blur-lg hover:bg-DarkPink/5 shadow-lg hover:w-[250px] transition-all duration-300">
+              <div className="center gap-4">
+                <p className="myFont tracking-wider">
+                    {hasContact && dataA?.phone}
+                    {!hasContact && (isRTL ? "طلب بيانات التواصل" : "Request contact info")}
+                </p>
+                <MdContactPhone
+                  className={`text-DarkPink ${!isRTL && "scale-x-[-1]"}`}
+                  size={20}
+                />
+              </div>
+            </a>
       </div>
     </div>
   );

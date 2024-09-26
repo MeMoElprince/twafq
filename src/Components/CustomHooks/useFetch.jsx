@@ -34,7 +34,7 @@ export default function useFetch({ url, setErrorMessage, setTotalPages, method =
           throw new Error(data.error || 'Something went wrong');
         }
         // console.log(data)
-        setRetData(data?.content || data);
+        setRetData((data?.content !== undefined && data?.content) || data);
 
         if(setTotalPages)
             setTotalPages(data.totalPages)

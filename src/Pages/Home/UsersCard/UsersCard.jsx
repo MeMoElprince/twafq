@@ -24,6 +24,9 @@ export default function UsersCardRatio() {
   //   console.log(usedCards);
   // }, [usedCards])
 
+  // console.log(formData.id)
+
+
   useEffect(() => {
     if (usedCards.length === 0) {
       const fetchCards = async () => {
@@ -35,7 +38,8 @@ export default function UsersCardRatio() {
             },
             body: JSON.stringify({
               page: 0,
-              size: 100000
+              size: 100000,
+              userId: formData?.id || ''
             })
           });
           const data = await response.json();
@@ -49,7 +53,7 @@ export default function UsersCardRatio() {
   
           const shuffledCards = shuffleArray(data.content || data);
 
-          console.log(response);
+          // console.log(data.content);
   
           setUsedCards(shuffledCards);
         } catch (error) {
@@ -58,7 +62,7 @@ export default function UsersCardRatio() {
       };
       fetchCards();
     }
-  }, [usedCards, setUsedCards]);
+  }, [formData]);
 
 
   if(!usedCards.length)

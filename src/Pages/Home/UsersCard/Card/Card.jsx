@@ -48,7 +48,7 @@ export default function Card({ userDetails, isLogedIn, formData, Token }) {
             ? "دقيقية"
             : diffInMinutes === 2
             ? "دقيقتان"
-            : diffInMinutes + " دقيقة"
+            : diffInMinutes + " دقائق"
           : `${diffInMinutes} ${diffInMinutes === 1 ? "min" : "mins"}`;
       } else if (diffInHours < 24) {
         return i18n.language === "ar"
@@ -143,7 +143,7 @@ export default function Card({ userDetails, isLogedIn, formData, Token }) {
                 <p className="text-md sm:text-lg font-medium text-Black">
                   {i18n.language === "ar"
                     ? "لحساب التوافق"
-                    : "To Calculate Compatibility"}
+                    : "to see compatibility"}
                 </p>
               </div>
             )}
