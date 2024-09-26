@@ -92,12 +92,14 @@ export default function Contact(props){
                     </div>
                 </div>
                 <div>
-                    <dt className="text-lg leading-6 font-medium text-Black">
-                        {title}
-                    </dt>
-                    <dd className="mt-2 text-base text-Black/75 font-medium">
-                        {text}
-                    </dd>
+                    <dl>
+                        <dt className="text-lg leading-6 font-medium text-Black">
+                            {title}
+                        </dt>
+                        <dd className="mt-2 text-base text-Black/75 font-medium">
+                            {text}
+                        </dd>
+                    </dl>
                 </div>
             </div>
         )
@@ -118,9 +120,9 @@ export default function Contact(props){
                         <GenerateIcon title = {i18n.language === 'ar' ? "رقم الهاتف" : "Phone Number"} text = "01284438883" Icon = {FaPhoneAlt} />
                         <GenerateIcon title = {i18n.language === 'ar' ? "البريد الإلكتروني" : "Email"} text = "email@gmail.com" Icon = {IoMdMail} />
                         <div className='flex flex-col gap-6 items-center'>
-                            <h3 className="text-2xl leading-6 font-semibold text-Black">
+                            <p className="text-2xl leading-6 font-semibold text-Black">
                                 {i18n.language === 'ar' ? "التواصل الاجتماعي" : "Socials"}
-                            </h3>
+                            </p>
                             <div className='flex gap-4'>
                                 <div className='w-[52px] h-[52px] items-center flex justify-center'>
                                     <RiInstagramFill className='text-gray-500 hover:text-DarkPink transition-all duration-200 size-[44px] hover:size-[48px]' />
@@ -158,7 +160,7 @@ export default function Contact(props){
                         <textarea required id='myMessage' rows="9" name='message' value={newFormData.message} onChange={handleChange}
                             className="border border-Black/15 w-full rounded-md px-4 bg-[#E1E1E1] text-Black text-sm py-3 outline-DarkPink resize-none"></textarea>
                     </div>
-                    <button className={`text-White bg-DarkPink hover:bg-[#e84762] tracking-wide rounded-md text-lg px-4 py-3 w-full !mt-6 ${!isLogedIn && "pointer-events-none opacity-50"}`}>
+                    <button className={`text-White bg-DarkPink hover:bg-[#e84762] tracking-wide font-medium rounded-md text-lg px-4 py-3 w-full !mt-6 ${!isLogedIn && "pointer-events-none opacity-70"}`}>
                         {isLogedIn && t("contact.submit")}
                         {!isLogedIn && (i18n.language === 'ar' ? "قم بتسجيل الدخول اولاً" : "Login first")}
                     </button>

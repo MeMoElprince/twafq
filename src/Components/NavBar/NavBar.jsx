@@ -65,7 +65,7 @@ const Navbar = ({setPopType, setPopActive}) => {
           {
             !isLogedIn && 
             <Link to="/login" onClick={handleChange} aria-label={t("navbar.login")} className={`hidden md4:block ${isRTL ? "mr-auto" : "ml-auto"} focus:outline-none`}>
-              <button className="bg-red-500 hover:bg-red-600/85 focus:outline-none transition-colors duration-150 text-White px-5 py-2 rounded-full text-base font-medium">{t("navbar.login")}</button>
+              <button className="bg-DarkPink hover:bg-red-600/85 focus:outline-none transition-colors duration-150 text-White px-5 py-2 rounded-full text-base font-medium">{t("navbar.login")}</button>
             </Link>
           }
           {
@@ -90,7 +90,7 @@ const Navbar = ({setPopType, setPopActive}) => {
           <Link to="/contact" onClick={handleChange} aria-label={t("navbar.contact")} className="text-Black hover:text-DarkPink transition-colors duration-150 block rounded-md text-base font-medium">{t("navbar.contact")}</Link>
           {
             !isLogedIn &&
-            <Link to="/login" onClick={handleChange} aria-label={t("navbar.login")} className="bg-red-500 text-white hover:text-Black transition-colors duration-150 block px-16 py-2 rounded-full text-center mt-6 text-base">{t("navbar.login")}</Link>
+            <Link to="/login" onClick={handleChange} aria-label={t("navbar.login")} className="bg-DarkPink text-white hover:text-Black transition-colors duration-150 block px-16 py-2 rounded-full text-center mt-6 text-base">{t("navbar.login")}</Link>
           }
           {
             isLogedIn &&

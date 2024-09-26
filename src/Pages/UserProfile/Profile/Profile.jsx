@@ -61,9 +61,6 @@ export default function Profile() {
     }
   }, [data, formData]);
 
-  // useEffect(() => {
-  //   console.log(formData);
-  // }, [formData])
 
   const [loadingFavo, setLoadingFavo] = useState(false);
 
@@ -80,13 +77,11 @@ export default function Profile() {
         Token,
       });
       if (isFavorite) {
-        // Remove from favorites
         handleFormDataChange({
           ...formData,
           favoriteUsers: formData.favoriteUsers.filter((el) => el !== dataA.id),
         });
       } else {
-        // Add to favorites
         handleFormDataChange({
           ...formData,
           favoriteUsers: [...formData.favoriteUsers, dataA.id],
