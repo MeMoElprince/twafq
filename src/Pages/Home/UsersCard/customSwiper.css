@@ -2,7 +2,9 @@
     background-color: #3e3e3e !important;
     width: 13px !important; 
     height: 13px !important; 
-    border-radius: 50% !important; 
+    border-radius: 50% !important;
+    margin-left: 6px !important;
+    margin-right: 6px !important;
 }
 
 

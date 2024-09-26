@@ -52,7 +52,7 @@ const Navbar = ({setPopType, setPopActive}) => {
       <div className="w-[98%] sm:px-6 lg:px-8 flex items-center justify-between h-20 center">
         <div className="center w-[90%]">
           <Link to="/" aria-label={isRTL ? "الصفحة الرئيسية" : "Home"}>
-            <img src={isRTL ? ArLogo : EnLogo} alt={"Logo"} className="h-20 w-20 focus:outline-none" />
+            <img src={isRTL ? ArLogo : EnLogo} alt={"Logo"} className="h-[80px] w-[55.27px] focus:outline-none" />
           </Link>
           <div className={`hidden md4:flex items-baseline gap-4 lg:gap-8 ${isRTL ? "mr-auto" : "ml-auto"}`}>
             <Link to="/" onClick={handleChange} aria-label={t("navbar.home")} className="text-Black focus:outline-none transition-colors duration-150 hover:text-DarkPink rounded-md text-base font-medium">{t("navbar.home")}</Link>

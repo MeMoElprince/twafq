@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /login
+Allow: /SignUp
+Allow: /Contact
+Allow: /Services
+Allow: /Blogs/:id
+Allow: /Explore/:page"
+Allow: /UserProfile/:id
+Allow: /MyProfile
