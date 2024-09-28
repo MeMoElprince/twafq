@@ -10,7 +10,7 @@ export default async function Fetch({ url, setData, setLoading, setErrorMessage,
       body: modifiedBody,
     })
 
-    // console.log(response)
+    console.log(response)
     const string = await response.text();
     // console.log(string);
     const data = string === "" ? {} : JSON.parse(string);

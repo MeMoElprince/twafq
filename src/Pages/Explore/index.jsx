@@ -26,16 +26,19 @@ export default function Explore() {
   const [retFormData, setRetFormData] = useState(
     {
       ...Object.fromEntries(
-        [...queryParams].map(([key, value]) => [key, [value]])
+        [...queryParams].map(([key, value]) => [
+          key,
+          (key === 'minAge' || key === 'maxAge') ? +value + 0 : [value]
+        ])
       ),
       page: +page > 0 ? (+page || 0) : 0,
       size: 6,
-      userId: formData?.id || ''
+      userId: formData?.id || '',
     }
   );
 
   const { retData: users, loading: usersLoading } = useFetch({
-    url: `${getUsers()}${retFormData?.sort ? (isLogedIn && Token && `?${mp.get(retFormData?.sort[0])}`) : ""}`,
+    url: `${getUsers()}${((retFormData?.sort && isLogedIn && Token && mp.get(retFormData?.sort[0]) !== '') ? (`?${mp.get(retFormData?.sort[0])}` || "") : "")}`,
     method: 'POST',
     setErrorMessage,
     setTotalPages,
@@ -75,7 +78,7 @@ export default function Explore() {
       const updatedParams = Object.fromEntries(
         [...queryParams].map(([key, value]) => [
           key,
-          (key === 'minAge' || key === 'maxAge') ? +value : [value]
+          (key === 'minAge' || key === 'maxAge') ? +value + 0 : [value]
         ])
       );
       return {

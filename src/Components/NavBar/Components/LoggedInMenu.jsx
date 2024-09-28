@@ -66,7 +66,7 @@ export default function LoggedInMenu({ handleLogout, upper, setIsOpen, setPopTyp
           >
             <li className="center w-full">
               <Link to="/myProfile" onClick={() => {setIsActive(prev => !prev); setIsOpen(prevOpen => !prevOpen);}} aria-label={isRTL ? "الملف الشخصي" : "My profile"} className="block px-4 py-2 w-full hover:bg-gray-600 text-center">
-                {isRTL ? "الملف الشخصي" : "My profile"}
+                {isRTL ? "الملف الشخصي" : "Profile"}
               </Link>
             </li>
             <li className="center w-full">

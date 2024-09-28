@@ -9,6 +9,8 @@ import useFetch from "../../CustomHooks/useFetch";
 import { getUserProfile } from "../../../Store/urls";
 import { Link } from "react-router-dom";
 import { likeMeTarget } from "../../../Store/urls";
+import Fetch from "../../CustomHooks/Fetch";
+import { getPhoneURL } from "../../../Store/urls";
 
 export default function Card({ id, formData, isLogedIn, Token, setPopActive, setPopType }) {
     const { isRTL } = useLayoutDirection();
@@ -18,6 +20,8 @@ export default function Card({ id, formData, isLogedIn, Token, setPopActive, set
       method: "GET",
     });
     const [dataA, setDataA] = useState(data);
+    const [phoneNumber, setPhoneNumber] = useState("");
+    const [phoneNumberHolder, setPhoneNumberHolder] = useState({});
     // console.log(id)
     const [loadingData, setLoadingData] = useState(dataLoading);
   
@@ -42,6 +46,23 @@ export default function Card({ id, formData, isLogedIn, Token, setPopActive, set
     // useEffect(() => {
     //   console.log(ratio)
     // }, [ratio])
+
+    useEffect(() => {
+      if(!hasContact && dataA?.id){
+        Fetch({
+          url: `${getPhoneURL()}${dataA?.id && `userId=${dataA.id}`}`,
+          Token,
+          setData: setPhoneNumberHolder
+        })
+      }
+    }, [hasContact, dataA?.id])
+
+    useEffect(() => {
+      if(phoneNumberHolder){
+        setPhoneNumber(phoneNumberHolder.statusMsg);
+        // console.log(phoneNumber)
+      }
+    }, [phoneNumberHolder])
 
     const [compatibilityRatio, setCompatibilityRatio] = useState(0);
 
@@ -95,10 +116,10 @@ export default function Card({ id, formData, isLogedIn, Token, setPopActive, set
         </div>
       </Link>
       <div className="center gap-3 max-w-sm w-full overflow-visible">
-          <a href={hasContact ? `tel:${dataA?.phone}` : `` } className="py-2.5 w-[240px] rounded-full text-sm font-medium text-DarkPink  border-2 border-DarkPink backdrop-blur-lg hover:bg-DarkPink/5 shadow-lg hover:w-[250px] transition-all duration-300">
+          <a href={hasContact ? `tel:${phoneNumber}` : `` } className="py-2.5 w-[240px] rounded-full text-sm font-medium text-DarkPink  border-2 border-DarkPink backdrop-blur-lg hover:bg-DarkPink/5 shadow-lg hover:w-[250px] transition-all duration-300">
             <div className="center gap-4">
-              <p className="myFont tracking-wider">
-                  {hasContact && dataA?.phone}
+              <p className="myFont tracking-wider" style={{direction: 'ltr'}}>
+                  {hasContact && phoneNumber}
                   {!hasContact && (isRTL ? "طلب بيانات التواصل" : "Request contact info")}
               </p>
               <MdContactPhone

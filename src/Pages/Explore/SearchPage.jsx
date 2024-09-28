@@ -102,7 +102,7 @@ const Fillters = ({ totalPages, isRTL, i18n, t }) => {
   
       if (value) {
         // If value is not empty, set the value in searchParams
-        updatedSearchParams[name] = (name === 'minAge' || name === 'maxAge') ? +value : value;
+        updatedSearchParams[name] = (name === 'minAge' || name === 'maxAge') ? +value + 0 : value;
       } else {
         // If value is empty, remove it from searchParams
         delete updatedSearchParams[name];
@@ -119,6 +119,12 @@ const Fillters = ({ totalPages, isRTL, i18n, t }) => {
   
   function handleSearch() {
     searchParams.sort = sortTypeLabels[selectedIdx][1];
+    searchParams['maxAge'] = Math.min(100, searchParams['maxAge']);
+    searchParams['maxAge'] = Math.max(18, searchParams['maxAge']);
+    searchParams['minAge'] = Math.min(100, searchParams['minAge']);
+    searchParams['minAge'] = Math.max(18, searchParams['minAge']);
+    if(searchParams['minAge'] > searchParams['maxAge'])
+        [searchParams['minAge'], searchParams['maxAge']] = [searchParams['maxAge'], searchParams['minAge']]
     const queryString = new URLSearchParams(searchParams).toString();
     navigate(`/explore/${0}?${queryString}`);
   }
@@ -430,13 +436,11 @@ const Fillters = ({ totalPages, isRTL, i18n, t }) => {
             <div className={`${Styles.inputHolder} relative w-[100%] md:w-[35%] md1:w-[25%] lg2:w-[20%]`}>
               <input
                 id="MinAge"
-                type="text"
+                type="number"
                 onChange={handleInputChange}
                 name="minAge"
                 placeholder= {i18n.language === 'ar' ? 'العمر من' : 'Age From'}
                 value={searchParams.minAge}
-                min={18}
-                max={searchParams.maxAge || 100}
                 className={`myFont w-full py-2 px-3 border-b-[3px] ${
                   searchParams.minAge ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
                 } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-Black cursor-text`}
@@ -453,13 +457,11 @@ const Fillters = ({ totalPages, isRTL, i18n, t }) => {
           <div className={`${Styles.inputHolder} relative w-[100%] md:w-[35%] md1:w-[25%] lg2:w-[20%]`}>
               <input
                 id="MaxAge"
-                type="text"
+                type="number"
                 onChange={handleInputChange}
                 name="maxAge"
                 placeholder= {i18n.language === 'ar' ? 'العمر من' : 'Age From'}
                 value={searchParams.maxAge}
-                min={searchParams.minAge || 0}
-                max={100}
                 className={`myFont w-full py-2 px-3 border-b-[3px] ${
                   searchParams.maxAge ? "border-Black" : "border-[rgba(16,16,16,0.7)]"
                 } bg-transparent text-Black placeholder-transparent focus:outline-none focus:border-Black cursor-text`}

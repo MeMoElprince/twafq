@@ -15,6 +15,8 @@ const ResetPassword = () => (`${APIURL}api/resetpassword?`);
 const likeMeTarget = () => (`${APIURL}api/user/likeme/target?`);
 const favoriteChange = () => (`${APIURL}api/user/favorite?`);
 const putReview = () => (`${APIURL}api/user/story?`);
+const getPhoneURL = () => (`${APIURL}api/user/phone?`);
+const addToContactURL = () => (`${APIURL}create-add-user-intent?`);
 const getAllReviews = () => (`${APIURL}api/user/stories`);
 const AskForVerificationCode = () => (`${APIURL}api/v1/users/verify-token`);
 const getBlogs = () => (`${APIURL}api/blogs`);
@@ -44,6 +46,7 @@ export {
   increaseViewCount,
   putReview,
   favoriteChange,
+  getPhoneURL,
   getAllReviews,
   getCountries,
   getColorsUrl,
@@ -58,6 +61,7 @@ export {
   getFav,
   addFav,
   delFav,
+  addToContactURL,
   getUsersLikeMe,
   updateInfoURL,
   delFavByProId
