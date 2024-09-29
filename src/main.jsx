@@ -28,7 +28,7 @@ i18next.use(initReactI18next).init({
     },
   },
   fallbackLng: "ar",
-  debug: true,
+  debug: false,
 });
 
 const helmetContext = {};
