@@ -112,9 +112,9 @@ export default function Profile({ profileDetails, isLogedIn, Token}) {
     });
   }
 
-  useEffect(() => {
-    console.log(addingUrl)
-  }, [addingUrl])
+  // useEffect(() => {
+  //   console.log(addingUrl)
+  // }, [addingUrl])
 
   useEffect(() => {
     if (addingUrlHolder) {
