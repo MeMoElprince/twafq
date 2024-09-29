@@ -17,6 +17,7 @@ const favoriteChange = () => (`${APIURL}api/user/favorite?`);
 const putReview = () => (`${APIURL}api/user/story?`);
 const getPhoneURL = () => (`${APIURL}api/user/phone?`);
 const addToContactURL = () => (`${APIURL}create-add-user-intent?`);
+const verifyURL = () => (`${APIURL}create-verify-intent?`);
 const getAllReviews = () => (`${APIURL}api/user/stories`);
 const AskForVerificationCode = () => (`${APIURL}api/v1/users/verify-token`);
 const getBlogs = () => (`${APIURL}api/blogs`);
@@ -62,6 +63,7 @@ export {
   addFav,
   delFav,
   addToContactURL,
+  verifyURL,
   getUsersLikeMe,
   updateInfoURL,
   delFavByProId

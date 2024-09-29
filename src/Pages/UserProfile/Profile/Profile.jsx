@@ -22,6 +22,7 @@ import { useNavigate } from "react-router-dom";
 import { favoriteChange } from "../../../Store/urls";
 import { addToContactURL } from "../../../Store/urls";
 import { IoClose } from "react-icons/io5";
+import { getPhoneURL } from "../../../Store/urls";
 
 export default function Profile() {
   const { isLogedIn, Token, formData, handleFormDataChange } = useContext(
@@ -40,6 +41,9 @@ export default function Profile() {
   const [dataA, setDataA] = useState(data);
   const [loadingData, setLoadingData] = useState(dataLoading);
   const [lastActive, setLastActive] = useState("");
+  const [hasContact, setHasContact] = useState(false);
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [phoneNumberHolder, setPhoneNumberHolder] = useState({});
   const [compatibilityRatio, setCompatibilityRatio] = useState(0);
   const { retData: ratio } = useFetch({
     url:
@@ -59,16 +63,34 @@ export default function Profile() {
       if (formData?.favoriteUsers && data.id) {
         setIsFavorite(formData.favoriteUsers.includes(data.id));
       }
+      setHasContact(formData?.usersContactWith?.includes(dataA?.id));
       setLoadingData(false);
     }
   }, [data, formData]);
+
+  useEffect(() => {
+    if(hasContact && dataA?.id){
+      Fetch({
+        url: `${getPhoneURL()}${dataA?.id ? `userId=${dataA.id}` : ""}`,
+        Token,
+        setData: setPhoneNumberHolder
+      })
+    }
+  }, [hasContact, dataA?.id])
+
+  useEffect(() => {
+    if(phoneNumberHolder){
+      setPhoneNumber(phoneNumberHolder.statusMsg);
+      // console.log(phoneNumber)
+    }
+  }, [phoneNumberHolder])
 
 
   const [loadingFavo, setLoadingFavo] = useState(false);
 
   const [successFavo, setSuccessFavo] = useState({});
 
-  async function handleFavorite() {
+  async function handleFavorite(){
     if (Token && dataA.id && formData?.id && isLogedIn) {
       if (loadingFavo) return;
       setLoadingFavo(true);
@@ -82,23 +104,31 @@ export default function Profile() {
         Token,
       });
       // console.log(successFavo);
-      if(successFavo?.statusCode === '200'){
-        if (isFavorite) {
-          handleFormDataChange({
-            ...formData,
-            favoriteUsers: formData.favoriteUsers.filter((el) => el !== dataA.id),
-          });
-        } else {
-          handleFormDataChange({
-            ...formData,
-            favoriteUsers: [...formData.favoriteUsers, dataA.id],
-          });
-        }
-        setIsFavorite((prev) => !prev);
-      }
-      setLoadingFavo(false);
     }
   }
+
+  useEffect(() => {
+    if(successFavo?.statusCode === '200'){
+      if (isFavorite) {
+        handleFormDataChange({
+          ...formData,
+          favoriteUsers: formData.favoriteUsers.filter((el) => el !== dataA.id),
+        });
+        setIsFavorite((prev) => !prev);
+        setLoadingFavo(false);
+      } else {
+        handleFormDataChange({
+          ...formData,
+          favoriteUsers: [...formData.favoriteUsers, dataA.id],
+        });
+        setIsFavorite((prev) => !prev);
+        setLoadingFavo(false);
+      }
+    }else{
+      setLoadingFavo(false);
+    } 
+  }, [successFavo])
+  
 
   if (formData?.id === dataA?.id) {
     navigate("/", { replace: true });
@@ -185,7 +215,7 @@ export default function Profile() {
   const [addingLoading, setAddingLoading] = useState(false);
 
   function handleGetData(e){
-    if(!isLogedIn || !Token || addingLoading || !formData?.id || !dataA?.id)
+    if(!isLogedIn || !Token || addingLoading || !formData?.id || !dataA?.id || phoneNumber)
         return;
     Fetch({ url: `${addToContactURL()}amount=${1000}${`&user_id=${formData?.id}`}${`&target_id=${dataA?.id}`}`,
       setLoading: setAddingLoading,
@@ -214,7 +244,7 @@ export default function Profile() {
   function LoadingSpinnerTwo(){
     return (
       <div className='center'>
-        <svg aria-hidden="true" className="w-8 h-8 text-gray-200 animate-spin fill-DarkPink" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg aria-hidden="true" className="w-7 h-7 text-gray-200 animate-spin fill-DarkPink" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
           <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
         </svg>
@@ -272,7 +302,7 @@ export default function Profile() {
               <div className="relative size-[80%] z-50">
                 <button 
                   className={`absolute size-[40px] bg-red-500 center text-white rounded-full p-2 -top-3 -right-3 z-50`}
-                  onClick={() => setAddingUrl("")}
+                  onClick={() => {setAddingUrl(""); window.location.reload()}}
                 >
                   <IoClose size={24} />
                 </button>
@@ -441,11 +471,19 @@ export default function Profile() {
               className={`text-white ${(!isLogedIn || !Token) && "pointer-events-none opacity-50"} bg-DarkPink hover:bg-[#f74c68] cursor-pointer hover:px-8  font-medium transition-all duration-300 shadow-md tracking-wide rounded-full text-lg px-5 py-3 w-max !mt-6 center gap-4`}
             >
               {
-                !addingLoading && <p>
-                  {i18n.language === "ar"
-                    ? "طلب بيانات التواصل"
-                    : "Request contact info"}
-                </p>
+                !addingLoading && (
+                  !hasContact ? (
+                    <p>
+                      {i18n.language === "ar"
+                        ? "طلب بيانات التواصل"
+                        : "Request contact info"}
+                    </p>
+                  ) : (
+                    <a href={`tel:${phoneNumber}`}>
+                      {phoneNumber}
+                    </a>
+                  )
+                )
               }
               { addingLoading && <LoadingSpinnerTwo/> }
               <MdContactPhone

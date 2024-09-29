@@ -28,7 +28,7 @@ export default function Explore() {
       ...Object.fromEntries(
         [...queryParams].map(([key, value]) => [
           key,
-          (key === 'minAge' || key === 'maxAge') ? +value + 0 : [value]
+          (key === 'minAge' || key === 'maxAge') ? +value : [value]
         ])
       ),
       page: +page > 0 ? (+page || 0) : 0,
@@ -78,7 +78,7 @@ export default function Explore() {
       const updatedParams = Object.fromEntries(
         [...queryParams].map(([key, value]) => [
           key,
-          (key === 'minAge' || key === 'maxAge') ? +value + 0 : [value]
+          (key === 'minAge' || key === 'maxAge') ? +value : [value]
         ])
       );
       return {

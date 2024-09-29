@@ -36,7 +36,7 @@ export default function MyProfile() {
             </Helmet>
             { formData &&
                 <div className='w-full bg-Beige center flex-col gap-4 relative'>
-                { formData && <Profile profileDetails = { formData } />}
+                { formData && <Profile profileDetails = { formData } Token={Token} isLogedIn={isLogedIn} />}
                 </div>
             }
         </>

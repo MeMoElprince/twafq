@@ -91,7 +91,8 @@ const Fillters = ({ totalPages, isRTL, i18n, t }) => {
   
 
   
-  const [searchParams, setSearchParams] = useState({...Object.fromEntries(queryParams)});
+  const [searchParams, setSearchParams] = useState({...Object.fromEntries(queryParams), minAge: 18, maxAge:100});
+
   
   
   function handleInputChange(event) {
@@ -102,10 +103,17 @@ const Fillters = ({ totalPages, isRTL, i18n, t }) => {
   
       if (value) {
         // If value is not empty, set the value in searchParams
-        updatedSearchParams[name] = (name === 'minAge' || name === 'maxAge') ? +value + 0 : value;
+        updatedSearchParams[name] = (name === 'minAge' || name === 'maxAge') ? +value : value;
       } else {
         // If value is empty, remove it from searchParams
-        delete updatedSearchParams[name];
+        if(name === 'maxAge' || name === 'minAge'){
+          if(name === 'maxAge')
+            searchParams[name] = 100;
+          else
+            searchParams[name] = 18;
+        }else{
+          delete updatedSearchParams[name];
+        }
       }
   
       return updatedSearchParams;
@@ -119,11 +127,15 @@ const Fillters = ({ totalPages, isRTL, i18n, t }) => {
   
   function handleSearch() {
     searchParams.sort = sortTypeLabels[selectedIdx][1];
-    searchParams['maxAge'] = Math.min(100, searchParams['maxAge']);
-    searchParams['maxAge'] = Math.max(18, searchParams['maxAge']);
-    searchParams['minAge'] = Math.min(100, searchParams['minAge']);
-    searchParams['minAge'] = Math.max(18, searchParams['minAge']);
-    if(searchParams['minAge'] > searchParams['maxAge'])
+    if(searchParams['maxAge']){
+      searchParams['maxAge'] = Math.min(100, searchParams['maxAge']);
+      searchParams['maxAge'] = Math.max(18, searchParams['maxAge']);
+    }
+    if(searchParams['minAge']){
+      searchParams['minAge'] = Math.min(100, searchParams['minAge']);
+      searchParams['minAge'] = Math.max(18, searchParams['minAge']);
+    }
+    if(searchParams['minAge'] && searchParams['maxAge'] && searchParams['minAge'] > searchParams['maxAge'])
         [searchParams['minAge'], searchParams['maxAge']] = [searchParams['maxAge'], searchParams['minAge']]
     const queryString = new URLSearchParams(searchParams).toString();
     navigate(`/explore/${0}?${queryString}`);

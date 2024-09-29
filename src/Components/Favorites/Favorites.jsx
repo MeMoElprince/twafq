@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import Card from "./Components/Card";
 import { useTranslation } from 'react-i18next'
 import { AuthenticationContext } from "../../Store/Context/Authentication";
-import { Link } from "react-router-dom";
 
 export default function Favorites({ title, setPopType, setPopActive }) {
   const {i18n } = useTranslation("global");
