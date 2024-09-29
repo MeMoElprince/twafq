@@ -63,7 +63,7 @@ export default function Profile() {
       if (formData?.favoriteUsers && data.id) {
         setIsFavorite(formData.favoriteUsers.includes(data.id));
       }
-      setHasContact(formData?.usersContactWith?.includes(dataA?.id));
+      setHasContact(formData?.usersContactWith?.includes(data?.id));
       setLoadingData(false);
     }
   }, [data, formData]);
@@ -468,7 +468,7 @@ export default function Profile() {
           </div>
           <div className="center w-full flex-col sm:flex-row gap-2">
             <button onClick={handleGetData}
-              className={`text-white ${(!isLogedIn || !Token) && "pointer-events-none opacity-50"} bg-DarkPink hover:bg-[#f74c68] cursor-pointer hover:px-8  font-medium transition-all duration-300 shadow-md tracking-wide rounded-full text-lg px-5 py-3 w-max !mt-6 center gap-4`}
+              className={`text-white ${(!isLogedIn || !Token) && "pointer-events-none opacity-50"} bg-DarkPink hover:bg-[#f74c68] max-w-[280px] cursor-pointer hover:px-8  font-medium transition-all duration-300 shadow-md tracking-wide rounded-full text-base px-5 py-3 w-max !mt-6 center gap-4`}
             >
               {
                 !addingLoading && (
@@ -479,7 +479,7 @@ export default function Profile() {
                         : "Request contact info"}
                     </p>
                   ) : (
-                    <a href={`tel:${phoneNumber}`}>
+                    <a href={`tel:${phoneNumber}`} style={{direction: "ltr"}} className="line-clamp-1 break-all">
                       {phoneNumber}
                     </a>
                   )
@@ -493,7 +493,7 @@ export default function Profile() {
             </button>
             <button
               onClick={handleFavorite}
-              className={`text-DarkPink bg-none border-DarkPink cursor-pointer border hover:px-8 font-medium  transition-all duration-300 shadow-md tracking-wide rounded-full text-lg px-5 py-3 w-max !mt-6 center gap-4`}
+              className={`text-DarkPink bg-none border-DarkPink cursor-pointer border hover:px-8 font-medium  transition-all duration-300 shadow-md tracking-wide rounded-full text-base px-5 py-3 w-max !mt-6 center gap-4`}
             >
               {loadingFavo && <LoadingSpinner />}
               {!loadingFavo &&

@@ -19,6 +19,7 @@ export default function Card({ userInfo }) {
   });
   const [userDetails, setUserDetails] = useState(data);
   const [loadingUser, setLoadingUser] = useState(userLoading);
+  var english = /^[A-Za-z]*$/;
 
   useEffect(() => {
     if (data) {
@@ -34,6 +35,10 @@ export default function Card({ userInfo }) {
 
   if(!userInfo?.story || !userDetails)
       return;
+
+  const containsLongWord = (sentence) => {
+    return sentence.split(" ").some((word) => word.length > 18);
+  };
 
   return (
     <div className="p-6 select-none relative pt-[82px] w-[90%] rounded-2xl myFont overflow-hidden mx-auto mt-4">
@@ -64,7 +69,20 @@ export default function Card({ userInfo }) {
         </div>
 
         <div className="flex flex-col items-center w-[90%] md4:w-[70%] gap-2 mt-4">
-            <p className="text-lg text-Black/85 overflow-hidden text-center leading-[28px]">{userInfo?.story}</p>
+            <p className={`text-lg text-Black/85 overflow-hidden text-center leading-[28px] line-clamp-3
+              ${
+                containsLongWord(userInfo?.story || "") &&
+                "break-all hyphenated"
+              }`}
+              style={{
+                direction: (isRTL && english.test(userInfo?.story.split(" ")[0])) 
+                ? "ltr" 
+                : (!isRTL && !english.test(userInfo?.story.split(" ")[0])) 
+                ? "rtl" 
+                : ""
+            }}
+              >
+                {userInfo?.story}</p>
         </div>
       </div>
     </div>

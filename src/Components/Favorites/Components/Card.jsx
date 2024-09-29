@@ -34,7 +34,7 @@ export default function Card({
   useEffect(() => {
     if (data) {
       setDataA(data);
-      setHasContact(formData?.usersContactWith?.includes(dataA?.id));
+      setHasContact(formData?.usersContactWith?.includes(data?.id));
       setLoadingData(false);
     }
   }, [data, formData]);

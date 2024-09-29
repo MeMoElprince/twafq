@@ -15,9 +15,8 @@ import UsersCard from './UsersCard/UsersCard'
 
 
 export default function Home() {
-  const {isLogedIn} = React.useContext(AuthenticationContext)
-  const { isRTL, setIsRTL } = useLayoutDirection();
-  const { t, i18n } = useTranslation("global");
+  const {isLogedIn, formData, Token} = React.useContext(AuthenticationContext)
+  const { t } = useTranslation("global");
   return (
     <div className='bg-White center flex-col'>
       <Helmet>
@@ -29,7 +28,7 @@ export default function Home() {
         {isLogedIn && <UsersCardRatio />}
         <UsersCard />
         <Features />
-        <AccountVerfiy />
+        <AccountVerfiy formData={formData} Token={Token} isLogedIn={isLogedIn} />
         <Reviews />
         <FAQ />
     </div>

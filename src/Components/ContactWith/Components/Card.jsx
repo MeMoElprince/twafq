@@ -31,7 +31,7 @@ export default function Card({ id, formData, isLogedIn, Token, setPopActive, set
             setHasContact(formData?.usersContactWith?.includes(dataA?.id));
             setLoadingData(false);
         }
-    }, [data, formData]);
+    }, [data, formData, id]);
 
     // console.log(formData.id)
 
@@ -68,10 +68,6 @@ export default function Card({ id, formData, isLogedIn, Token, setPopActive, set
       }
       // console.log(compatibilityRatio)
     }, [ratio, isLogedIn, Token]);
-
-    if(!hasContact)
-      return;
-  
 
 
   return (
@@ -115,9 +111,9 @@ export default function Card({ id, formData, isLogedIn, Token, setPopActive, set
         </div>
       </Link>
       <div className="center gap-3 max-w-sm w-full overflow-visible">
-          <a href={phoneNumber ? `tel:${phoneNumber}` : undefined } className="py-2.5 w-[240px] rounded-full text-sm font-medium text-DarkPink  border-2 border-DarkPink backdrop-blur-lg hover:bg-DarkPink/5 shadow-lg hover:w-[250px] transition-all duration-300">
+          <a href={phoneNumber ? `tel:${phoneNumber}` : undefined } className="py-2.5 px-2 w-[240px] rounded-full text-sm font-medium text-DarkPink  border-2 border-DarkPink backdrop-blur-lg hover:bg-DarkPink/5 shadow-lg hover:w-[250px] transition-all duration-300">
             <div className="center gap-4">
-              <p className="myFont tracking-wider" style={{direction: 'ltr'}}>
+              <p className="myFont tracking-wide line-clamp-1 break-all" style={{direction: 'ltr'}}>
                   {!hasContact && phoneNumber}
               </p>
               <MdContactPhone
