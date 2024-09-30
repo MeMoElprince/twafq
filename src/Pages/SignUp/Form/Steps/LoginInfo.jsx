@@ -13,8 +13,8 @@ export default function LoginInfo({handleChange, formData, setFormData, errorMes
         {t("loginInfo.title")}
       </h2>
       <div className="Form center flex-col gap-10 w-[70%]">
-        <h3 className="bg-LightPink px-4 py-4 rounded-lg text-[16px] font-semibold text-center">{t("loginInfo.phoneMsg")}</h3>
-        <div className={`${Styles.inputHolder} relative w-full`}>
+        {/* <h3 className="bg-LightPink px-4 py-4 rounded-lg text-[16px] font-semibold text-center">{t("loginInfo.phoneMsg")}</h3> */}
+        <div className={`${Styles.inputHolder} relative w-full mt-4`}>
           <select 
                   id="Gender"
                   value={formData.gender ? JSON.stringify(formData.gender) : ''}

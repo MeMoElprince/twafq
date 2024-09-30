@@ -56,7 +56,7 @@ function Footer() {
           <h4 className="text-lg font-semibold mb-6 text-white">{i18n.language == 'ar' ? "المعلومات" : "Information"}</h4>
           <ul className="space-y-4">
             <li>
-              <Link to="About" className="text-gray-300 hover:text-white text-sm">{i18n.language == 'ar' ? "من نحن" : "About Us"}</Link>
+              <Link to="/" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="text-gray-300 hover:text-white text-sm">{i18n.language == 'ar' ? "من نحن" : "About Us"}</Link>
             </li>
             <li>
               <a href='' className="text-gray-300 hover:text-white text-sm">{i18n.language == 'ar' ? "الشروط والأحكام" : "Terms & Conditions"}</a>
