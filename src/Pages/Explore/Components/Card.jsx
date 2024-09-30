@@ -224,15 +224,8 @@ export default function Card({ userDetailsReceived }) {
                 ? userDetails && userDetails.country && userDetails.country[0]
                 : userDetails &&
                   userDetails.country &&
-                  userDetails.country[1]) +
-                (userDetails?.city &&
-                userDetails?.country &&
-                userDetails.country[1]
-                  ? ", "
-                  : "") +
-                (isRTL
-                  ? userDetails && userDetails.city && userDetails.city[0]
-                  : userDetails && userDetails.city && userDetails.city[1])}
+                  userDetails.country[1]) 
+                }
             </p>
           </div>
         </div>

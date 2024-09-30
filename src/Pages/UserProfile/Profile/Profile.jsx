@@ -399,8 +399,8 @@ export default function Profile() {
             <FaLocationDot size={24} className="text-Black" />
             <p className="text-lg text-Black font-bold">
               {(isRTL ? dataA?.country[0] : dataA?.country[1]) +
-                ", " +
-                (isRTL ? dataA?.city[0] : dataA?.city[1])}
+                "" +
+                (isRTL ? "": "")}
             </p>
           </div>
           <div

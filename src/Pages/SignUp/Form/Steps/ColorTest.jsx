@@ -3,6 +3,7 @@ import { useLayoutDirection } from '../../../../Store/Context/LayoutDirectionCon
 import {useTranslation} from "react-i18next"
 import Styles from '../../Styling.module.css'
 import { getColorsUrl } from "../../../../Store/urls";
+import { Link } from "react-router-dom";
 
 export default function ColorTest({handleChange, isSelected, colors, setColors, setIsSelected, formData, handleStep, handleSubmit, loading}) {
   const { isRTL } = useLayoutDirection();
@@ -73,7 +74,7 @@ export default function ColorTest({handleChange, isSelected, colors, setColors, 
             className="cursor-pointer w-6 h-6"
           />
           <div className="text-[18px] font-semibold">
-            <label htmlFor="isChecked" className="text-Black">{t("colorTest.termsOne")}</label> <span className="text-Black underline cursor-pointer">{t("colorTest.termsTwo")}</span>
+            <label htmlFor="isChecked" className="text-Black">{t("colorTest.termsOne")}</label> <Link to="/privacy" target="_blank" aria-label="link to privacy" className="text-Black underline cursor-pointer">{t("colorTest.termsTwo")}</Link>
           </div>
         </div>
 

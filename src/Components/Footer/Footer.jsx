@@ -3,19 +3,20 @@ import ArLogo from '../../assets/ArLogo.png'
 import EnLogo from '../../assets/EnLogo.png';
 import { useLayoutDirection } from '../../Store/Context/LayoutDirectionContext'
 import {useTranslation} from "react-i18next"
-import { Link } from 'react-router-dom';
+import { Link, useLocation  } from 'react-router-dom';
 import { RiInstagramFill, RiFacebookFill , RiTwitterXFill} from "react-icons/ri";
 
 function Footer() {
-    const { t, i18n } = useTranslation("global");
-    const { isRTL, setIsRTL } = useLayoutDirection();
-
+    const { i18n } = useTranslation("global");
+    const { isRTL } = useLayoutDirection();
+    const location = useLocation();
+    const isPrivacyPage = location.pathname === '/privacy';
   return (
     <footer className="bg-[#101010] p-10 myFont tracking-wide px-16">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 place-items-center">
         <div className="lg:flex lg:items-center">
             <Link to="/"
-              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} aria-label="link to home"
             >
                 <img className='myFont grayscale w-36' src={isRTL ? ArLogo : EnLogo} alt="logo" />
             </Link>
@@ -37,7 +38,7 @@ function Footer() {
           </div>
         </div>
 
-        <div className='md:place-self-center place-self-start'>
+        <div className='md:place-self-center place-self-start h-[75%]'>
           <h4 className="text-lg font-semibold mb-6 text-white">{i18n.language == 'ar' ? "تواصل معنا" : "Contact Us"}</h4>
           <ul className="space-y-4">
             <li>
@@ -52,17 +53,14 @@ function Footer() {
           </ul>
         </div>
 
-        <div className='md:place-self-center place-self-start'>
+        <div className='md:place-self-center place-self-start h-[75%]'>
           <h4 className="text-lg font-semibold mb-6 text-white">{i18n.language == 'ar' ? "المعلومات" : "Information"}</h4>
           <ul className="space-y-4">
             <li>
-              <Link to="/" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="text-gray-300 hover:text-white text-sm">{i18n.language == 'ar' ? "من نحن" : "About Us"}</Link>
+              <Link to="/" aria-label="link to home" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="text-gray-300 hover:text-white text-sm">{i18n.language == 'ar' ? "من نحن" : "About Us"}</Link>
             </li>
             <li>
-              <a href='' className="text-gray-300 hover:text-white text-sm">{i18n.language == 'ar' ? "الشروط والأحكام" : "Terms & Conditions"}</a>
-            </li>
-            <li>
-              <a href='' className="text-gray-300 hover:text-white text-sm">{i18n.language == 'ar' ? "سياسة الخصوصية" : "Privacy Policy"}</a>
+              <Link to="/privacy" aria-label="link to privacy" target={!isPrivacyPage ? "_blank" : undefined} onClick={isPrivacyPage ? () => window.scrollTo({ top: 0, behavior: 'smooth' }) : undefined} className="text-gray-300 hover:text-white text-sm">{i18n.language == 'ar' ? "سياسة الخصوصية" : "Privacy Policy"}</Link>
             </li>
           </ul>
         </div>

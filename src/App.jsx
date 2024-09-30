@@ -12,6 +12,7 @@ import UserProfile from "./Pages/UserProfile/index"
 import SingleBlog from "./Pages/SingleBlog/SingleBlog"
 import MyProfile from "./Pages/MyProfile/index"
 import Services from "./Pages/Services/index"
+import Privacy from "./Pages/Privacy/index"
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="SignUp" element={<SignUp />} />
           <Route path="Contact" element={<Contact />} />
           <Route path="Services" element={<Services />} />
+          <Route path="Privacy" element={<Privacy />} />
           <Route path="Blogs" element={<Blogs />} />
           <Route path="Blogs/:id" element={<SingleBlog />} />
           <Route path="Explore/:page" element={<Explore />} />

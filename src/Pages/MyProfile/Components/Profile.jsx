@@ -257,9 +257,7 @@ export default function Profile({ profileDetails, isLogedIn, Token}) {
               <p className="text-lg text-Black font-bold">
                 {(isRTL
                   ? profileDetails?.country[0]
-                  : profileDetails?.country[1]) +
-                  (profileDetails?.country[0] && ", ") +
-                  (isRTL ? profileDetails?.city[0] : profileDetails?.city[1])}
+                  : profileDetails?.country[1]) }
               </p>
             </div>
             <div className="center w-full flex-col sm:flex-row gap-2">

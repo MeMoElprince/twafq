@@ -29,7 +29,7 @@ export default function Card({ userDetails }) {
           <p class="text-[13px]">{"(" + userDetails?.age + " " + (isRTL ? "سنة" : "Years") + ")"}</p>
         </div>
         <span class="text-sm center flex-wrap gap-1 text-Black/70 text-start">
-          <p>{(isRTL ? userDetails?.country[0] : userDetails?.country[1]) + ", " + (isRTL ? userDetails?.city[0] : userDetails?.city[1])}</p>
+          <p>{(isRTL ? userDetails?.country[0] : userDetails?.country[1]) + "" + (isRTL ? "": "")}</p>
         </span>
       </div>
     </button>

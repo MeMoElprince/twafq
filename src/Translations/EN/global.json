@@ -119,5 +119,46 @@
         "title": "Family Consultant Service",
         "subtitle": "We'll keep your family safe",
         "description": "A family consultant is an expert specialized in family relationships. The consultant analyzes various family issues and provides practical solutions tailored to each case. The role of the family consultant includes helping families communicate effectively, improving family relationships, enhancing trust among individuals, and offering guidance and advice to solve the problems they face. Questions can be submitted via the dedicated email for the service, and responses will be provided in a confidential manner, unless the participant wishes for others to benefit from the proposed solutions and their personal experience."
-    }
+    },
+    "privacyPolicy": {
+    "title": "Privacy Policy",
+    "introduction": "This privacy policy sets out how our website uses and protects any information that you give us when you use this website.",
+    "infoWeCollect": {
+      "title": "Information We Collect",
+      "intro": "We may collect the following information:",
+      "name": "Your name, contact information, and some personal information",
+      "demographics": "Demographic information",
+      "otherInfo": "Other information relevant to customer surveys and/or offers"
+    },
+    "howWeUse": {
+      "title": "How We Use the Information",
+      "intro": "We require this information to understand your needs and provide you with a better service, and in particular for the following reasons:",
+      "internalRecords": "Internal record keeping",
+      "improvement": "Improving our products and services",
+      "promotionalEmails": "Sending promotional emails about new products, special offers, or other information which we think you may find interesting.",
+      "marketResearch": "From time to time, we may also use your information to contact you for market research purposes."
+    },
+    "security": {
+      "title": "Security",
+      "description": "We are committed to ensuring that your information is secure. In order to prevent unauthorized access or disclosure, we have put in place suitable physical, electronic, and managerial procedures to safeguard and secure the information we collect online."
+    },
+    "cookies": {
+      "title": "Cookies",
+      "description": "A cookie is a small file that asks permission to be placed on your computer's hard drive. Once you agree, the file is added, and the cookie helps analyze web traffic or lets you know when you visit a particular site.",
+      "additionalInfo": "Overall, cookies help us provide you with a better website by enabling us to monitor which pages you find useful and which you do not."
+    },
+    "links": {
+      "title": "Links to Other Websites",
+      "description": "Our website may contain links to other websites of interest. However, once you have used these links to leave our site, you should note that we do not have any control over that other website."
+    },
+    "controllingYourInfo": {
+      "title": "Controlling Your Personal Information",
+      "intro": "You may choose to restrict the collection or use of your personal information in the following ways:",
+      "changeMarketing": "If you have previously agreed to us using your personal information for direct marketing purposes, you may change your mind at any time by writing to or emailing us.",
+      "noSale": "We will not sell, distribute, or lease your personal information to third parties unless we have your permission or are required by law to do so.",
+      "requestDetails": "You may request details of personal information which we hold about you.",
+      "correctInfo": "Correction of Information: You can correct your personal information directly in your account settings."
+    },
+    "note": "This privacy policy is subject to change without notice."
+  }
 }

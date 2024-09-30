@@ -225,8 +225,8 @@ export default function Card({ userDetails, isLogedIn, formData, Token }) {
                 <FaLocationDot size={16} className="text-Black" />
                 <p className="text-md text-Black font-bold">
                   {(isRTL ? userDetails?.country[0] : userDetails?.country[1]) +
-                    ", " +
-                    (isRTL ? userDetails?.city[0] : userDetails?.city[1])}
+                    "" +
+                    (isRTL ? "": "")}
                 </p>
               </div>
             </div>

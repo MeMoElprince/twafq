@@ -74,7 +74,7 @@ export default function Nationality({handleChange, formData, setFormData, errorM
               {t("nationality.country")}
             </label>
         </div>
-        <div className={`${Styles.inputHolder} relative w-full`}>
+        {/* <div className={`${Styles.inputHolder} relative w-full`}>
           <select 
                   id="City"
                   value={formData.city ? JSON.stringify(formData.city) : ''}
@@ -96,7 +96,7 @@ export default function Nationality({handleChange, formData, setFormData, errorM
             >
               {t("nationality.city")}
             </label>
-        </div>
+        </div> */}
         <div className={`${Styles.inputHolder} relative w-full`}>
           <select 
                   id="Residence"

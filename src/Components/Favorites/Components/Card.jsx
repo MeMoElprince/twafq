@@ -230,8 +230,8 @@ export default function Card({
           <span className="text-sm center flex-wrap gap-1 text-Black/70 text-start">
             <p>
               {(isRTL ? dataA?.country[0] : dataA?.country[1]) +
-                ", " +
-                (isRTL ? dataA?.city[0] : dataA?.city[1])}
+                "" +
+                (isRTL ? "": "")}
             </p>
           </span>
         </div>

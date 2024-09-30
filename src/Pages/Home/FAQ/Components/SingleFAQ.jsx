@@ -12,9 +12,9 @@ export default function SingleFAQ({question, answer, theme}) {
             <button 
                 type="button"
                 onClick={() => setIsActive(prevStatus => !prevStatus)}
-                className="w-full text-lg font-semibold text-left p-6 text-Black flex items-center focus:outline-none"
+                className={`w-full text-lg font-semibold ${isRTL ? "text-right" : "text-left"} gap-4 p-6 text-Black flex items-center focus:outline-none`}
             >
-                <span className="mr-4">{question}</span>
+                <span className="text-base">{question}</span>
                 {
                     isActive ?
                     (
@@ -31,7 +31,7 @@ export default function SingleFAQ({question, answer, theme}) {
                 }
             </button>
             <div className={`pb-5 px-6 ${!isActive && "h-0 hidden"} overflow-hidden`}>
-                <p className={`text-md text-Black/80 ${!isActive && "opacity-0 h-0"}`}>
+                <p className={`text-base leading-loose text-Black/80 ${!isActive && "opacity-0 h-0"}`}>
                     {answer}
                 </p>
             </div>

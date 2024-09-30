@@ -64,7 +64,7 @@ export default function Card({ userInfo }) {
           </div>
           <div className="center flex-wrap w-full gap-2">
             <FaLocationDot size={16} className="text-Black"/>
-            <p className="text-md text-Black font-bold">{(isRTL ? userDetails?.country[0] : userDetails?.country[1]) + ", " + (isRTL ? userDetails?.city[0] : userDetails?.city[1])}</p>
+            <p className="text-md text-Black font-bold">{(isRTL ? userDetails?.country[0] : userDetails?.country[1]) + "" + (isRTL ? "": "")}</p>
           </div>
         </div>
 
