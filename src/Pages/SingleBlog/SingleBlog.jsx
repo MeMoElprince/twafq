@@ -7,9 +7,9 @@ import { getSingleBlog } from '../../Store/urls';
 import { getMostViewBlogs } from '../../Store/urls';
 import { increaseViewCount } from '../../Store/urls';
 import useFetch from '../../Components/CustomHooks/useFetch';
-import imgHolder from '../Blogs/Components/assets/imgHolder.webp'
 import { Link } from 'react-router-dom';
 import Fetch from '../../Components/CustomHooks/Fetch'
+import { Helmet } from 'react-helmet-async';
 
 export default function SingleBlog() {
     const { t, i18n } = useTranslation("global");
@@ -105,6 +105,10 @@ export default function SingleBlog() {
 
   return (
     <div className="w-[90%] mx-auto py-[20vh] myFont flex justify-between gap-8 items-center flex-col lg2:flex-row lg2:items-start">
+        <Helmet>
+            <title>{blogG?.title || "blog"}</title>
+            <meta name='description' content={blogG?.sentences[0].sentence.slice(0, 20) || "blog description"} />
+        </Helmet>
         <div className="w-[95%] lg2:w-[80%] max-w-4xl bg-white shadow-sm border border-Black/20 rounded-[4px] p-5 sm2:p-10 h-max flex flex-col">
             <div className="py-8">
                 <h1 className="text-2xl sm2:text-4xl font-bold text-center mb-3 text-Black">{blogG?.title}</h1>

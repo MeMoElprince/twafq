@@ -41,7 +41,7 @@ export default function UsersCardRatio() {
           setUsedCards(data.content || data);
           // console.log(data)
         } catch (error) {
-          console.error("Error fetching cards:", error);
+          // console.error("Error fetching cards:", error);
         }
       };
       fetchCards();

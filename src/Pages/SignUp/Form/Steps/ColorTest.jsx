@@ -19,7 +19,7 @@ export default function ColorTest({handleChange, isSelected, colors, setColors, 
           setColors(data);
           setIsSelected(new Array(data.length).fill(0));
         } catch (error) {
-          console.error("Error fetching colors:", error);
+          // console.error("Error fetching colors:", error);
         }
       };
       fetchColors();

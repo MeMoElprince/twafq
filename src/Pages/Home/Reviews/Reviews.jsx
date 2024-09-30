@@ -36,7 +36,7 @@ export default function Reviews() {
           setUsedReviews(data.content || data);
           // console.log(data)
         } catch (error) {
-          console.error("Error fetching reviews:", error);
+          // console.error("Error fetching reviews:", error);
         }
       };
       fetchReviews();

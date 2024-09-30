@@ -57,7 +57,7 @@ export default function UsersCardRatio() {
   
           setUsedCards(shuffledCards);
         } catch (error) {
-          console.error("Error fetching cards:", error);
+          // console.error("Error fetching cards:", error);
         }
       };
       fetchCards();
