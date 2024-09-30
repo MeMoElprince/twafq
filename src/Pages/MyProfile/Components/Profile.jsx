@@ -344,16 +344,16 @@ export default function Profile({ profileDetails, isLogedIn, Token}) {
                 {t("nationality.title")}
               </h3>
             </div>
-            <div className="border-t border-Black/10 text-lg text-gray-900 px-4 py-2 sm:p-0">
+            <div className="border-t border-Black/10 text-lg text-gray-900 px-4 py-2 sm:p-0 min-h-[150px]">
               <div className="flex flex-wrap">
                 <UserProfileField
                   label={`${isRTL ? "البلد" : "Country"}`}
                   value={`${profileDetails?.country[isRTL ? 0 : 1]}`}
                 />
-                <UserProfileField
+                {/* <UserProfileField
                   label={`${isRTL ? "المدينة" : "City"}`}
                   value={`${profileDetails?.city[isRTL ? 0 : 1]}`}
-                />
+                /> */}
                 <UserProfileField
                   label={`${isRTL ? "الجنسية" : "Nationality"}`}
                   value={`${profileDetails?.nationality[isRTL ? 0 : 1]}`}
@@ -371,7 +371,7 @@ export default function Profile({ profileDetails, isLogedIn, Token}) {
                 {t("religion.title")}
               </h3>
             </div>
-            <div className="border-t border-Black/10 text-lg text-gray-900 px-4 py-2 sm:p-0">
+            <div className="border-t border-Black/10 text-lg text-gray-900 px-4 py-2 sm:p-0 min-h-[150px]">
               <div className="flex flex-wrap">
                 <UserProfileField
                   label={`${isRTL ? "الديانة" : "Religion"}`}
@@ -402,7 +402,7 @@ export default function Profile({ profileDetails, isLogedIn, Token}) {
                 {t("familyStatus.title")}
               </h3>
             </div>
-            <div className="border-t border-Black/10 text-lg text-gray-900 px-4 py-2 sm:p-0">
+            <div className="border-t border-Black/10 text-lg text-gray-900 px-4 py-2 sm:p-0 min-h-[150px]">
               <div className="flex flex-wrap">
                 <UserProfileField
                   label={`${isRTL ? "الوضع العائلي" : "Family Status"}`}

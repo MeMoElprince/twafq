@@ -12,7 +12,7 @@ const PrivacyPolicy = () => {
 
         <p className="mb-4">{t("privacyPolicy.introduction")}</p>
 
-        <h2 className="text-2xl font-bold mb-2">
+        <h2 className="text-2xl font-bold mb-2 mt-8">
           {t("privacyPolicy.infoWeCollect.title")}
         </h2>
 
@@ -26,7 +26,7 @@ const PrivacyPolicy = () => {
           <li className="mt-2">{t("privacyPolicy.infoWeCollect.otherInfo")}</li>
         </ul>
 
-        <h2 className="text-2xl font-bold mb-2">
+        <h2 className="text-2xl font-bold mb-2 mt-8">
           {t("privacyPolicy.howWeUse.title")}
         </h2>
 
@@ -41,13 +41,13 @@ const PrivacyPolicy = () => {
           <li className="mt-2">{t("privacyPolicy.howWeUse.marketResearch")}</li>
         </ul>
 
-        <h2 className="text-2xl font-bold mb-2">
+        <h2 className="text-2xl font-bold mb-2 mt-8">
           {t("privacyPolicy.security.title")}
         </h2>
 
         <p className="mb-4">{t("privacyPolicy.security.description")}</p>
 
-        <h2 className="text-2xl font-bold mb-2">
+        <h2 className="text-2xl font-bold mb-2 mt-8">
           {t("privacyPolicy.cookies.title")}
         </h2>
 
@@ -55,13 +55,13 @@ const PrivacyPolicy = () => {
 
         <p className="mb-4">{t("privacyPolicy.cookies.additionalInfo")}</p>
 
-        <h2 className="text-2xl font-bold mb-2">
+        <h2 className="text-2xl font-bold mb-2 mt-8">
           {t("privacyPolicy.links.title")}
         </h2>
 
         <p className="mb-4">{t("privacyPolicy.links.description")}</p>
 
-        <h2 className="text-2xl font-bold mb-2">
+        <h2 className="text-2xl font-bold mb-2 mt-8">
           {t("privacyPolicy.controllingYourInfo.title")}
         </h2>
 

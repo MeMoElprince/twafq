@@ -127,7 +127,7 @@
       "title": "Information We Collect",
       "intro": "We may collect the following information:",
       "name": "Your name, contact details, and any personal information you provide during the registration process.",
-      "demographics": "Demographic information",
+      "demographics": "Information about you such as age, gender, and location.",
       "otherInfo": "Other information relevant to customer surveys and/or offers"
     },
     "howWeUse": {
@@ -159,6 +159,6 @@
       "requestDetails": "You may request details of personal information which we hold about you.",
       "correctInfo": "Correction of Information: You can correct your personal information directly in your account settings."
     },
-    "note": "This privacy policy is subject to change without notice."
+    "note": "This privacy policy is subject to change with notice."
   }
 }

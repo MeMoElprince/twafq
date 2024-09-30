@@ -38,7 +38,7 @@ export default function Explore() {
   );
 
   const { retData: users, loading: usersLoading } = useFetch({
-    url: `${getUsers()}${((retFormData?.sort && isLogedIn && Token && mp.get(retFormData?.sort[0]) !== '') ? (`?${mp.get(retFormData?.sort[0])}` || "") : "")}`,
+    url: `${getUsers()}${((retFormData?.sort && mp.get(retFormData?.sort[0]) !== '') ? (`?${mp.get(retFormData?.sort[0])}` || "") : "")}`,
     method: 'POST',
     setErrorMessage,
     setTotalPages,
