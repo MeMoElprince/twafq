@@ -96,7 +96,7 @@ export default function Root() {
         <RateUs />
         <AppDownload />
       </div>
-      <Footer />
+      <Footer setPopActive={setPopActive} popActive={popActive} popType={popType} setPopType={setPopType} />
     </main>
   );
 }
