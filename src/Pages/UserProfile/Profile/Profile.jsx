@@ -342,7 +342,7 @@ export default function Profile() {
             alt="user-avatar-image"
             className="border-4 border-solid size-[130px] sm2:size-[200px] mt-10 mb-4 border-White rounded-full"
           />
-          {!dataA?.isVerifiedUser && (
+          {dataA?.isVerifiedUser && (
             <div className="group">
               <MdVerified
                 className={`absolute text-blue-600 ${

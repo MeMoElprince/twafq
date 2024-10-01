@@ -261,7 +261,6 @@ export default function Profile({ profileDetails, isLogedIn, Token}) {
               </p>
             </div>
             <div className="center w-full flex-col sm:flex-row gap-2">
-              {!profileDetails.isVerifiedUser && (
                 <button
                   onClick={handleGetData}
                   className={`text-white bg-DarkPink ${profileDetails.isVerifiedUser && "pointer-events-none"} hover:bg-[#f74c68] hover:px-8  font-medium transition-all duration-300 shadow-md tracking-wide rounded-full text-lg px-6 py-3 w-max !mt-6 center gap-4`}
@@ -274,7 +273,6 @@ export default function Profile({ profileDetails, isLogedIn, Token}) {
                   {addingLoading && <LoadingSpinnerTwo />}
                   <MdVerified className={`text-[#ffffff]`} size={26} />
                 </button>
-              )}
               <button
                 onClick={() => setEditActive((prev) => !prev)}
                 className={`text-DarkPink bg-none border border-DarkPink hover:px-8  font-medium transition-all duration-300 shadow-md tracking-wide rounded-full text-lg px-6 py-3 w-max !mt-6 center gap-4`}

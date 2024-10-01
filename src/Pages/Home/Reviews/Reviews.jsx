@@ -70,7 +70,7 @@ export default function Reviews() {
             >
                 {
                   usedReviews &&
-                  usedReviews.map((el, index) => (
+                  usedReviews.filter(data => data.isview === true).map((el, index) => (
                     <SwiperSlide key={index}>
                         <Card userInfo={el} />
                     </SwiperSlide>
