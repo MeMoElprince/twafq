@@ -27,6 +27,7 @@ export default function Form() {
 	const [loading, setLoading] = useState(false)
 	const [data, setData] = useState(null)
 	const [errorMessage, setErrorMessage] = useState([])
+	const [emailUsedMsg, setEmailUsedMsg] = useState("")
 	const Navigate = useNavigate()
 	const [currPerc, setCurrPerc] = useState(0)
 	const [isSelected, setIsSelected] = useState([]);
@@ -105,6 +106,7 @@ export default function Form() {
 		e.preventDefault();
 		if (loading) return;
 		setErrorMessage([]);
+		setEmailUsedMsg("");
 		let ansHolder = [];
 		for(let i = 0; i<isSelected.length; i++){
 			if(isSelected[i]){
@@ -134,10 +136,20 @@ export default function Form() {
 		}
 		// console.log(RET);
 		setErrorMessage([]);
-		Fetch({ url: SignupUrl(), setLoading, setData, setErrorMessage, method: 'POST', body: RET })
+		Fetch({ url: SignupUrl(), setLoading, setData, setErrorMessage: setEmailUsedMsg, method: 'POST', body: RET })
 	}
 
 	useEffect(() => {
+		// console.log(emailUsedMsg);
+		if(emailUsedMsg === 'User already exists'){
+			setErrorMessage(prevMsg => {
+				let newMsg = [...prevMsg];
+				newMsg.push(["البريد الإلكتروني مستخدم سابقاً", "User already exists"]);
+				return newMsg;
+			})
+			setStep(0);
+			return;
+		}
 		if (!data) return
 		if (data.statusCode === '200') {
 			const titleText = isRTL || i18n.language === 'ar' 
@@ -161,7 +173,7 @@ export default function Form() {
 				}
 			  });
 		}
-	}, [data])
+	}, [data, emailUsedMsg])
 
 
 	useEffect(() => {
