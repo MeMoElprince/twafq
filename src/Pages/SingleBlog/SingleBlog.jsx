@@ -141,7 +141,7 @@ export default function SingleBlog() {
                 ))
             }
 
-            <button className="text-Black bg-DarkPink/60 shadow-sm border border-Black/10 hover:bg-DarkPink hover:text-White transition-all duration-200 tracking-wide rounded-full text-base sm:text-lg px-4 py-5 w-[100%] md:w-[60%] mt-24 self-center font-semibold">{i18n.language === 'ar' ? "تصفح المزيد" : "Explore more blogs"}</button>
+            <Link to={'/blogs'} className="text-Black text-center bg-DarkPink/60 shadow-sm border border-Black/10 hover:bg-DarkPink hover:text-White transition-all duration-200 tracking-wide rounded-full text-base sm:text-lg px-4 py-5 w-[100%] md:w-[60%] mt-24 self-center font-semibold">{i18n.language === 'ar' ? "تصفح المزيد" : "Explore more blogs"}</Link>
         </div>
         <div className="bg-white w-[95%] lg2:w-[30%] h-max flex flex-col p-5 sm2:p-10 gap-8 shadow-sm border rounded-[4px] border-Black/20">
             <h4 className='text-3xl font-semibold text-Black'>{i18n.language === 'ar' ? "الأكثر شهرة" : "Popular"}</h4>

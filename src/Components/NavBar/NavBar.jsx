@@ -8,12 +8,14 @@ import {useTranslation} from "react-i18next"
 import { AuthenticationContext } from '../../Store/Context/Authentication';
 import Swal from 'sweetalert2';
 import LoggedInMenu from './Components/LoggedInMenu';
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = ({setPopType, setPopActive}) => {
   const {isLogedIn, setIsLogedIn} = useContext(AuthenticationContext);
   const [isOpen, setIsOpen] = useState(false);
   const { t, i18n } = useTranslation("global");
   const { isRTL, setIsRTL } = useLayoutDirection();
+  const navigate = useNavigate()
 
   useEffect(() => {
     i18n.changeLanguage(isRTL ? "ar" : "en");
@@ -42,6 +44,7 @@ const Navbar = ({setPopType, setPopActive}) => {
     }).then((result) => {
       if (result.isConfirmed) {
         setIsLogedIn(false);
+        navigate("/", {replace: true})
         window.location.reload();
       }
     });
