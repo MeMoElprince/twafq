@@ -41,6 +41,12 @@ function Footer({ setPopActive, popActive, popType, setPopType }) {
                   ? "شركة الوكيل لمساعدة الراغبين في الزواج، شركة ذات مسؤولية محدودة تأسست في جمهورية النيجر في يونيو ٢٠٢٤."
                   : "Alwakeel Company for helping those seeking marriage is a limited liability company established in the Republic of Niger in June 2024."}
               </p>
+
+              <p className="text-base sm2:text-lg text-Black/85 text-center leading-relaxed w-[87%] sm2:w-[85%]">
+                {i18n.language === "ar"
+                  ? "عماره النصر . شارع جمال عبدالناصر .. نيامى النيجر."
+                  : "Al-Nasr Building. Gamal Abdel Nasser Street.. Niamey, Niger."}
+              </p>
             </div>
           </div>
         </div>
