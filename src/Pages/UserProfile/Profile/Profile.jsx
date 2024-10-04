@@ -468,7 +468,7 @@ export default function Profile() {
           </div>
           <div className="center w-full flex-col sm:flex-row gap-2">
             <button onClick={handleGetData}
-              className={`text-white ${(!isLogedIn || !Token) && "pointer-events-none opacity-50"} bg-DarkPink hover:bg-[#f74c68] max-w-[280px] cursor-pointer hover:px-8  font-medium transition-all duration-300 shadow-md tracking-wide rounded-full text-base px-5 py-3 w-max !mt-6 center gap-4`}
+              className={`text-white ${(!isLogedIn || !Token) && "pointer-events-none opacity-50"} bg-DarkPink hover:bg-[#f74c68] max-w-[290px] cursor-pointer hover:px-8  font-medium transition-all duration-300 shadow-md tracking-wide rounded-full text-base px-5 py-3 w-max !mt-6 center gap-4`}
             >
               {
                 !addingLoading && (
