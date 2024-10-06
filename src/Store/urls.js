@@ -7,7 +7,6 @@ const getUsersLikeMe = () => (`${APIURL}api/users/sorted/usersLikeMe?`);
 const getColorsUrl = () => (`${APIURL}api/colors`)
 const updateInfoURL = () => (`${APIURL}api/profile?`)
 const updateMyData = () => (`${APIURL}api/v1/users/updateMe`);
-const changeMyPassword = () => (`${APIURL}api/v1/users/change-password`);
 const VerifyOTP = () => (`${APIURL}api/v1/users/verify`);
 const contactUsURL = () => (`${APIURL}api/user/contactus?`);
 const ForgetPassword = () => (`${APIURL}api/forgotpassword?`);
@@ -27,12 +26,9 @@ const increaseViewCount = () => (`${APIURL}api/blog/view?`);
 const getUserProfile = () => (`${APIURL}api/profile?`);
 const getCountries = () => (`${APIURL}api/v1/countries/`);
 const getUsers = () => (`${APIURL}api/users/filter`);
-const getSingleItem = (id) => (`${APIURL}api/v1/products/items/${id}`);
-const addItemToCart = (id) => (`${APIURL}api/v1/products/${id}/carts/item`);
 const getFav = () => (`${APIURL}api/v1/favourites`);
 const addFav = () => (`${APIURL}api/v1/favourites`);
 const delFav = (id) => (`${APIURL}api/v1/favourites/${id}`);
-const delFavByProId = (id) => (`${APIURL}api/v1/products/${id}/favourites`);
 export {
   SignupUrl,
   likeMeTarget,
@@ -54,11 +50,8 @@ export {
   getMostViewBlogs,
   getUserProfile,
   updateMyData,
-  changeMyPassword,
   contactUsURL,
   getUsers,
-  getSingleItem,
-  addItemToCart,
   getFav,
   addFav,
   delFav,
@@ -66,5 +59,4 @@ export {
   verifyURL,
   getUsersLikeMe,
   updateInfoURL,
-  delFavByProId
 }
