@@ -222,7 +222,7 @@ const Fillters = ({ totalPages, isRTL, i18n, t }) => {
               {t("nationality.country")}
             </label>
         </div>
-        <div className={`${Styles.inputHolder} relative w-[100%] md:w-[35%] md1:w-[25%] lg2:w-[20%]`}>
+        {/* <div className={`${Styles.inputHolder} relative w-[100%] md:w-[35%] md1:w-[25%] lg2:w-[20%]`}>
           <select 
                   id="City"
                   value={searchParams.city || ''}
@@ -244,7 +244,7 @@ const Fillters = ({ totalPages, isRTL, i18n, t }) => {
             >
               {t("nationality.city")}
             </label>
-        </div>
+        </div> */}
         <div className={`${Styles.inputHolder} relative w-[100%] md:w-[35%] md1:w-[25%] lg2:w-[20%]`}>
         <select 
             id="Nationality"
