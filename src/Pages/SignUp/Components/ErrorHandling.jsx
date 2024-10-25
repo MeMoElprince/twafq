@@ -28,7 +28,7 @@ export function handleLoginInfo(formData, setErrorMessage) {
   let test = 0;
 
   // Check if password is at least 8 characters long and contains both letters and digits
-  const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d\W]{8,}$/;
+  const passwordRegex = /^[A-Za-z\d\W]{8,}$/;
   if (!formData.password || !passwordRegex.test(formData.password)) {
     test = 1;
     errorMessage.push([
